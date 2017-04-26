@@ -1,0 +1,29 @@
+Package: SINCERA
+Type: Package
+Title: An R implementation of SINCERA pipeline for processing
+    single-cell RNA-seq data.
+Version: 0.99.0
+Date: 2017-04-25
+Authors@R: person("Minzhe", "Guo", email = "minzhe.guo@cchmc.org", role = c("aut", "cre"))
+Depends: R (>= 3.2.0), Biobase, ROCR, RobustRankAggreg, Rtsne, tsne, RColorBrewer, gridExtra, 
+    G1DBN, igraph, ggplot2, ggdendro, plyr, zoo, reshape2, gmodels, cluster, pheatmap, dendextend
+Maintainer: Minzhe Guo <minzhe.guo@cchmc.org>
+URL: https://github.com/minzheguo/SINCERA
+BugReports: https://github.com/minzheguo/SINCERA/issues
+Description: The pipeline
+    supports the analysis for: the distinction and identification
+    of major cell types; the identification of cell type specific
+    gene signatures; and the determination of driving forces of
+    given cell types.
+License: GPL-3
+LazyData: TRUE
+Imports: tightClust, samr, e1071
+RoxygenNote: 6.0.1
+Collate:
+    'sincera.R'
+    'celltype.R'
+    'drivingforce.R'
+    'old_functions.R'
+    'plotting.R'
+    'preprocessing.R'
+    'signature.R'
