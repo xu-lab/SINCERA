@@ -10,13 +10,13 @@ drivingforce.selectTGs(object, groups = NULL, tglists = NULL,
 \arguments{
 \item{object}{A sincera object}
 
+\item{groups}{A vector of cell groups; if NULL, use all defined cell groups}
+
 \item{tglists}{A list containing user-provided candidate TGs for each group specified in the groups parameter}
 
 \item{diff.method}{The method used to perform the differential expression analysis}
 
 \item{diff.thresh}{The pvalue for determining differentially expressed genes}
-
-\item{clusters}{A vector of cell groups; if NULL, use all defined cell groups}
 }
 \value{
 An updated sincera object, use getDF with name="tgs" to access the selected TGs

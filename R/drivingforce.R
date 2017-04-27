@@ -77,7 +77,7 @@ setMethod("drivingforce.selectTFs","sincera",
 #' Select candidate TGs for network inference and TF ranking
 #'
 #' @param object A sincera object
-#' @param clusters A vector of cell groups; if NULL, use all defined cell groups
+#' @param groups A vector of cell groups; if NULL, use all defined cell groups
 #' @param tglists A list containing user-provided candidate TGs for each group specified in the groups parameter
 #' @param diff.method The method used to perform the differential expression analysis
 #' @param diff.thresh The pvalue for determining differentially expressed genes
@@ -193,7 +193,7 @@ setMethod("drivingforce.inferTRN","sincera",
 #' Extract largest connected component (LCC) of the cell group specific TRN
 #'
 #' @param object A sincera object
-#' @param clusters The cell groups for LCC extraction
+#' @param groups The cell groups for LCC extraction
 #' @param thresh The threshold for significant interactions
 #' @return An updated sincera object, use getDF with name="lcc" to access the lcc
 #'
@@ -247,7 +247,7 @@ setMethod("drivingforce.getLCC","sincera",
 #' Rank TFs based on their importance to the LCC measured by six metrics
 #'
 #' @param object A sincera object
-#' @param clusters The cell groups for TF ranking
+#' @param groups The cell groups for TF ranking
 #' @param metrics The TF importance metrics that will be used for the ranking, possible values include DC, CC, BC, DFC, DCC, DDC.
 #' @return An updated sincera object, use getDF with name="tfranks" to access the lcc
 #'
