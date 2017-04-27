@@ -17,5 +17,5 @@ celltype.enrichment(object, species = "MUSMU", id.type = "SYMBOL", ...)
 An updated sincera object with enrichment results in the cte slot
 }
 \description{
-Performing cell type enrichment
+Perform cell type enrichment
 }

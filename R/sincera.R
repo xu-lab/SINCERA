@@ -5,7 +5,7 @@
 #'
 #' Information is stored in slots. Key slots include:
 #'
-#'@section Slots:
+#' @section Slots:
 #'  \describe{
 #'    \item{\code{data}:}{\code{"ExpressionSet"}, the scRNA-seq data in ExpressionSet format, encoding the expression matrix, gene, and cell metadata, including sample and condition information. In most of the SINCERA functions, cell grouping is based on the "GROUP" metadata.  }
 #'    \item{\code{genes.forclustering}:}{\code{"vector"}, the set of genes used for the cell cluster identification  }
@@ -21,7 +21,7 @@
 #'    \item{\code{tfs}:}{\code{"vector"}, a vector containing a set of all transcription factors/cofactors   }
 #'    \item{\code{projname}:}{\code{"character"}, a string describing the data and analysis  }
 #'
-#'}
+#' }
 #' @name sincera
 #' @rdname sincera
 #' @aliases sincera-class

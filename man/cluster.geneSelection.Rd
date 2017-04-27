@@ -18,10 +18,10 @@ cluster.geneSelection(object, method = "specificity", pergroup = TRUE,
 
 \item{do.plot}{If TRUE, plot figures of selection}
 
-\item{min.sample}{The selected genes must pass the selection criteria in at least \"min.sample\" samples}
+\item{min.sample}{The selected genes must pass the selection criteria in at least min.sample samples}
 }
 \value{
-The updated sincera object with the selected genes in the \"genes.forclustering\" slot
+The updated sincera object with the selected genes in the genes.forclustering slot
 }
 \description{
 Currently support the specificity metric (Guo et al., PLoS Comp Bio 2015); other metrics will be supported soon

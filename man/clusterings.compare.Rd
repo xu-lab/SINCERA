@@ -10,7 +10,7 @@ clusterings.compare(m, consistency.thresh = 0.5, do.plot = T,
 \arguments{
 \item{m}{The data.frame encoding different clustering results. Rows are cells, Columns are clustering results}
 
-\item{consistency.thresh}{For a cell, if less than \'consistency.thresh\' percent of its neighbors in clustering A remains in clustering B, the instability of the clustering assignment of the cell will increase}
+\item{consistency.thresh}{For a cell, if less than consistency.thresh percent of its neighbors in clustering A remains in clustering B, the instability of the clustering assignment of the cell will increase}
 
 \item{show.cell}{If TRUE, show cell names in the plot}
 

@@ -21,10 +21,10 @@ specificity.thresholdSelection <- function(object, genes) {
 #' @param object A sincera object
 #' @param method The selection method, possible values include specificity
 #' @param pergroup If TRUE, calculate metrics for each cell groups (samples)
-#' @param min.sample The selected genes must pass the selection criteria in at least \"min.sample\" samples
+#' @param min.sample The selected genes must pass the selection criteria in at least min.sample samples
 #' @param specifity.thresh The specificity threshold
 #' @param do.plot If TRUE, plot figures of selection
-#' @return The updated sincera object with the selected genes in the \"genes.forclustering\" slot
+#' @return The updated sincera object with the selected genes in the genes.forclustering slot
 #'
 setGeneric("cluster.geneSelection", function(object, method="specificity",
                                              pergroup=TRUE, min.samples=2,
@@ -33,7 +33,7 @@ setGeneric("cluster.geneSelection", function(object, method="specificity",
                                              ...) standardGeneric("cluster.geneSelection"))
 #' @export
 setMethod("cluster.geneSelection","sincera",
-          function(object, method="specificity", # specificity, cv-avg
+          function(object, method="specificity", 
                    pergroup=TRUE, min.samples=2,
                    specifity.thresh=0.7,
                    do.plot=T,
@@ -124,16 +124,44 @@ setMethod("cluster.geneSelection","sincera",
 
 
 
-#' Finding cell clusters
+#' Partition cells into disjoint clusters
 #'
-#' @param object A SINCERA object
+#' @param object A sincera object
 #' @param feature.type The feature space used for clustering: "gene" - means gene expression space, "pca" - means reduced dimension space using PCA
-#' @param rds.dims A numberic vector specified the reduced dimensions used for clustering. Only take effect when the feature.type is "pca".
+#' @param rds.dims A numberic vector specified the reduced dimensions used for clustering. Only take effect when the feature.type is "pca" or "tsne"
 #' @param update.cellgroup The clustering result will be saved to the "CLUSTER" meta data. If TRUE, the GROUP meta data will be updated as well.
-#' @param clustering.method The cluster identification algorithm, possible values include pam, kmeans, hc - hierarchical clustering, graph - kNN + Community detection, tight, consensus
+#' @param clustering.method The cluster identification algorithm, possible values include pam, kmeans, hc, graph, tight, consensus
 #' @param verbose If TRUE, print the verbose messages
 #' @return The update sincera object with clustering results in the "CLUSTER" meta data, use getCellMeata with name="CLUSTER" to assess the result
+#' @details
+#' The default clustering method is hc - hierarchical clustering with Pearson's correlation based distance and average linkage. 
+#' Possible parameters include:
+#'   h - if not NULL, cut dendrogram tree at the height h;
+#'   k - if not NULL, cut dendrogram tree to generate k clusters; if both k and h are not NULL, k will be used; If both k and h are NULL, the algorithm will find the largest k that contains no more than num.singleton singleton clusters; 
+#'   num.singleton - the number of singleton clusters allowed;
+#'   distance.method - the method to calculate cell distance, possible values include pearson, spearman, euclidean;
+#'   linkage.method - linkage method, possible values include average, complete, ward.D2;
+#'   do.shift - if TRUE, shit column mean to 0.
 #'
+#'      
+#' When clustering.method is graph, the function utilizes the graph based method described in Shekhar et al., 2016, which first constructs a kNN graph of cells and then applies a community detection algorithm to partition cells.
+#' Possible parameters include:
+#'   num.nn - The number of nearest neighbors considered during the kNN graph construction; 
+#'   do.jaccard - If TRUE, weigh kNN graph edges using Jaccard similarity;
+#'   community.method - The community detection method, possible values include louvain, infomap, walktrap, spinglass, edge_betweenness, label_prop, optimal, fast_greedy.
+#'    
+#'    
+#' When clustering.method is tight, the function utilizes tightClust::tight.clust() to perform tight clustering; please refer to ?tightClust::tight.clust for parameters and more informaiton
+#' 
+#' 
+#' When clustering.method is consensus, the function utilizes ConsensusClusterPlus::ConsensusClusterPlus() to perform consensus clustering; please refer to ?ConsensusClusterPlus::ConsensusClusterPlus for parameters and more informaiton
+#' 
+#' 
+#' When clustering.method is kmeans, the function utilizes stats::kmeans() to perform k-means clustering; please refer to ?kmeans for parameters and more informaiton
+#' 
+#' 
+#' When clustering.method is pam, the function utilizes cluster::pam() to perform Partitioning Around Medoids clustering; please refer to ?cluster::pam for parameters and more information
+#' 
 setGeneric("cluster.assignment", function(object, feature.type="gene", rds.dims=1:3,
                                           update.cellgroup=T,
                                           clustering.method="hc",
@@ -193,6 +221,10 @@ setMethod("cluster.assignment","sincera",
             } else if (clustering.method=="pam") {
               if (!require(cluster)) {
                 stop("The package 'cluster' is required for pam clustering.")
+              }
+            } else if (clustering.method=="graph") {
+              if (!require(RANN)) {
+                stop("The package 'RANN' is required for graph based clustering.")
               }
             }
 
@@ -280,7 +312,7 @@ setMethod("cluster.assignment","sincera",
 #'
 #'
 #' @param m The data.frame encoding different clustering results. Rows are cells, Columns are clustering results
-#' @param consistency.thresh For a cell, if less than \'consistency.thresh\' percent of its neighbors in clustering A remains in clustering B, the instability of the clustering assignment of the cell will increase
+#' @param consistency.thresh For a cell, if less than consistency.thresh percent of its neighbors in clustering A remains in clustering B, the instability of the clustering assignment of the cell will increase
 #' @param show.cell If TRUE, show cell names in the plot
 #' @param bar.width The width of bar
 #' @param font.size The font size of text in the plot
@@ -565,7 +597,7 @@ setMethod("cluster.permutation.analysis","sincera",
 #' @param groups The cell groups included in the differential expression analysis; if NULL, set to all groups defined in the object
 #' @param genes The set of genes included in the analysis; if NULL, set to all genes in the object
 #' @param method The method for differential test, possible values include welch - one tailed welch's t-test, wilcoxon - one-tailed wilcoxon rank sum test
-#' @param do.far If TRUE, do the FDR correction
+#' @param do.fdr If TRUE, do the FDR correction
 #' @param thresh The threshold for significance
 #' @return The update sincera object with diff test results in the difftests slot and the significant diff genes in the diffgenes slot
 #'
@@ -676,7 +708,7 @@ setMethod("cluster.diffgenes","sincera",
 
 #' Perform cell type enrichment
 #'
-#' Performing cell type enrichment
+#' Perform cell type enrichment
 #'
 #' @param object A sincera oject
 #' @param species The species of the data, possible values include MUSMU - mouse, HOMSA - human
@@ -810,7 +842,7 @@ setMethod("celltype.validation","sincera",
 clustering.tight <- function(x, ...) {
   ret <- NULL
 
-  ret <- tight.clust(t(x), ...)
+  ret <- tight.clust(x, ...)
 
   clusters <- ret$cluster
   names(clusters) <- colnames(x)
@@ -920,8 +952,16 @@ clustering.graph <- function(x, do.jaccard=T, num.nn=30, community.method="louva
   Adj = get_edges(t(x), nn=num.nn, do.jaccard=do.jaccard)
 
   g=igraph::graph.adjacency(Adj, mode = "undirected", weighted=weights)
+  
   if (community.method=="louvain") graph.out = igraph::cluster_louvain(g)
   if (community.method=="infomap") graph.out = igraph::cluster_infomap(g)
+  if (community.method=="fast_greedy") graph.out = igraph::cluster_fast_greedy(g)
+  # if (community.method=="leading_eigen") graph.out = igraph::cluster_leading_eigen(g)
+  if (community.method=="optimal") graph.out = igraph::cluster_optimal(g)
+  if (community.method=="spinglass") graph.out = igraph::cluster_spinglass(g)
+  if (community.method=="label_prop") graph.out = igraph::cluster_label_prop(g)
+  if (community.method=="edge_betweenness") graph.out = igraph::cluster_edge_betweenness(g)
+  if (community.method=="walktrap") graph.out = igraph::cluster_walktrap(g)
 
   clust.assign = factor(graph.out$membership, levels=sort(unique(graph.out$membership)))
   names(clust.assign) = graph.out$names

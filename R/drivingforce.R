@@ -1,21 +1,19 @@
-
-
 #' Select candidate TFs for network inference and TF ranking
 #'
-#' Please use the \"tflists\" parameter to provide pre-selected TFs
+#' @param object A sincera object
+#' @param groups A vector of cell groups; if NULL, use all defined cell groups
+#' @param tflists A list containing user-provided candidate TFs for each group specified in groups parameter
+#' @param diff.method The method used to perform the differential expression analysis
+#' @param diff.thresh The pvalue for determining differentially expressed genes
+#' @param min.expression The threshold expression value for determining expressed genes
+#' @param pct.thresh The percentage threshold for determining genes commonly expressed in a cell group
+#' @return An updated sincera object, use getDF with name="tfs" to access the selected TFs
+#' @details 
+#' Please use the tflists parameter to provide pre-selected TFs
 #' Otherwise, the function will select candidate TFs for each group using the following criteria:
-#' * TFs differentially expressed in the cell group (pvalue < \"diff.thresh\")
-#' * TFs expressed greater than a certain percentage of the group cells (>\"min.expression\" in at least \"pct.thresh\" percentage of the group cells)
-#'
-#'  @param object A sincera object
-#'  @param groups A vector of cell groups; if NULL, use all defined cell groups
-#'  @param tflists A list containing user-provided candidate TFs for each group specified in \"groups\"
-#'  @param diff.method The method used to perform the differential expression analysis
-#'  @param diff.thresh The pvalue for determining differentially expressed genes
-#'  @param min.expression The threshold expression value for determining expressed genes
-#'  @param pct.thresh The percentage threshold for determining genes commonly expressed in a cell group
-#'  @return An updated sincera object, use getDF with name="tfs" to access the selected TFs
-#'
+#' (1) TFs differentially expressed in the cell group (pvalue < diff.thresh); 
+#' Or (2) TFs expressed greater than a certain percentage of the group cells (>min.expression in at least pct.thresh percentage of the group cells)
+#
 setGeneric("drivingforce.selectTFs", function(object, groups=NULL, tflists=NULL, diff.method="welch", diff.thresh=0.05, min.expression=5, pct.thresh=0.8, ...) standardGeneric("drivingforce.selectTFs"))
 #' @export
 setMethod("drivingforce.selectTFs","sincera",
@@ -78,16 +76,15 @@ setMethod("drivingforce.selectTFs","sincera",
 
 #' Select candidate TGs for network inference and TF ranking
 #'
-#' Please use the \"tglists\" parameter to provide pre-selected tgs
-#' Otherwise, the function will select candidate TGs for each group using the following criteria:
-#' * Genes differentially expressed in the cell group (pvalue < \"diff.thresh\")
-#'
-#'  @param object A sincera object
-#'  @param clusters A vector of cell groups; if NULL, use all defined cell groups
-#'  @param tglists A list containing user-provided candidate TGs for each group specified in \"groups\"
-#'  @param diff.method The method used to perform the differential expression analysis
-#'  @param diff.thresh The pvalue for determining differentially expressed genes
-#'  @return An updated sincera object, use getDF with name="tgs" to access the selected TGs
+#' @param object A sincera object
+#' @param clusters A vector of cell groups; if NULL, use all defined cell groups
+#' @param tglists A list containing user-provided candidate TGs for each group specified in the groups parameter
+#' @param diff.method The method used to perform the differential expression analysis
+#' @param diff.thresh The pvalue for determining differentially expressed genes
+#' @return An updated sincera object, use getDF with name="tgs" to access the selected TGs
+#' @details 
+#' Please use the tglists parameter to provide pre-selected tgs
+#' Otherwise, the function will select candidate TGs for each group using the following criteria: Genes differentially expressed in the cell group (pvalue < diff.thresh)
 #'
 setGeneric("drivingforce.selectTGs", function(object, groups=NULL, tglists=NULL, diff.method="welch", diff.thresh=0.01, ...) standardGeneric("drivingforce.selectTGs"))
 #' @export
