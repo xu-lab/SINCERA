@@ -713,7 +713,7 @@ setMethod("cluster.diffgenes","sincera",
 #' @param object A sincera oject
 #' @param species The species of the data, possible values include MUSMU - mouse, HOMSA - human
 #' @param id.type The type of gene identifier, possible values include SYMBOL - Entrez SYMBOL, EG - Entrez ID, ENSEMBL - Ensembl ID
-#' @return An updated sincera object with enrichment results in the cte slot
+#' @return The updated sincera object with enrichment results in the cte slot
 #'
 setGeneric("celltype.enrichment", function(object, species="MUSMU", id.type="SYMBOL",  ...) standardGeneric("celltype.enrichment"))
 #' @export
@@ -790,7 +790,7 @@ setMethod("celltype.enrichment","sincera",
 #' @param object A sincera object
 #' @param use.scaled If TRUE, use zscore scaled data
 #' @param thresh The expression threshold to include cells in individual rankings
-#' @return An update sincera object
+#' @return The updated sincera object
 #'
 setGeneric("celltype.validation", function(object, use.scaled=T, thresh=0, ...) standardGeneric("celltype.validation"))
 #' @export

@@ -77,7 +77,7 @@ setMethod("drivingforce.selectTFs","sincera",
 #' Select candidate TGs for network inference and TF ranking
 #'
 #' @param object A sincera object
-#' @param groups A vector of cell groups; if NULL, use all defined cell groups
+#' @param groups A vector of cell groups; if NULL, use to all defined cell groups
 #' @param tglists A list containing user-provided candidate TGs for each group specified in the groups parameter
 #' @param diff.method The method used to perform the differential expression analysis
 #' @param diff.thresh The pvalue for determining differentially expressed genes

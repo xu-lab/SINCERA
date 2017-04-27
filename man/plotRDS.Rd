@@ -12,13 +12,13 @@ plotRDS(object, feature.type = "pca", dim1 = 1, dim2 = 2,
 
 \item{feature.type}{The type of components, possible values include pca, tsne}
 
+\item{dim1}{The component for x axis}
+
+\item{dim2}{The component for y axis}
+
 \item{color.by}{The cell metadata used to color cells}
 
 \item{pt.size}{The size of points (cells) in the plot}
-
-\item{dim}{The component for x axis}
-
-\item{dim}{The component for y axis}
 }
 \description{
 2D plot of cells using the PCA or tSNE components

@@ -14,7 +14,7 @@ celltype.enrichment(object, species = "MUSMU", id.type = "SYMBOL", ...)
 \item{id.type}{The type of gene identifier, possible values include SYMBOL - Entrez SYMBOL, EG - Entrez ID, ENSEMBL - Ensembl ID}
 }
 \value{
-An updated sincera object with enrichment results in the cte slot
+The updated sincera object with enrichment results in the cte slot
 }
 \description{
 Perform cell type enrichment

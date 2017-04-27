@@ -5,8 +5,8 @@
 #'
 #' @param object A sincera object
 #' @param feature.type The type of components, possible values include pca, tsne
-#' @param dim The component for x axis
-#' @param dim The component for y axis
+#' @param dim1 The component for x axis
+#' @param dim2 The component for y axis
 #' @param color.by The cell metadata used to color cells
 #' @param pt.size The size of points (cells) in the plot
 #'
