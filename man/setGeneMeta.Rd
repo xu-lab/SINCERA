@@ -4,7 +4,7 @@
 \alias{setGeneMeta}
 \title{Add or update meta data of genes in a sincera object}
 \usage{
-setGeneMeta(object, name, value)
+setGeneMeta(object, name, value, verbose = T)
 }
 \arguments{
 \item{object}{A sincera object}

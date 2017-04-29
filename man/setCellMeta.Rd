@@ -4,7 +4,7 @@
 \alias{setCellMeta}
 \title{Add or update meta data of cells in a sincera object}
 \usage{
-setCellMeta(object, name, value)
+setCellMeta(object, name, value, verbose = T)
 }
 \arguments{
 \item{object}{A sincera object}

@@ -70,7 +70,15 @@ plotRDS(sc, feature.type="tsne")
 # Pearson’s correlation based distance measurement, and z-score transformed expression values of the selected genes.
 sc <- cluster.assignment(sc, h=0.5)
 
+# save dendrogram with cell names to pdf file for 
+pdf(file="HC.pdf", width=20, height=10) #adjust width or height based on the number of cells in the dendrogram
+plotHC(sc, show.labels = T)
+dev.off()
+
+
+# visualize cell clusters in tSNE plot
 plotRDS(sc, feature.type="tsne")
+
 
 # The number of cells in each cluster
 print(table(getCellMeta(sc, name="CLUSTER")))

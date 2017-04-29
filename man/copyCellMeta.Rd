@@ -4,7 +4,7 @@
 \alias{copyCellMeta}
 \title{Add or update a cell meta data using a predefined cell meta data}
 \usage{
-copyCellMeta(object, from, to)
+copyCellMeta(object, from, to, verbose = T)
 }
 \arguments{
 \item{object}{A sincera object}

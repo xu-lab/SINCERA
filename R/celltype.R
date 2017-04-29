@@ -311,13 +311,15 @@ setMethod("cluster.assignment","sincera",
 #' Compare and visualze multiple clustering assignments
 #'
 #'
-#' @param m The data.frame encoding different clustering results. Rows are cells, Columns are clustering results
+#' @param m The data.frame encoding different clustering results. Rows are cells, Columns are clustering results. Column names denote different clustering assignments.
 #' @param consistency.thresh For a cell, if less than consistency.thresh percent of its neighbors in clustering A remains in clustering B, the instability of the clustering assignment of the cell will increase
 #' @param show.cell If TRUE, show cell names in the plot
 #' @param bar.width The width of bar
 #' @param font.size The font size of text in the plot
 #' @return The data frame containing cell clustering assignments and instability scores
 #' @export
+#' @details
+#' The similarity between two clustering assignments is measured based on the metric proposed in Torres et al., International Journal of Electrical, Computer & Systems Engineer, 2009.
 #'
 clusterings.compare <- function(m, consistency.thresh=0.5, do.plot=T, show.cell=FALSE, bar.width=1, font.size=12) {
 
@@ -471,9 +473,12 @@ clusterings.compare <- function(m, consistency.thresh=0.5, do.plot=T, show.cell=
 #'
 #' @param object A sincera object
 #' @param genes The set of genes used for PCA
-#' @param use.scaled If TRUE, use the scaled expression for PCA
-#' @param use.fast If TRUE, use gmodels::fast.prcomp; otherwise, use stats::prcomp
+#' @param use.scaled If TRUE, use the scaled expression for PCA. 
+#' @param use.fast If TRUE, use gmodels::fast.prcomp(); otherwise, use stats::prcomp()
 #' @return The update sincera object with PCA results in the pca slot
+#' @details 
+#' When use.fast is TRUE, please refer to ?gmodels::fast.prcomp for more parameters to control the PCA
+#' When use.fast is FALSE, please refer to ?stats:prcomp for more parameters to control the PCA
 #'
 setGeneric("doPCA", function(object, genes=NULL, use.scaled=T, use.fast=T, ...) standardGeneric("doPCA"))
 #' @export
@@ -498,9 +503,9 @@ setMethod("doPCA","sincera",
             expr = expr[pc.genes,]
 
             if (use.fast==T) {
-              pca.obj = fast.prcomp(t(expr), ...)
+              pca.obj = gmodels::fast.prcomp(t(expr), ...)
             } else {
-              pca.obj <- prcomp(t(expr), ...)
+              pca.obj <- stats::prcomp(t(expr), ...)
             }
             object <- setPCA(object, name="rds", value=pca.obj$x)
             object <- setPCA(object, name="loadings", value=pca.obj$rotation)
@@ -526,6 +531,10 @@ setMethod("doPCA","sincera",
 #' @param genes If feature.type is genes, the set of genes for tSNE; if NULL, set to all genes
 #' @param use.scaled If TRUE, use the scaled expression values of genes for tSNE; only take effect when the feature.type is gene
 #' @return The update sincera object with tsne results in the tsne slot
+#' @details
+#' When feature.type is "gene", genes with zero variance will be excluded prior to calling tSNE functions.
+#' When use.fast is TRUE, please refer to ?Rtsne::Rtsne for more parameters to control tSNE reduction.
+#' When use.fast is FALSE, please refer to ?tsne::tsne for more parameters to control tSNE reduction.
 #'
 setGeneric("doTSNE", function(object, n=2, use.fast=T, max.iter=2000, seed=0, feature.type="pca", dims=1:3, genes=NULL, use.scaled=F, ...) standardGeneric("doTSNE"))
 #' @export
@@ -555,10 +564,10 @@ setMethod("doTSNE","sincera",
 
             set.seed(seed)
             if (use.fast==T) {
-              tsne.obj=Rtsne(as.matrix(data.use),dims=n,...)
+              tsne.obj=Rtsne::Rtsne(as.matrix(data.use),dims=n,...)
               tsne.obj <- tsne.obj$Y
             } else {
-              tsne.obj=tsne(data.use,k=n, max_iter = max.iter,...)
+              tsne.obj=tsne::tsne(data.use,k=n, max_iter = max.iter,...)
             }
             tsne.obj <- data.frame(tsne.obj, check.names=FALSE)
             rownames(tsne.obj) <- rownames(data.use)
@@ -715,27 +724,10 @@ setMethod("cluster.diffgenes","sincera",
 #' @param id.type The type of gene identifier, possible values include SYMBOL - Entrez SYMBOL, EG - Entrez ID, ENSEMBL - Ensembl ID
 #' @return The updated sincera object with enrichment results in the cte slot
 #'
-setGeneric("celltype.enrichment", function(object, species="MUSMU", id.type="SYMBOL",  ...) standardGeneric("celltype.enrichment"))
+setGeneric("celltype.enrichment", function(object, species="MUSMU", id.type="SYMBOL", ...) standardGeneric("celltype.enrichment"))
 #' @export
 setMethod("celltype.enrichment","sincera",
-          function(object, species="MUSMU", id.type="SYMBOL",  ...) {
-
-            ES <- getES(object)
-
-            cat("\nUsing differentially expressed genes for cell type enrichment analysis\n")
-
-            diffgenes <- getDiffGenes(object, print.summary = TRUE)
-
-            # selecting cluster specific differentially expressed genes for cell type enrichment analysis
-            groups <- sort(unique(getCellMeta(object, name="GROUP")))
-            prefix="use_for_celltype_"
-            for (i in groups) {
-              i.de.name <- paste(prefix, i, sep="")
-              i.diffgenes <- c()
-              i.diffgenes <- as.character(diffgenes$SYMBOL[which(diffgenes$GROUP == i)])
-              fData(ES)[,i.de.name] <- 0
-              fData(ES)[which(rownames(fData(ES)) %in% i.diffgenes),i.de.name] <- 1
-            }
+          function(object, species="MUSMU", id.type="SYMBOL", ...) {
 
             # initialize knowledge base for cell type enrichment analysis
 
@@ -766,8 +758,102 @@ setMethod("celltype.enrichment","sincera",
             #' species (character) the species of the genome: MUSMU - mouse, HOMSA - human
             #' id.type (character) the type of ids of the genes in the genome: ENSEMBL - ENSEMBL gene id, SYMBOL -  Entrez Gene Symbol, EG - Entrez Gene Id
             #' celltype.enrichment.prefix (character) the prefix of columns encoding the cluster-specific gene list for cell type enrichment analysis
-            ret <- celltype.enrichment.old(ES, KB, group.by="GROUP", groups=NULL, species=species, id.type=id.type, celltype.enrichment.prefix="use_for_celltype_", verbose=TRUE)
+            # ret <- celltype.enrichment.old(ES, KB, group.by="GROUP", groups=NULL, species=species, id.type=id.type, celltype.enrichment.prefix="use_for_celltype_", verbose=TRUE)
 
+            ES <- getES(object)
+            
+           
+            
+            
+            if (verbose) {
+              cat("Sincera: cell type enrichment analysis ... \n")
+            }
+            wd <- paste(getwd(), dir.delim, "sincera.celltype.enrichment.", getTimestamp(), dir.delim, sep="")
+            dir.create(wd)
+            
+            if (is.null(groups)) {
+              groups <- sort(unique(as.character(getCellMeta(object, name="GROUP"))))
+            }
+            
+            x <- KB$celltype.gene.association
+            types.count <- KB$celltype.genome.count
+            genome.type <- paste(species,".", id.type, sep="")
+            
+            ret <- list()
+            
+            cat("\nUsing differentially expressed genes for cell type enrichment analysis\n")
+            diffgenes <- getDiffGenes(object, print.summary = TRUE)
+            
+            for (i in groups) {
+              if (verbose) {
+                cat("\tEnriching cell types for group", i, "...")
+              }
+              #i.de.name <- paste(celltype.enrichment.prefix, i, sep="")
+              #i.de <- rownames(fData(ES))[which(fData(ES)[, i.de.name]==1)]
+              i.de <- as.character(diffgenes$SYMBOL[which(diffgenes$GROUP == i)])
+              
+              if (!(genome.type == "MUSMU.ENSEMBL")) { # if not MUSMU.ENSEMBL, map to MUSMU.ENSEMBL
+                i.de <- unique(KB$genome[which(KB$genome[, genome.type] %in% i.de),"MUSMU.ENSEMBL"])
+              }
+              
+              i.x.idx <- NULL
+              if (length(i.de) > 0) {
+                i.x.idx <- which(x$GENE.ID %in% i.de)
+              }
+              
+              if (length(i.x.idx) > 0 ) {
+                i.x <- x[i.x.idx,]
+                i.types <- unique(i.x$ANNOTATION.ID)
+                i.types.count <- data.frame(TYPE=i.types, CL.1=NA, CL.0=NA, ALL.1=NA, ALL.0=NA, Fisher.PV=NA, Hits_SYMBOL=NA, Hits_MUSMU_ENSEMBL=NA)
+                h <- 1
+                
+                for (j in 1:dim(i.types.count)[1]) {
+                  j.type <- i.types.count$TYPE[j]
+                  i.j.idx <- which(i.x$ANNOTATION.ID %in% j.type)
+                  i.j.de <- unique(i.x$GENE.ID[i.j.idx])
+                  j.idx <- which(types.count$TYPE %in% j.type)
+                  i.types.count$CL.1[j] <- length(i.j.de)
+                  i.types.count$ALL.1[j] <- types.count$COUNT[j.idx]
+                  i.types.count$CL.0[j] <- length(i.de)-length(i.j.idx)
+                  i.types.count$ALL.0[j] <- length(unique(x$GENE.ID)) - types.count$COUNT[j.idx]
+                  f <- fisher.test(matrix(c(i.types.count$CL.1[j],i.types.count$CL.0[j],i.types.count$ALL.1[j],i.types.count$ALL.0[j]), nrow=2), alternative="greater")
+                  i.types.count$Fisher.PV[j] <- f$p.value
+                  
+                  
+                  i.types.count$Hits[j] <- paste(i.j.de, collapse=",")
+
+                  if (FALSE) { #%%
+                    if (genome.type =="MUSMU.ENSEMBL") {
+                      i.j.de.originalid <- i.j.de
+                    } else {
+                      i.j.de.originalid <- unique(KB$genome[which(KB$genome[,"MUSMU.ENSEMBL"] %in% i.j.de),genome.type])
+                    }
+                    i.j.de.symbols <- unique(fData(ES)[which(rownames(fData(ES)) %in% i.j.de.originalid), GENE.SYMBOL.LABEL]) #%%
+                    i.types.count$Hits_MUSMU_ENSEMBL[j] <- paste(i.j.de, collapse=",")
+                    i.types.count$Hits_SYMBOL[j] <- paste(i.j.de.symbols, collapse=",")
+                  }
+                  
+                  
+                  
+                  h <- h+1
+                }
+              }
+              if (verbose) {
+                cat("done\n")
+              }
+              if (verbose) {
+                cat("\tExporting enrichment results of group", i, "to", wd,"... ")
+              }
+              
+              i.types.count <- i.types.count[order(i.types.count$Fisher.PV), ]
+              ret[[as.character(i)]] <- i.types.count
+              
+              write.table(i.types.count, file=paste(wd, i, "-celltype-enrichment.txt", sep=""), sep="\t", col.name=T, row.name=F)
+              if (verbose) {
+                cat("done\n")
+              }
+            }
+           
             cat("\nTop 5 enriched cell type annotations per cluster:\n")
             for (i in 1:length(ret)) {
               cat("\nCluster", names(ret)[i],":\n")
@@ -779,58 +865,241 @@ setMethod("celltype.enrichment","sincera",
 
             object <- setCellTypeEnrichment(object, groups=names(ret), ret)
 
+            cat("Please use getCellTypeEnrichment() to assess full enrichment results.")
+            
             return(object)
           }
 )
 
-#' Performing rank-aggregation based cell type validation
+#' Contruct the knowledge base for cell type enrichment analysis
 #'
-#' Performing rank-aggregation based cell type validation
+#' @param associations (data.frame) a data frame containing the gene and cell type associations
+#' @param genome (character) the full set of genes in a scRNA-seq data
+#' @param species (character) the species of the genome: MUSMU - mouse, HOMSA - human
+#' @param id.type (character) the type of ids of the genes in the genome: ENSEMBL - ENSEMBL gene id, SYMBOL -  Entrez Gene Symbol, EG - Entrez Gene Id
+#' @param verbose (logical)
+#' @return a list of 3 items: celltype.gene.association - genome related associations, celltype.genome.count - genome-wide cell type associations, genome - symbol mapping for the genome
+#'
+celltype.enrichment.initKB <- function(associations, genome, species="MUSMU", id.type="ENSEMBL", verbose=T) {
+  
+  species.supported <- c("MUSMU", "HOMSA")
+  s.id <- pmatch(species, species.supported)
+  if (is.na(s.id)) {
+    stop("invalid species")
+  }
+  species <- species.supported[s.id]
+  
+  id.supported <- c("ENSEMBL", "SYMBOL", "EG")
+  id.id <- pmatch(id.type, id.supported)
+  if (is.na(id.id)) {
+    stop("invalid id type")
+  }
+  id.type <- id.supported[id.id]
+  
+  # convert the genome to MUSMU ENSEMBL
+  genome.mapping=NULL
+  
+  if (!(species=="MUSMU" & id.type=="ENSEMBL")) {
+    
+    if (species=="MUSMU") {
+      
+      if (!require(AnnotationDbi)) {
+        source("http://bioconductor.org/biocLite.R")
+        biocLite("AnnotationDbi")
+      }
+      if (!require(org.Mm.eg.db)) {
+        source("http://bioconductor.org/biocLite.R")
+        biocLite("org.Mm.eg.db")
+      }
+      
+      if (id.type=="SYMBOL") {
+        y <- org.Mm.egSYMBOL2EG
+        mapped_seqs <- mappedkeys(y)
+        yy <- as.list(y[mapped_seqs])
+        symbol2eg <- unlist(yy[genome])
+        eg2ensembl <- idConverter(symbol2eg, srcSpecies="MUSMU", destSpecies="MUSMU", srcIDType="EG", destIDType="ENSEMBL")
+        
+        df1 <- data.frame(MUSMU.SYMBOL=names(symbol2eg), MUSMU.EG=as.character(symbol2eg))
+        df2 <- data.frame(MUSMU.EG=names(eg2ensembl), MUSMU.ENSEMBL=as.character(eg2ensembl))
+        
+        genome.mapping <- merge(df1, df2, by.x="MUSMU.EG", by.y="MUSMU.EG")
+      } else if (id.type=="EG") {
+        eg2ensembl <- idConverter(genome, srcSpecies="MUSMU", destSpecies="MUSMU", srcIDType="EG", destIDType="ENSEMBL")
+        genome.mapping <- data.frame(MUSMU.EG=names(eg2ensembl), MUSMU.ENSEMBL=as.character(eg2ensembl))
+      }
+    } else if (species=="HOMSA") {
+      
+      if (!require(AnnotationDbi)) {
+        source("http://bioconductor.org/biocLite.R")
+        biocLite("AnnotationDbi")
+      }
+      if (!require(org.Mm.eg.db)) {
+        source("http://bioconductor.org/biocLite.R")
+        biocLite("org.Mm.eg.db")
+      }
+      if (!require(hom.Hs.inp.db)) {
+        source("http://bioconductor.org/biocLite.R")
+        biocLite("hom.Hs.inp.db")
+      }
+      if (!require(hom.Mm.inp.db)) {
+        source("http://bioconductor.org/biocLite.R")
+        biocLite("hom.Mm.inp.db")
+      }
+      if (!require(org.Hs.eg.db)) {
+        source("http://bioconductor.org/biocLite.R")
+        biocLite("org.Hs.eg.db")
+      }
+      
+      if (id.type=="SYMBOL") {
+        y <- org.Hs.egSYMBOL2EG
+        mapped_seqs <- mappedkeys(y)
+        yy <- as.list(y[mapped_seqs])
+        symbol2eg <- unlist(yy[genome])
+        eg2ensembl <- idConverter(symbol2eg, srcSpecies="HOMSA", destSpecies="MUSMU", srcIDType="EG", destIDType="ENSEMBL")
+        # MouseEGs = inpIDMapper(symbol2eg, "HOMSA", "MUSMU",  srcIDType="EG",
+        #                         destIDType="EG", keepMultGeneMatches=FALSE, keepMultProtMatches=FALSE,
+        #                         keepMultDestIDMatches = TRUE)
+        
+        
+        df1 <- data.frame(HOMSA.SYMBOL=names(symbol2eg), HOMSA.EG=as.character(symbol2eg))
+        df2 <- data.frame(HOMSA.EG=names(eg2ensembl), MUSMU.ENSEMBL=as.character(eg2ensembl))
+        
+        genome.mapping <- merge(df1, df2, by.x="HOMSA.EG", by.y="HOMSA.EG")
+        
+      } else if (id.type=="EG") {
+        eg2ensembl <- idConverter(genome, srcSpecies="HOMSA", destSpecies="MUSMU", srcIDType="EG", destIDType="ENSEMBL")
+        genome.mapping <- data.frame(HOMSA.EG=names(eg2ensembl), MUSMU.ENSEMBL=as.character(eg2ensembl))
+      } else if (id.type=="ENSEMBL") {
+        ensembl2ensembl <- idConverter(genome, srcSpecies="HOMSA", destSpecies="MUSMU", srcIDType="ENSEMBL", destIDType="ENSEMBL")
+        genome.mapping <- data.frame(HOMSA.ENSEMBL=names(eg2ensembl), MUSMU.ENSEMBL=as.character(eg2ensembl))
+      }
+    }
+  } else {
+    genome.mapping <- data.frame(MUSMU.ENSEMBL=genome)
+  }
+  
+  if (!is.null(genome.mapping) > 0 && !is.null(associations)) {
+    associations <- associations[which(associations$GENE.ID %in% genome.mapping$MUSMU.ENSEMBL),]
+    genome.mapping <- genome.mapping[which(genome.mapping$MUSMU.ENSEMBL %in% associations$GENE.ID), ]
+    # genome association
+    celltype.genome.count <- data.frame(table(associations$ANNOTATION.ID))
+    colnames(celltype.genome.count) <- c("TYPE","COUNT")
+  }
+  
+  return(list(celltype.gene.association=associations, celltype.genome.count=celltype.genome.count, genome=genome.mapping))
+}
+
+
+#' Performing rank-aggregation based cell type validation using marker expression
+#'
+#' Performing rank-aggregation based cell type validation using marker expression
 #'
 #' @param object A sincera object
 #' @param use.scaled If TRUE, use zscore scaled data
 #' @param thresh The expression threshold to include cells in individual rankings
 #' @return The updated sincera object
 #'
-setGeneric("celltype.validation", function(object, use.scaled=T, thresh=0, ...) standardGeneric("celltype.validation"))
+setGeneric("celltype.validation", function(object, use.scaled=T, thresh=0,  ...) standardGeneric("celltype.validation"))
 #' @export
 setMethod("celltype.validation","sincera",
           function(object, use.scaled=T, thresh=0, ...) {
-
-              ESz <- getES(object)
-
-              if (use.scaled) {
-                exprs(ESz) <- as.matrix(getExpression(object, scaled = T))
+            
+              
+            cat("Use \"TYPE\" metadata as the source of cell type assignments\n")
+            
+            markers <- getCellTypeMarkers(object)
+            if ((!is.data.frame(markers)) | (dim(markers)[1]<2) | (dim(markers)[2]<2)) {
+              stop("Invalid cell type marker definition. Please use getCellTypeMarkers() to check the current marker definition or use setCellTypeMarkers() to update it.")
+            }
+            
+            types <- sort(unique(as.character(markers[, 1])))
+            
+            types <- types[which(types %in% getCellMeta(object, "TYPE"))]
+            if (length(types)==0) {
+              stop("The defined markers cannot find any corresponding cell types in the object.\nPlease use getCellTypeMarkers() and getCellType() to check the defined markers and cell types in the object.")
+            }
+            cat("The algorithm is validating the following cell types that are defined in the object and have defined markers: ", paste(types, collapse=", ", sep=""), "\n", sep="")
+            
+            cells <- getCells(object)
+            
+            type_validation <- data.frame(Name=NULL, Score=NULL, PREDICTION=NULL, GD=NULL, TYPE=NULL)
+            
+            n <- length(types)
+            plot.dims <- getPlotDims(n)
+            
+            par.defaults <- par(no.readonly=TRUE)
+            par(mfrow=c(plot.dims$nrow, plot.dims$ncol))
+            
+            for (i in 1:length(types)) {
+              cat("\tValidating cell type", types[i], ":")
+              i.markers <- as.character(markers$SYMBOL[which(markers$TYPE==types[i])])
+              if (length(i.markers)<2) {
+                cat("skipped due to only one marker was defined.\n")
+              } else {
+                i.x <- getExpression(object, scaled=use.scaled, genes=i.markers)
+                i.list <- list()
+                
+                for (j in 1:dim(i.x)[1]) {
+                  i.j.cells <- i.x[j,]
+                  i.j.cells <- i.j.cells[i.j.cells > thresh]
+                  if(length(i.j.cells) > 0) {
+                    i.j.cells <- sort(i.j.cells, decreasing=T)
+                    i.list[[as.character(rownames(i.x)[j])]] <- names(i.j.cells)
+                  }
+                }
+                
+                i.cells <- aggregateRanks(glist = i.list, N = length(cells))
+                
+                i.cells.not.idx <- which(!(cells %in% i.cells$Name))
+                if (length(i.cells.not.idx) > 0) {
+                  i.cells.not <- cells[i.cells.not.idx]
+                  i.cells.not.df <- data.frame(Name=i.cells.not, Score=1)
+                  rownames(i.cells.not.df) <- i.cells.not
+                  i.cells <- rbind(i.cells, i.cells.not.df)
+                }
+                
+                i.cells$PREDICTION <- -log(i.cells$Score)
+                i.cells$PREDICTION <- i.cells$PREDICTION/max(i.cells$PREDICTION)
+                i.cells$GD <- 0
+                
+                i.cells.gold_standard <- cells[which(getCellMeta(object, "TYPE") %in% types[i])]
+                i.p.idx <- which(i.cells$Name %in% i.cells.gold_standard)
+                
+                if (length(i.p.idx) > 0) {
+                  i.cells$GD[i.p.idx] <- 1
+                }
+                i.pred <- prediction(i.cells$PREDICTION, i.cells$GD)
+                i.perf <- performance(i.pred,"auc")
+                i.auc <- i.perf@y.values[[1]]
+                i.perf <- performance(i.pred, "tpr", "fpr")
+                
+                #tiff(file=paste(wd, "celltype.validation.", types[i], ".tiff",sep=""), width = 1100, height =1200, units = "px", res = 300, compression="lzw", bg = "white")
+                
+                plot(i.perf, lwd=6, main=paste("ROC of ", as.character(types[i]), " (AUC:", round(i.auc,digit=6), ")", sep=""), cex.lab=1.2, colorize=T)
+                axis(side=2, at=seq(0,1,0.1), font=2, lwd=3)
+                axis(side=1, at=seq(0,1,0.1), font=2, lwd=3)
+                box(lwd=3)
+                
+                #dev.off()
+                
+                i.cells$TYPE <- as.character(types[i])
+                type_validation <- rbind(type_validation, i.cells)
+                
+                cat("Done\n")
               }
-
-              markers <- getCellTypeMarkers(object)
-
-              types <- getCellType(object)
-              types <- types[which(types %in% as.character(markers$TYPE))]
-              groups <- as.character(names(types))
-
-              prefix <- "use_as_marker_"
-
-              for (i in 1:length(types)) {
-                  i.type <- types[i]
-                  i.group <- as.character(names(i.type))
-
-                  i.markers <- as.character(markers$SYMBOL[which(markers$TYPE==as.character(i.type))])
-                  i.name <- paste(prefix, i.group, sep="")
-                  fData(ESz)[, i.name] <- 0
-                  fData(ESz)[which(rownames(fData(ESz)) %in% i.markers), i.name] <- 1
-              }
-
-              #' Cell type validation using the expression patterns of known biomarkers
-              #'
-              #' ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
-              #' group.by (character) the name of the column that contains the cluster information
-              #' groups (character) the clusters for cell type validation
-              #' threshold (numeric) the threshold of expression; 0 means that markers will not be used to rank cells where their expression < 0
-              #' marker.prefix (character) the prefix of columns encoding the cell type markers
-              celltype.validation.old(ESz, group.by="CLUSTER", groups=groups, marker.prefix=prefix, threshold=thresh)
-
-
+              
+              
+            }
+            
+            par(par.defaults)
+              
+            
+            colnames(type_validation) <- c("CELL", "PVALUE", "SCORE", "TYPE.ASSIGNMENT", "TYPE")
+            
+            
+            object <- setCellTypeValidation(object, value=type_validation)
+              
+            
             return(object)
           }
 )

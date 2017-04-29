@@ -17,3 +17,9 @@ A character vector of cell types
 \description{
 Get the cell types of given cell groups
 }
+\details{
+This function takes "GROUP" metadata as cell group information, and returns mapping between the "GROUP" and "TYPE" metadata.
+An error message will be returned if the "TYPE" metadata does not exist.
+If any cell groups specified in the groups parameter are not defined in the "GROUP" metadata, an warning will be raised.
+If any cell groups mapped to multiple cell types, an warning will be raised.
+}

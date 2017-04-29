@@ -2,7 +2,7 @@
 % Please edit documentation in R/celltype.R
 \name{celltype.validation}
 \alias{celltype.validation}
-\title{Performing rank-aggregation based cell type validation}
+\title{Performing rank-aggregation based cell type validation using marker expression}
 \usage{
 celltype.validation(object, use.scaled = T, thresh = 0, ...)
 }
@@ -17,5 +17,5 @@ celltype.validation(object, use.scaled = T, thresh = 0, ...)
 The updated sincera object
 }
 \description{
-Performing rank-aggregation based cell type validation
+Performing rank-aggregation based cell type validation using marker expression
 }

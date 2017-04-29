@@ -91,7 +91,6 @@ setMethod("plotPCASD","sincera",
 #' @param show.labcol If TRUE, show the column lables
 #' @param show.labRow If TRUE, show the row labels
 #'
-#'
 setGeneric("plotHeatmap", function(object, genes=NULL, cells=NULL, scaled=T, do.log2=FALSE,
                                    order.by.group=T, minmax=c(-1,1),
                                    show.labCol=FALSE, show.labRow=FALSE, ...) standardGeneric("plotHeatmap"))
@@ -185,6 +184,9 @@ setMethod("plotHeatmap","sincera",
 #' @param horiz If TRUE, plot the dendrogram tree with tips turned right
 #' @param show.labels If TRUE, show the labels of leafs
 #' @param do.radial IF TRUE, plot the dendrogram tree using radial layout
+#' @details 
+#' When do.radial is FALSE, the plotting uses plot(); one can use pdf(), tiff(), or other similar functions to save plots to files when needed
+#' when do.radial is TRUE, the plotting uses ggplot2:ggplot(); one can use ggsave() to save plots to files.
 #'
 setGeneric("plotHC", function(object, horiz=FALSE, show.labels=FALSE, do.radial=FALSE, ...) standardGeneric("plotHC"))
 #' @export

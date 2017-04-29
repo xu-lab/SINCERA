@@ -9,7 +9,7 @@ setCellType(object, do.reset = FALSE, groups = NULL, types = NULL)
 \arguments{
 \item{object}{A sincera object}
 
-\item{do.reset}{If TRUE, reset the cell types of all cells to "undefined"}
+\item{do.reset}{If TRUE, reset the cell types of all cells to "undefined". All the other parameters will be ignored.}
 
 \item{groups}{A set of cell groups}
 

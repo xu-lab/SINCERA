@@ -288,3 +288,233 @@ setMethod("drivingforce.rankTFs","sincera",
           }
 )
 
+
+
+#' Inferring first order conditional dependencies between TFs and TGs
+#' Adapted from G1DBN package
+#'
+#' @param data (matrix) the expression data
+#' @param method (character) regression method: ls, turkey, huber
+#' @param prePosition (numeric) indices of regulators
+#' @param targetPosition (numeric) indices of regulatory targets
+#' @param lag (numeric) time lag; 0 for non-time series data
+#' @return a list of score matrices
+network.inference <-function(data, method='ls',predPosition=NULL, targetPosition=NULL, lag=0) {
+  
+  ## ===============================================
+  ## INITIALIZING
+  ## _______________________________________________
+  
+  data<-as.matrix(data)
+  n=dim(data)[1] # nb of time points
+  p=dim(data)[2] # nb of genes
+  
+  ## If predictor or target genes position is specified,
+  ## we just work of them
+  if(is.null(predPosition)){
+    pred <- 1:p}
+  else {
+    pred <- predPosition}
+  d <- length(pred)
+  
+  if(is.null(targetPosition)){
+    tar <- 1:p}
+  else {
+    tar <- targetPosition}
+  r <- length(tar)
+  
+  ## The score matrix
+  S1ls=NULL
+  S1tukey=NULL
+  S1huber=NULL
+  
+  if('ls' %in% method){
+    S1ls<-matrix(0,r,d)
+  }
+  if('tukey' %in% method){
+    S1tukey<-matrix(0,r,d)
+  }
+  if('huber' %in% method){
+    S1huber<-matrix(0,r,d)
+  }
+  
+  ## ===============================================
+  ## BUILDING THE SCORE MATRICES
+  ## _______________________________________________
+  
+  ## Print the total number of vertices
+  
+  #cat("Treating", r ,"vertices:\n")
+  cpt=10
+  
+  for (i in 1:r){
+    ## Print percentage of accomplished vertices
+    if ( ((i/r)*100)>=cpt ) {
+      #cat(cpt, "% ",sep="")
+      cpt=cpt+10
+    }
+    
+    
+    ## The regression model is
+    ## Y = X
+    
+    ## Y is the vector containing the target genes
+    ## on which the regression will be performed
+    ## The time point 1 is removed
+    if (1+lag >= n) {
+      stop();
+    }
+    y<-data[(1+lag):n,tar[i]]
+    
+    for (j in  1:(d-1)){
+      
+      ## for all k > j
+      for (k in c(1:d)[-c(1:j)]){
+        
+        ## X is a matrix with two columns containing the
+        ## predicted gene on which the regression will
+        ## be performed. The two columns contain
+        ## respectively the data corresponding to the jth
+        ## and the kth tested gene.
+        ## The time n is removed
+        x<-data[1:(n-lag),c(pred[j],pred[k])]
+        
+        ## =====================================
+        ## ESTIMATION...
+        ##
+        ## Three estimators are available :
+        ## - Least square
+        ## - Huber
+        ## - Tuckey
+        
+        ## =====================================
+        ## LEAST SQUARE ESTIMATOR
+        if('ls' %in% method){
+          lm.3<-lm(y~x)
+          prob<-abs(summary(lm.3)$coef[,"Pr(>|t|)"])
+          ## coefficient aij(k) : aij given k
+          S1ls[i,j]<-max(prob[2],S1ls[i,j],na.rm=TRUE)
+          ## coefficient aik(j) : aik given j
+          S1ls[i,k]<-max(prob[3],S1ls[i,k],na.rm=TRUE)
+        }
+        
+        ## =====================================
+        ## TUKEY'S ESTIMATOR
+        if('tukey' %in% method){
+          bisq.3<-rlm(y~x,method='MM')
+          prob<-2*(1-pt(abs(summary(bisq.3)$coef[,"t value"]),n-4))
+          ## coefficient aij(k) : aij given k
+          S1tukey[i,j]<-max(prob[2],S1tukey[i,j],na.rm=TRUE)
+          ## coefficient aik(j) : aik given j
+          S1tukey[i,k]<-max(prob[3],S1tukey[i,k],na.rm=TRUE)
+        }
+        
+        ## =====================================
+        ## HUBER'S ESTIMATOR
+        if('huber' %in% method ){
+          hub.3<-rlm(y~x)
+          prob<-2*(1-pt(abs(summary(hub.3)$coef[,"t value"]),n-4))
+          ## coefficient aij(k) : aij given k
+          S1huber[i,j]<-max(prob[2],S1huber[i,j],na.rm=TRUE)
+          ## coefficient aik(j) : aik given j
+          S1huber[i,k]<-max(prob[3],S1huber[i,k],na.rm=TRUE)
+        }
+        
+        
+      } # end k
+    } # end j
+  } # end i
+  #cat("\n")
+  
+  ## The score matrices are return
+  list(S1ls=S1ls,S1tukey=S1tukey,S1huber=S1huber)
+}
+
+#' Calculate the importance of a node in a graph
+#
+#' @param g an igraph object
+#' @param measurement DFC, DCC, DDC, DC, CC, BC
+#' @param componentType character string, either weak or strong; for directed graphs, weak implies weakly, strong strongly connected components to search.
+#' @param pathType defined the types of the paths used for measuring the distance in directed graphs.
+#' @param directed whether the graph is directed or undirected;
+#' @param normalized whether to rescale the results to [0,1]
+#' @return a importance matrix
+
+getNodesImportance <- function(
+  graph, nodes=NULL, measurements=c("DFC","DCC","DDC","DC","CC","BC"),
+  componentType="weak",
+  pathType="all",
+  directed=FALSE,
+  normalized=TRUE)
+{
+  cat("\tCalculating importance measurements: ")
+  if (length(nodes)==0) {
+    nodes=V(graph)
+  }
+  im <- as.data.frame(matrix(0, length(nodes), length(measurements)))
+  rownames(im) <- nodes$name
+  colnames(im) <- measurements
+  
+  for (m in measurements) {
+    if (m == "DFC") {
+      for (i in nodes) {
+        rg <- delete.vertices(graph, i)
+        n <- vcount(rg)
+        cls <- clusters(rg, mode=componentType) # mode: strong, weak
+        im[i,m]<- cls$no/n
+      }
+      cat("DFC ")
+    } else if (m == "DCC") {
+      for (i in nodes) {
+        rg <- delete.vertices(graph, i)
+        n <- vcount(rg)
+        cls <- clusters(rg, mode=componentType) # mode: strong, weak
+        s <- 0
+        for (cs in cls$csize) {
+          s <- s + cs*(cs-1)
+        }
+        im[i,m]<- 1 - s/(n*(n-1))
+      }
+      cat("DCC ")
+    } else if (m == "DDC") {
+      for (i in nodes) {
+        rg <- delete.vertices(graph, i)
+        n <- vcount(rg)
+        spl <- shortest.paths(rg, mode=pathType) #mode: in, out, all
+        s <- 0
+        for ( si in 1:dim(spl)[1]) {
+          for (sj in 1:dim(spl)[2]) {
+            if (si == sj) {
+            } else {
+              if(spl[si,sj] == Inf) {
+                s <- s + (1/n)
+              } else {
+                s <- s + (1/spl[si,sj])
+              }
+            }
+          }
+        }
+        im[i,m]<- 1 - s/(n*(n-1))
+      }
+      cat("DDC ")
+    } else if (m == "DC") {
+      dgrs <- degree(graph,nodes,mode=pathType,loops=TRUE,normalized=normalized) # mode: in, out, all
+      im[,m] <- dgrs
+      cat("DC ")
+    } else if (m == "CC") {
+      clsns <- closeness(graph,nodes,mode=pathType,normalized=normalized) # mode: in, out, all
+      im[,m] <- clsns
+      cat("CC ")
+    } else if (m == "BC") {
+      btwns <- betweenness(graph, nodes, directed=directed, normalized=normalized)
+      im[,m] <- btwns
+      cat("BC ")
+    } else {
+      stop(cat("Unrecognized Importance Measurements:", m))
+    }
+  }
+  cat("\n")
+  return(im)
+}
+
+
