@@ -210,30 +210,30 @@ setMethod("drivingforce.getLCC","sincera",
 
                   edges <- getDF(object, group=groups[i], name="edges")
                   edges <- edges[which(edges$s1<thresh),]
-                  g <- graph.data.frame(edges, directed=FALSE)
-                  g <- simplify(g)
+                  g <- igraph::graph.data.frame(edges, directed=FALSE)
+                  g <- igraph::simplify(g)
 
                   tfs <- getDF(object, group=groups[i], name="tfs")
-                  tf.idx <- which(names(V(g)) %in% tfs)
-                  tg.idx <- setdiff(1:length(V(g)), tf.idx)
-                  g <- set_vertex_attr(g, name="Type", index=tf.idx, value="TF")
-                  g <- set_vertex_attr(g, name="Type", index=tg.idx, value="TG")
-                  V(g)$color <- "grey"
-                  V(g)$color[which(V(g)$Type == "TF")] <- "red"
+                  tf.idx <- which(names(igraph::V(g)) %in% tfs)
+                  tg.idx <- setdiff(1:length(igraph::V(g)), tf.idx)
+                  g <- igraph::set_vertex_attr(g, name="Type", index=tf.idx, value="TF")
+                  g <- igraph::set_vertex_attr(g, name="Type", index=tg.idx, value="TG")
+                  igraph::V(g)$color <- "grey"
+                  igraph::V(g)$color[which(V(g)$Type == "TF")] <- "red"
 
                 #  plot(g, layout=layout.fruchterman.reingold, vertex.label=NA)
 
                   object <- setDF(object, group=groups[i], name="trn", value=g)
 
 
-                  cl <- clusters(g, mode="weak")
-                  lcc <- induced.subgraph(g, which(cl$membership == which.max(cl$csize)))
+                  cl <- igraph::clusters(g, mode="weak")
+                  lcc <- igraph::induced.subgraph(g, which(cl$membership == which.max(cl$csize)))
 
-                  cat("The LCC of ", groups[i], ": ", length(V(lcc)), " nodes, ", length(E(lcc)), " edges\n", sep="")
+                  cat("The LCC of ", groups[i], ": ", length(igraph::V(lcc)), " nodes, ", length(igraph::E(lcc)), " edges\n", sep="")
 
                   #plot(lcc, layout=layout.fruchterman.reingold, vertex.label=NA)
 
-                  if (length(V(lcc))/(length(V(g))) < 0.8) {
+                  if (length(igraph::V(lcc))/(length(igraph::V(g))) < 0.8) {
                       warning("\nCell group ", groups[i], ": less than 80% of tfs and tgs are in the LCC. Please consider increase threshold.", sep="")
                   }
 

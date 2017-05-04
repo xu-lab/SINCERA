@@ -14,6 +14,146 @@ specificity.thresholdSelection <- function(object, genes) {
     return(specificity.threshold)
 }
 
+#' Per group expression specificity calculation
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the sample information
+#' @param groups (character) samples for measuring specificity
+#' @param specificity.prefix (character) the prefix for labeling the columns encoding the results of expression specificity calculation for each group
+#' @return an ExpressionSet object with calculated specificities encoded in fData attributes
+#' @details if a gene has zero expression across all cells, its specificity is zero
+
+exprs.specificity <- function(ES, group.by=SAMPLE.LABEL, groups=NULL, specificity.prefix=EXPR.SPECIFICITY.PREFIX) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  for (i in groups) { # per group
+    i.cells <- rownames(subset(pData(ES), pData(ES)[,group.by] %in% i))
+    i.name <- paste(specificity.prefix,i,sep="")
+    if (length(i.cells) <=1) {
+      i.specificity <- rep(1, dim(exprs(ES))[1])
+      fData(ES)[,i.name] <- i.specificity
+    } else {
+      i.specificity <- apply(exprs(ES[,i.cells]), 1, function(y) specificity.helper(y))
+      fData(ES)[,i.name] <- i.specificity
+    }
+  }
+  
+  return(ES)
+}
+specificity.helper <- function(x) {
+  x <- as.numeric(x)
+  if (!any(x!=0)) { # if all zeros, return zero
+    return(0)
+  }
+  specificity <- 0
+  ma <- max(x)
+  x <- x/ma
+  x <- 1-x
+  specificity <- sum(x)/(length(x)-1)
+  return(specificity)
+}
+
+
+#' Determine the threshold for specificity filter based on a set of reference genes
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the sample information
+#' @param groups (character) samples involves in determining the threshold
+#' @param ref.idx (numeric) a vectorcontaining the row indices of the set of reference genes
+#' @param exp.t (numeric) min expression value for the reference genes
+#' @param exp.p (numeric) min expression percentage per sample for the reference genes
+#' @param tolerance (numeric) percentage of reference genes that will be allowed to pass the specificity filters
+#' @param step (numeric) a numeric value between 0 and 1, specifying the granularity of
+#' @param do.plot (logical) plotting the distribution of specificity, the specificities of the reference genes (green lines), and the selected threshold (red line, if exists)
+#' @param verbose (logical) verbose the function output
+#' @return a numeric value between 0 and 1 if a threshold exists, otherwise, -1
+
+specificity.criterion.selection <- function(ES, group.by=SAMPLE.LABEL, groups=NULL, ref.idx=NULL, exp.t=5, exp.p = 0.95, tolerance=0.05, step=0.1, do.plot=FALSE, verbose=T) {
+  
+  if (!is.null(ref.idx)) {
+    if (verbose) {
+      cat("Sincera: determining a threshold for specificity filter..\n")
+    }
+    n.ref <- length(ref.idx)
+    
+    if (is.null(groups)) {
+      groups <- sort(unique(pData(ES)[, group.by]))
+    }
+    n <- length(groups)
+    
+    # keep reference genes with expression >= exp.t in at least exp.p percentage of cells per sample
+    temp <- matrix(0, nrow=length(ref.idx), ncol=n)
+    cnames <- paste("exp.", groups, sep="")
+    colnames(temp) <- cnames
+    ref.exp <- data.frame(IDX=ref.idx, temp)
+    
+    if (n==1) {
+      col.idx <- 1:dim(pData(ES))[1]
+      ref.exp[which(rowSums(exprs(ES)[ref.idx, col.idx] > exp.t) > floor(length(col.idx)*exp.p)), paste("exp.", groups, sep="")] <- 1
+      ref.idx <- ref.idx[which(ref.exp[, cnames]>=length(groups))]
+    } else if (n>1) { # more than one sample
+      for (g in 1:n) {
+        col.idx <- which(pData(ES)[, group.by] %in% groups[g])
+        ref.exp[which(rowSums(exprs(ES)[ref.idx, col.idx] > exp.t) > floor(length(col.idx)*exp.p)), paste("exp.", groups[g], sep="")] <- 1
+      }
+      ref.idx <- ref.idx[which(rowSums(ref.exp[, cnames])>=length(groups))]
+    }
+    
+    if (length(ref.idx) > 0) {
+      
+      if (verbose) {
+        cat("\t", length(ref.idx), "/", n.ref, " reference genes passed the abundancy criteria and are used for determining the specificity threshold\n", sep="")
+      }
+      
+      # measure the specificity of ref genes
+      ES <- exprs.specificity(ES, group.by=group.by, groups=groups, specificity.prefix = "specificity_")
+      
+      specificity.cols <- paste("specificity_", groups, sep="")
+      
+      criterion.candidates <- seq(0, 1, by=step)
+      
+      specificity <- fData(ES)[ref.idx, specificity.cols]
+      
+      for (i in 1:length(criterion.candidates)) {
+        if (n==1) {
+          if (length(which(as.numeric(specificity) < criterion.candidates[i])) > floor(length(ref.idx)*(1-tolerance))) {
+            if (do.plot) {
+              plot.exprs.specificity(ES, group.by=group.by, groups=groups, specificity.prefix="specificity_", fig.filename="Determine Specificity Criterion.tiff", ref.idx=ref.idx, criterion=criterion.candidates[i])
+            }
+            if (verbose) {
+              cat("Threshold determined:", criterion.candidates[i],"\n")
+            }
+            return(criterion.candidates[i])
+          }
+        } else if (n>1) {
+          if (length((which(rowSums(specificity > criterion.candidates[i]) < length(groups)))) > floor(length(ref.idx)*(1-tolerance))) {
+            if (do.plot) {
+              plot.exprs.specificity(ES, group.by=group.by, groups=groups, specificity.prefix="specificity_", fig.filename="Determine Specificity Criterion.tiff", ref.idx=ref.idx, criterion=criterion.candidates[i])
+            }
+            if (verbose) {
+              cat("Threshold determined:", criterion.candidates[i],"\n")
+            }
+            return(criterion.candidates[i])
+          }
+        }
+      }
+    } else {
+      stop("No reference genes are ubiquitously. Please change the settings for exp.t or exp.p.")
+    }
+  } else {
+    stop("Please set the indices of reference genes through ref.idx.\n")
+  }
+  
+  if (verbose) {
+    cat("No threshold found\n")
+  }
+  return(-1)
+}
+
+
+
+
 #' Selecting genes for cell cluster identification
 #'
 #' Currently support the specificity metric (Guo et al., PLoS Comp Bio 2015); other metrics will be supported soon
@@ -593,11 +733,147 @@ setMethod("cluster.permutation.analysis","sincera",
 
             es <- getES(object)
             es <- es[getGenesForClustering(object), ]
-            cluster.permutation.analysis.old(es, group.by="GROUP", n=n, distance.method=distance.method, log.base=2, verbose=TRUE)
+            cluster.permutation.analysis.1(es, group.by="GROUP", n=n, distance.method=distance.method, log.base=2, verbose=TRUE)
 
             return(object)
           }
 )
+#' Permutation Analysis for determining significance of cluster assignments
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the cluster information
+#' @param n (numeric) the number of permutations
+#' @param distance.method (character) the distance method: pearson or spearman - (1-correlation)/2; euclidean - euclidean distance
+#' @param log.base (numeric) the base of logorithm; if log.base <=1 or log.base is NULL, no log transformations will be applied
+#' @param verbose (logical)
+#' @return NULL
+cluster.permutation.analysis.1 <- function(ES, group.by="GROUP", n=20, distance.method="euclidean", log.base=2, verbose=TRUE) {
+  
+  if (!(n > 1)) {
+    stop("invalid number of permutations. n should be an integer and greater than 1")
+  }
+  dmethods <- c("pearson", "euclidean")
+  dmethod.id <- pmatch(distance.method, dmethods)
+  if (is.na(dmethod.id)) {
+    stop("invalid distance method")
+  }
+  distance.method <- dmethods[dmethod.id]
+  if (is.null(log.base)) {
+    log.base=1
+  }
+  if (log.base>1 & any(exprs(ES)<=0)) {
+    log.base=1
+    stop("There are zero or negative expression values. Please set log.base to NULL\n")
+  }
+  
+  cat("Sincera: permutation analysis of cluster assignment\n")
+  cat("\tgenerating", n, "random assignments for obtaining a background distribution\n")
+  
+  # order expression profile
+  cell_order <- rownames(pData(ES))[order(pData(ES)[,group.by])]
+  ES <- cluster.ordering(ES, col.order=cell_order, row.order=NULL, verbose=FALSE)
+  
+  # cluster size info
+  cs <- as.data.frame(table(pData(ES)[, group.by]))
+  colnames(cs) <- c(group.by, "SIZE")
+  
+  # vector to store quality scores
+  qs <- rep(NA, n+1)
+  
+  # observed assignment
+  oa <- 1:dim(pData(ES))[1]
+  
+  # quality of observed assignment
+  qs[1] <- pa.helper(ES, group.by=group.by, log.base=log.base, cs, oa,  distance.method=distance.method)
+  
+  # generate random assignments and evaluate their quality score
+  for (i in 2:(n+1)) {
+    # obtains a random permutation
+    ra <- sample(oa, replace=FALSE)
+    qs[i] <- pa.helper(ES, group.by=group.by, log.base=log.base, cs, ra, distance.method=distance.method)
+  }
+  
+  qs.sd <- sd(qs[-1])
+  qs.mu <- mean(qs[-1])
+  
+  cat("\tThe quality scores of random assignments has a mean=", qs.mu, " and standard deviation=", qs.sd, "\n", sep="")
+  cat("\tThe quality score of the input cluster assignment is", qs[1],"\n")
+  
+  # using approximated normal distribution to compute p-value
+  p.value <- NA
+  if (qs[1]>qs.mu) {
+    p.value <- 1-pnorm(qs[1], mean=qs.mu, sd=qs.sd)
+  } else {
+    p.value <- pnorm(qs[1], mean=qs.mu, sd=qs.sd)
+  }
+  cat("\tThe p-value of the quality of the input cluster assignment is ", p.value, "\n")
+  cat("sincera: permutation analysis completed\n\n")
+}
+pa.helper <- function(ES, group.by="GROUP", log.base=2, cs, a, distance.method="euclidean") {
+  s <- 0
+  idx <- 1
+  x.mu <- matrix(0, nrow=dim(exprs(ES))[1], ncol=length(cs[, group.by]))
+  # obtain cluster centroids
+  for (i in 1:length(cs[, group.by])) {
+    i.x.mu <- apply(exprs(ES)[, a[idx:(idx+cs$SIZE[i]-1)]], 1, mean)
+    i.s <- sum(apply(exprs(ES)[, a[idx:(idx+cs$SIZE[i]-1)]], 2, function(z) pa.distance.helper(mu=as.numeric(i.x.mu), y=as.numeric(z), log.base=log.base, distance.method=distance.method)))
+    s <- s + i.s
+    idx <- idx+cs$SIZE[i]
+  }
+  
+  return(s)
+}
+pa.distance.helper <- function(mu, y, log.base=2, distance.method="euclidean") {
+  d <- NULL
+  if (log.base > 1) {
+    mu <- log(mu, log.base)
+    y <- log(y, log.base)
+  }
+  if (distance.method == "pearson" | distance.method=="spearman") {
+    d <- (1-cor(mu, y, method="pearson"))/2
+  } else if (distance.method == "euclidean") {
+    d <- sqrt(sum((y-mu)^2))
+  }
+  return(d)
+}
+#' Ordering rows or columns according to a specified order
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param col.order (numeric) the names of columns in the new order
+#' @param row.order (numeric) the names of rows in the new order
+#' @param verbose (logical)
+#' @return an ExpressionSet object with re-ordered data
+
+cluster.ordering <- function(ES, col.order=NULL, row.order=NULL, verbose=TRUE) {
+  
+  if (!is.null(col.order)) {
+    if (verbose) {
+      cat("Sincera: ordering columns... ")
+    }
+    exprs.m <- exprs(ES)[,col.order]
+    cells <- pData(ES)[col.order,]
+    exprs(ES) <- exprs.m
+    pData(ES) <- cells
+    if (verbose) {
+      cat("done\n")
+    }
+  }
+  if (!is.null(row.order)) {
+    if (verbose) {
+      cat("Sincera: ordering rows... ")
+    }
+    exprs.m <- exprs(ES)[row.order,]
+    genes <- fData(ES)[row.order,]
+    exprs(ES) <- exprs.m
+    fData(ES) <- genes
+    if (verbose) {
+      cat("done\n")
+    }
+  }
+  return(ES)
+}
+
+
 
 
 #' Detect cluster specific differentially expressed genes
@@ -715,6 +991,59 @@ setMethod("cluster.diffgenes","sincera",
           }
 )
 
+# to be updated
+diff.test.samseq <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, samseq.fdr=0.2, samseq.nperms=10, samseq.nresamp=20, diffexpr.prefix=DIFF.EXPR.PREFIX, verbose=T) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  cells <- rownames(pData(ES))
+  for (i in groups) {
+    if (verbose) {
+      cat("\nDifferential expression testing for group", i, "using SAMseq ...\n")
+    }
+    i.cells <- rownames(subset(pData(ES), pData(ES)[, group.by] %in% i))
+    i.cells.o <- setdiff(cells, i.cells)
+    if (length(i.cells)>1 & length(i.cells.o)>1) {
+      i.cells.idx <- which(colnames(exprs(ES)) %in% i.cells)
+      i.cells.o.idx <- which(colnames(exprs(ES)) %in% i.cells.o)
+      
+      x <- exprs(ES)
+      x <- ceiling(x)
+      y <- rep(-1, length(cells))
+      y[i.cells.idx] <- 2
+      y[i.cells.o.idx] <- 1
+      
+      samfit <- SAMseq(x, y, resp.type = "Two class unpaired", nperms = 10, random.seed = NULL, nresamp = 20, fdr.output = samseq.fdr)
+      
+      i.tt <- samfit$samr.obj$tt
+      i.tt.name <- paste(diffexpr.prefix,i,sep="")
+      fData(ES)[,i.tt.name] <- i.tt
+      
+      i.fc <- samfit$samr.obj$foldchange
+      i.fc.name <- paste(diffexpr.prefix,"fc_", i,sep="")
+      fData(ES)[,i.fc.name] <- i.fc
+      
+      if (samfit$siggenes.table$ngenes.up>0) {
+        i.up.name <- paste(diffexpr.prefix,"genesup_", i,sep="")
+        fData(ES)[,i.up.name] <- 0
+        fData(ES)[as.numeric(samfit$siggenes.table$genes.up[,2]), i.up.name] <- 1
+      }
+      if (samfit$siggenes.table$ngenes.lo>0) {
+        i.lo.name <- paste(diffexpr.prefix,"geneslo_", i,sep="")
+        fData(ES)[,i.lo.name] <- 0
+        fData(ES)[as.numeric(samfit$siggenes.table$genes.lo[,2]), i.lo.name] <- 1
+      }
+    }
+    if (verbose) {
+      cat(" done\n")
+    }
+  }
+  return(ES)
+}
+
+
+
+
 #' Perform cell type enrichment
 #'
 #' Perform cell type enrichment
@@ -722,12 +1051,26 @@ setMethod("cluster.diffgenes","sincera",
 #' @param object A sincera oject
 #' @param species The species of the data, possible values include MUSMU - mouse, HOMSA - human
 #' @param id.type The type of gene identifier, possible values include SYMBOL - Entrez SYMBOL, EG - Entrez ID, ENSEMBL - Ensembl ID
+#' @param do.plot If TRUE, plot top enriched cell types per group at the end of the analysis
+#' @param top.k The number of top enriched cell types to be plotted at the end of the analysis
+#' @param verbose If TRUE, print verbose messages
 #' @return The updated sincera object with enrichment results in the cte slot
 #'
-setGeneric("celltype.enrichment", function(object, species="MUSMU", id.type="SYMBOL", ...) standardGeneric("celltype.enrichment"))
+setGeneric("celltype.enrichment", function(object, species="MUSMU", id.type="SYMBOL", do.plot=T, top.k=5, verbose=T, ...) standardGeneric("celltype.enrichment"))
 #' @export
 setMethod("celltype.enrichment","sincera",
-          function(object, species="MUSMU", id.type="SYMBOL", ...) {
+          function(object, species="MUSMU", id.type="SYMBOL", do.plot=T, top.k=5, verbose=T, ...) {
+            
+            if (verbose) {
+              cat("Sincera: cell type enrichment analysis ... \n")
+            }
+            
+            cat("\nUsing differentially expressed genes for cell type enrichment analysis\n")
+            diffgenes <- getDiffGenes(object, print.summary = TRUE)
+            
+            #wd <- paste(getwd(), dir.delim, "sincera.celltype.enrichment.", getTimestamp(), dir.delim, sep="")
+            #dir.create(wd)
+            
 
             # initialize knowledge base for cell type enrichment analysis
 
@@ -759,21 +1102,12 @@ setMethod("celltype.enrichment","sincera",
             #' id.type (character) the type of ids of the genes in the genome: ENSEMBL - ENSEMBL gene id, SYMBOL -  Entrez Gene Symbol, EG - Entrez Gene Id
             #' celltype.enrichment.prefix (character) the prefix of columns encoding the cluster-specific gene list for cell type enrichment analysis
             # ret <- celltype.enrichment.old(ES, KB, group.by="GROUP", groups=NULL, species=species, id.type=id.type, celltype.enrichment.prefix="use_for_celltype_", verbose=TRUE)
-
-            ES <- getES(object)
-            
-           
             
             
-            if (verbose) {
-              cat("Sincera: cell type enrichment analysis ... \n")
-            }
-            wd <- paste(getwd(), dir.delim, "sincera.celltype.enrichment.", getTimestamp(), dir.delim, sep="")
-            dir.create(wd)
             
-            if (is.null(groups)) {
-              groups <- sort(unique(as.character(getCellMeta(object, name="GROUP"))))
-            }
+            
+            groups <- sort(unique(as.character(getCellMeta(object, name="GROUP"))))
+            
             
             x <- KB$celltype.gene.association
             types.count <- KB$celltype.genome.count
@@ -781,12 +1115,9 @@ setMethod("celltype.enrichment","sincera",
             
             ret <- list()
             
-            cat("\nUsing differentially expressed genes for cell type enrichment analysis\n")
-            diffgenes <- getDiffGenes(object, print.summary = TRUE)
-            
             for (i in groups) {
               if (verbose) {
-                cat("\tEnriching cell types for group", i, "...")
+                cat("Enriching cell types for group", i, "...")
               }
               #i.de.name <- paste(celltype.enrichment.prefix, i, sep="")
               #i.de <- rownames(fData(ES))[which(fData(ES)[, i.de.name]==1)]
@@ -838,32 +1169,35 @@ setMethod("celltype.enrichment","sincera",
                   h <- h+1
                 }
               }
-              if (verbose) {
-                cat("done\n")
-              }
-              if (verbose) {
-                cat("\tExporting enrichment results of group", i, "to", wd,"... ")
-              }
               
               i.types.count <- i.types.count[order(i.types.count$Fisher.PV), ]
               ret[[as.character(i)]] <- i.types.count
               
-              write.table(i.types.count, file=paste(wd, i, "-celltype-enrichment.txt", sep=""), sep="\t", col.name=T, row.name=F)
+              # write.table(i.types.count, file=paste(wd, i, "-celltype-enrichment.txt", sep=""), sep="\t", col.name=T, row.name=F)
               if (verbose) {
                 cat("done\n")
               }
             }
            
             cat("\nTop 5 enriched cell type annotations per cluster:\n")
+            
             for (i in 1:length(ret)) {
               cat("\nCluster", names(ret)[i],":\n")
               tmp <- ret[[i]]
               rownames(tmp) <- NULL
-              print(tmp[1:5, c("TYPE","Fisher.PV")])
+              
+              i.viz <- tmp[1:5, c("TYPE","Fisher.PV")]
+              
+              print(i.viz)
+              
               cat("\n")
             }
-
+            
+            
+           
             object <- setCellTypeEnrichment(object, groups=names(ret), ret)
+            
+            plotCellTypeEnrichment(object, top.k=top.k)
 
             cat("Please use getCellTypeEnrichment() to assess full enrichment results.")
             
@@ -1160,6 +1494,37 @@ clustering.consensus <- function(x, min.area.increase=0.2, ...) {
 
   return(clusters)
 }
+
+
+# this function is borrowed from the package: ConsensusClusterPlus
+triangle = function(m,mode=1){
+  #mode=1 for CDF, vector of lower triangle.
+  #mode==3 for full matrix.
+  #mode==2 for calcICL; nonredundant half matrix coun
+  #mode!=1 for summary
+  n=dim(m)[1]
+  nm = matrix(0,ncol=n,nrow=n)
+  fm = m
+  
+  nm[upper.tri(nm)] = m[upper.tri(m)] #only upper half
+  
+  fm = t(nm)+nm
+  diag(fm) = diag(m)
+  
+  nm=fm
+  nm[upper.tri(nm)] = NA
+  diag(nm) = NA
+  vm = m[lower.tri(nm)]
+  
+  if(mode==1){
+    return(vm) #vector
+  }else if(mode==3){
+    return(fm) #return full matrix
+  }else if(mode == 2){
+    return(nm) #returns lower triangle and no diagonal. no double counts.
+  }
+}
+
 
 
 clustering.hc <- function(x, h=NULL, k=NULL, num.singleton=0, distance.method="pearson", linkage.method="average",  do.shift=TRUE) {

@@ -4,7 +4,8 @@
 \alias{celltype.enrichment}
 \title{Perform cell type enrichment}
 \usage{
-celltype.enrichment(object, species = "MUSMU", id.type = "SYMBOL", ...)
+celltype.enrichment(object, species = "MUSMU", id.type = "SYMBOL",
+  do.plot = T, top.k = 5, verbose = T, ...)
 }
 \arguments{
 \item{object}{A sincera oject}
@@ -12,6 +13,12 @@ celltype.enrichment(object, species = "MUSMU", id.type = "SYMBOL", ...)
 \item{species}{The species of the data, possible values include MUSMU - mouse, HOMSA - human}
 
 \item{id.type}{The type of gene identifier, possible values include SYMBOL - Entrez SYMBOL, EG - Entrez ID, ENSEMBL - Ensembl ID}
+
+\item{do.plot}{If TRUE, plot top enriched cell types per group at the end of the analysis}
+
+\item{top.k}{The number of top enriched cell types to be plotted at the end of the analysis}
+
+\item{verbose}{If TRUE, print verbose messages}
 }
 \value{
 The updated sincera object with enrichment results in the cte slot

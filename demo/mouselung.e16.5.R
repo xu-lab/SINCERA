@@ -44,7 +44,7 @@ sc <- prefilterGenes(sc, pergroup=TRUE, min.expression=5, min.cells=2, min.sampl
 sc <- expr.minimum(sc, value=0.01)
 
 # Run batch.analysis function to identify batch differences.
-sc <- batch.analysis(sc, analysis=c("q", "qq", "ma", "distribution"), min.expression=1)
+sc <- batch.analysis(sc, analysis=c("q", "qq", "ma", "isccd", "distribution"), min.expression=1)
 
 # Perform per-sample z-score transformation
 sc <- normalization.zscore(sc, pergroup=TRUE)
