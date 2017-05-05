@@ -22,3 +22,6 @@ an ExpressionSet object with per-sample zscore normalized expression values
 \description{
 Per group zscore normalization of gene expression profiles
 }
+\note{
+This function is from SINCERA version a10242015. It will be upgraded soon.
+}

@@ -416,7 +416,6 @@ getExprQuantiles <- function(object, probs=c(0.25, 0.5, 0.75, 0.8, 0.85, 0.9, 0.
 #' @param object A sincera object
 #' @param pergroup If true, performing per cell group scaling; otherwise, take all cells as from the same sample and perform scaling.
 #' @return An updated sincera object with scaled expression values, use getExpresssion function with scaled=TRUE to access the scaled expression
-#'
 setGeneric("normalization.zscore", function(object, pergroup=TRUE, ...) standardGeneric("normalization.zscore"))
 #' @export
 setMethod("normalization.zscore","sincera",
@@ -452,6 +451,7 @@ setMethod("normalization.zscore","sincera",
 #' @param groups (character) samples for measuring abundancy
 #' @param verbose (logical) verbose the function output
 #' @return an ExpressionSet object with per-sample zscore normalized expression values
+#' @note This function is from SINCERA version a10242015. It will be upgraded soon.
 normalization.zscore.1 <- function(ES, group.by="GROUP", groups=NULL, verbose=TRUE) {
   if (verbose) {
     cat("Sincera: row-by-row per-group zscore normalization ...")
@@ -472,6 +472,7 @@ normalization.zscore.1 <- function(ES, group.by="GROUP", groups=NULL, verbose=TR
   return(ES)
 }
 
+# This function is from SINCERA version a10242015. It will be upgraded soon.
 z.transform.helper <- function(x) {
   x <- as.numeric(x)
   x.mu <- mean(x)
@@ -696,6 +697,7 @@ batch.analysis.MA <- function(x, s1.cols, s2.cols, fig.filename=NULL, fig.main="
 #' @param log.base (numeric) the base of the logarithm
 #' @param min.impute (numeric) a numeric value to impute the min expression values
 #' @return The nomalized expression matrix
+#' @note This function is from SINCERA version a10242015. It will be upgraded soon.
 normalization.log <- function(x, log.base=2, min.impute = 0.01, increase=1) {
   if (log.base<=1 | !(log.base%%1==0)) {
     stop("log.base must be an integer greater than 1")
@@ -716,6 +718,7 @@ normalization.log <- function(x, log.base=2, min.impute = 0.01, increase=1) {
 #'
 #' @param x The expression matrix; rows are genes, cells are columns
 #' @return The normalized expression matrix
+#' @note This function is from SINCERA version a10242015. It will be upgraded soon.
 normalization.sqrt <- function(x) {
   return(sqrt(x))
 }
@@ -728,6 +731,7 @@ normalization.sqrt <- function(x) {
 #' @param lo (numeric) lower quantile to be removed for calculation of the trimmed mean
 #' @param do.scaling (logical) scale the trimmed mean normalized expression values
 #' @return The normalized expression matrix
+#' @note This function is from SINCERA version a10242015. It will be upgraded soon.
 normalization.trimmed.mean <- function(x, up=0.9, lo=0.1, do.scaling=FALSE) {
   #x <- exprs(ES)
   trimmed.means <- apply(x, 2, function(y) trimmed.mean.helper(y, up=up, lo=lo) )
@@ -738,6 +742,8 @@ normalization.trimmed.mean <- function(x, up=0.9, lo=0.1, do.scaling=FALSE) {
   }
   return(x)
 }
+
+# This function is from SINCERA version a10242015. It will be upgraded soon.
 trimmed.mean.helper <- function(x, up=0.9, lo=0.1) {
   x <- as.numeric(x)
   bounds <- as.numeric(quantile(x, probs=c(lo, up)))

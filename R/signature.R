@@ -457,7 +457,7 @@ setMethod("signature.validation","sincera",
 
 
 ##########################################################################################
-# To be updated
+# The following code is from SINCERA version a10242015. It will be upgraded soon.
 ##########################################################################################
 
 if (FALSE) {

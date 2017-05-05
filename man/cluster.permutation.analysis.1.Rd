@@ -23,3 +23,6 @@ cluster.permutation.analysis.1(ES, group.by = "GROUP", n = 20,
 \description{
 Permutation Analysis for determining significance of cluster assignments
 }
+\note{
+This function is from SINCERA version a10242015. It will be upgraded soon.
+}

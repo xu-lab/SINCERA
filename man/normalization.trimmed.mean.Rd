@@ -21,3 +21,6 @@ The normalized expression matrix
 \description{
 Trimmed mean normalization
 }
+\note{
+This function is from SINCERA version a10242015. It will be upgraded soon.
+}

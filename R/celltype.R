@@ -22,7 +22,7 @@ specificity.thresholdSelection <- function(object, genes) {
 #' @param specificity.prefix (character) the prefix for labeling the columns encoding the results of expression specificity calculation for each group
 #' @return an ExpressionSet object with calculated specificities encoded in fData attributes
 #' @details if a gene has zero expression across all cells, its specificity is zero
-
+#' @note This function is from SINCERA version a10242015. It will be upgraded soon.
 exprs.specificity <- function(ES, group.by=SAMPLE.LABEL, groups=NULL, specificity.prefix=EXPR.SPECIFICITY.PREFIX) {
   if (is.null(groups)) {
     groups <- sort(unique(pData(ES)[,group.by]))
@@ -41,6 +41,7 @@ exprs.specificity <- function(ES, group.by=SAMPLE.LABEL, groups=NULL, specificit
   
   return(ES)
 }
+# This function is from SINCERA version a10242015. It will be upgraded soon.
 specificity.helper <- function(x) {
   x <- as.numeric(x)
   if (!any(x!=0)) { # if all zeros, return zero
@@ -738,7 +739,10 @@ setMethod("cluster.permutation.analysis","sincera",
             return(object)
           }
 )
+
+
 #' Permutation Analysis for determining significance of cluster assignments
+#' 
 #'
 #' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
 #' @param group.by (character) the name of the column that contains the cluster information
@@ -747,6 +751,8 @@ setMethod("cluster.permutation.analysis","sincera",
 #' @param log.base (numeric) the base of logorithm; if log.base <=1 or log.base is NULL, no log transformations will be applied
 #' @param verbose (logical)
 #' @return NULL
+#' @note This function is from SINCERA version a10242015. It will be upgraded soon.
+#' 
 cluster.permutation.analysis.1 <- function(ES, group.by="GROUP", n=20, distance.method="euclidean", log.base=2, verbose=TRUE) {
   
   if (!(n > 1)) {
@@ -809,6 +815,8 @@ cluster.permutation.analysis.1 <- function(ES, group.by="GROUP", n=20, distance.
   cat("\tThe p-value of the quality of the input cluster assignment is ", p.value, "\n")
   cat("sincera: permutation analysis completed\n\n")
 }
+
+# This function is from SINCERA version a10242015. It will be upgraded soon.
 pa.helper <- function(ES, group.by="GROUP", log.base=2, cs, a, distance.method="euclidean") {
   s <- 0
   idx <- 1
@@ -823,6 +831,8 @@ pa.helper <- function(ES, group.by="GROUP", log.base=2, cs, a, distance.method="
   
   return(s)
 }
+
+# This function is from SINCERA version a10242015. It will be upgraded soon.
 pa.distance.helper <- function(mu, y, log.base=2, distance.method="euclidean") {
   d <- NULL
   if (log.base > 1) {
@@ -836,6 +846,7 @@ pa.distance.helper <- function(mu, y, log.base=2, distance.method="euclidean") {
   }
   return(d)
 }
+
 #' Ordering rows or columns according to a specified order
 #'
 #' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
@@ -843,7 +854,7 @@ pa.distance.helper <- function(mu, y, log.base=2, distance.method="euclidean") {
 #' @param row.order (numeric) the names of rows in the new order
 #' @param verbose (logical)
 #' @return an ExpressionSet object with re-ordered data
-
+#' @note This function is from SINCERA version a10242015. It will be upgraded soon.
 cluster.ordering <- function(ES, col.order=NULL, row.order=NULL, verbose=TRUE) {
   
   if (!is.null(col.order)) {
@@ -991,7 +1002,7 @@ setMethod("cluster.diffgenes","sincera",
           }
 )
 
-# to be updated
+# This function is from SINCERA version a10242015. It will be upgraded soon.
 diff.test.samseq <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, samseq.fdr=0.2, samseq.nperms=10, samseq.nresamp=20, diffexpr.prefix=DIFF.EXPR.PREFIX, verbose=T) {
   if (is.null(groups)) {
     groups <- sort(unique(pData(ES)[,group.by]))

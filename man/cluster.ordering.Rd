@@ -21,3 +21,6 @@ an ExpressionSet object with re-ordered data
 \description{
 Ordering rows or columns according to a specified order
 }
+\note{
+This function is from SINCERA version a10242015. It will be upgraded soon.
+}

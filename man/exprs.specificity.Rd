@@ -25,3 +25,6 @@ Per group expression specificity calculation
 \details{
 if a gene has zero expression across all cells, its specificity is zero
 }
+\note{
+This function is from SINCERA version a10242015. It will be upgraded soon.
+}

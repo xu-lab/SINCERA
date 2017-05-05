@@ -19,3 +19,6 @@ The nomalized expression matrix
 \description{
 log transformation
 }
+\note{
+This function is from SINCERA version a10242015. It will be upgraded soon.
+}
