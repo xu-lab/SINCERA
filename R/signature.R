@@ -463,18 +463,18 @@ setMethod("signature.validation","sincera",
 if (FALSE) {
   dir.delim <- "/"
   TIMESTAMP.FORMAT <- '%m%d%Y_%Hh%Mm%Ss'
-  TF.LABEL = "TF"										# for labeling the column encoding the transcription factors/cofactors
-  
-}  
-  GENE.SYMBOL.LABEL = "SYMBOL"					    # for labeling the column encoding the official gene symbol
-  SAMPLE.LABEL = "SAMPLE"                        		# for labeling the column encoding the sample information
-  CLUSTER.LABEL = "CLUSTER"  					   		# for labeling the column encoding the results of cluster assignment
+  TF.LABEL = "TF"										      # for labeling the column encoding the transcription factors/cofactors
+}
+
+GENE.SYMBOL.LABEL = "SYMBOL"					    # for labeling the column encoding the official gene symbol
+SAMPLE.LABEL = "SAMPLE"                   # for labeling the column encoding the sample information
+CLUSTER.LABEL = "CLUSTER"  					   		# for labeling the column encoding the results of cluster assignment
   
 
-COMMON.TRESHOLD=5                                   # in common gene metric, expression > COMMON.TRESHOLD will considered as expressed
-COMMON.PERCENTAGE=0.8                               # in common gene metric, genes that express in >COMMON.PRECENTAGE cluster cells will be considered as a common gene shared by cluster cells.
-UNIQUE.RATIO=2                                      # parameters for unique gene metric
-UNIQUE.QUANTILE=0.85								# parameters for unique gene metric
+COMMON.TRESHOLD=5                         # in common gene metric, expression > COMMON.TRESHOLD will considered as expressed
+COMMON.PERCENTAGE=0.8                     # in common gene metric, genes that express in >COMMON.PRECENTAGE cluster cells will be considered as a common gene shared by cluster cells.
+UNIQUE.RATIO=2                            # parameters for unique gene metric
+UNIQUE.QUANTILE=0.85								      # parameters for unique gene metric
 
 
 EXPR.SPECIFICITY.PREFIX <- "specificity_"      		# for labeling the columns encoding the results of expression specificity calculation for each group
