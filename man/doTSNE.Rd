@@ -34,3 +34,8 @@ The update sincera object with tsne results in the tsne slot
 \description{
 Perform tSNE analysis on gene expression space or pca space
 }
+\details{
+When feature.type is "gene", genes with zero variance will be excluded prior to calling tSNE functions.
+When use.fast is TRUE, please refer to ?Rtsne::Rtsne for more parameters to control tSNE reduction.
+When use.fast is FALSE, please refer to ?tsne::tsne for more parameters to control tSNE reduction.
+}

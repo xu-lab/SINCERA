@@ -5,8 +5,8 @@
 #'
 #' @param object A sincera object
 #' @param feature.type The type of components, possible values include pca, tsne
-#' @param dim The component for x axis
-#' @param dim The component for y axis
+#' @param dim1 The component for x axis
+#' @param dim2 The component for y axis
 #' @param color.by The cell metadata used to color cells
 #' @param pt.size The size of points (cells) in the plot
 #'
@@ -74,6 +74,74 @@ setMethod("plotPCASD","sincera",
 )
 
 
+#' Barplot of the cell type enrichment results
+#'
+#' Barplot of the cell type enrichment results
+#'
+#' @param object A sincera object
+#' @param groups The groups whose cell type enrichment results will be plotted
+#' @param top.k The number of most enriched cell types to be plotted for each cell group 
+#'
+setGeneric("plotCellTypeEnrichment", function(object, groups=NULL, top.k=5, ...) standardGeneric("plotCellTypeEnrichment"))
+#' @export
+setMethod("plotCellTypeEnrichment","sincera",
+          function(object, groups=NULL, top.k=5, ...) {
+            
+            if (length(object@cte)==0) stop("No cell type enrichment results are available. Please run celltype.enrichment() first.")
+            
+            if (is.null(groups)) {
+              groups <- names(object@cte)
+            } 
+            
+            groups.notfound <- groups[which(!(groups %in% names(object@cte)))]
+            
+            if (length(groups.notfound)>0) {
+               if (length(groups.notfound)==length(groups)) {
+                 stop("No cell groups have cell type enrichment results")
+               } else {
+                 warning("The cell type enrichment results for the following groups are not available: ", paste(groups.notfound, collapse=",", sep=""), "\n")
+               }
+            }
+            groups <- setdiff(groups, groups.notfound)
+            
+            viz <- data.frame(Type=NULL, Pvalue=NULL, Group=NULL, Order=NULL)
+            for (i in 1:length(groups)) {
+              i.idx <- which(names(object@cte) == groups[i])
+              if (length(i.idx)>0) {
+                tmp <- object@cte[[i.idx]]
+                rownames(tmp) <- NULL
+                
+                if (top.k>dim(tmp)[1]) top.k = dim(tmp)[1]
+                
+                i.viz <- tmp[1:top.k, c("TYPE","Fisher.PV")]
+                
+                
+                i.viz$Group <- groups[i]
+                i.viz$Order <- factor(top.k:1)
+                
+                i.viz$Pvalue <- -log(i.viz$Fisher.PV)
+
+                viz <- rbind(viz, i.viz)
+              }
+            }
+            
+            # order bar per facet based pvalue
+            viz$n <- as.numeric(factor(viz$Group))
+            viz$TYPE <- as.character(viz$TYPE)
+            viz <- ddply(viz, .(Group,TYPE), transform,
+                         x=paste(c(rep(' ',n-1), TYPE), collapse=''))
+            viz$x <- factor(viz$x, levels=viz[order(viz$Fisher.PV, decreasing=T),"x"])
+            
+            g <- ggplot(viz, aes(x=x, y=Pvalue, fill=Group)) + facet_wrap(~Group, scales="free") 
+            g <- g + geom_bar(stat="identity") + coord_flip()
+            g <- g + ggtitle("Cell type enrichment for cell groups") 
+            g <- g + xlab("Cell type annotation") + ylab("-log(Pvalue)")
+            g <- g + sincera_theme() 
+            g <- g + theme(panel.border = element_blank()) + theme(axis.line = element_line())
+            print(g)
+            
+          }
+)
 
 
 #' Plot heatmap
@@ -90,7 +158,6 @@ setMethod("plotPCASD","sincera",
 #' @param minmax The minimum and maximum values for color scale
 #' @param show.labcol If TRUE, show the column lables
 #' @param show.labRow If TRUE, show the row labels
-#'
 #'
 setGeneric("plotHeatmap", function(object, genes=NULL, cells=NULL, scaled=T, do.log2=FALSE,
                                    order.by.group=T, minmax=c(-1,1),
@@ -185,6 +252,9 @@ setMethod("plotHeatmap","sincera",
 #' @param horiz If TRUE, plot the dendrogram tree with tips turned right
 #' @param show.labels If TRUE, show the labels of leafs
 #' @param do.radial IF TRUE, plot the dendrogram tree using radial layout
+#' @details 
+#' When do.radial is FALSE, the plotting uses plot(); one can use pdf(), tiff(), or other similar functions to save plots to files when needed
+#' when do.radial is TRUE, the plotting uses ggplot2:ggplot(); one can use ggsave() to save plots to files.
 #'
 setGeneric("plotHC", function(object, horiz=FALSE, show.labels=FALSE, do.radial=FALSE, ...) standardGeneric("plotHC"))
 #' @export

@@ -8,19 +8,30 @@ drivingforce.selectTFs(object, groups = NULL, tflists = NULL,
   diff.method = "welch", diff.thresh = 0.05, min.expression = 5,
   pct.thresh = 0.8, ...)
 }
+\arguments{
+\item{object}{A sincera object}
+
+\item{groups}{A vector of cell groups; if NULL, use all defined cell groups}
+
+\item{tflists}{A list containing user-provided candidate TFs for each group specified in groups parameter}
+
+\item{diff.method}{The method used to perform the differential expression analysis}
+
+\item{diff.thresh}{The pvalue for determining differentially expressed genes}
+
+\item{min.expression}{The threshold expression value for determining expressed genes}
+
+\item{pct.thresh}{The percentage threshold for determining genes commonly expressed in a cell group}
+}
+\value{
+An updated sincera object, use getDF with name="tfs" to access the selected TFs
+}
 \description{
-Please use the \"tflists\" parameter to provide pre-selected TFs
-Otherwise, the function will select candidate TFs for each group using the following criteria:
-* TFs differentially expressed in the cell group (pvalue < \"diff.thresh\")
-* TFs expressed greater than a certain percentage of the group cells (>\"min.expression\" in at least \"pct.thresh\" percentage of the group cells)
+Select candidate TFs for network inference and TF ranking
 }
 \details{
-@param object A sincera object
- @param groups A vector of cell groups; if NULL, use all defined cell groups
- @param tflists A list containing user-provided candidate TFs for each group specified in \"groups\"
- @param diff.method The method used to perform the differential expression analysis
- @param diff.thresh The pvalue for determining differentially expressed genes
- @param min.expression The threshold expression value for determining expressed genes
- @param pct.thresh The percentage threshold for determining genes commonly expressed in a cell group
- @return An updated sincera object, use getDF with name="tfs" to access the selected TFs
+Please use the tflists parameter to provide pre-selected TFs
+Otherwise, the function will select candidate TFs for each group using the following criteria:
+(1) TFs differentially expressed in the cell group (pvalue < diff.thresh); 
+Or (2) TFs expressed greater than a certain percentage of the group cells (>min.expression in at least pct.thresh percentage of the group cells)
 }

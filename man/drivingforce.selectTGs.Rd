@@ -7,16 +7,24 @@
 drivingforce.selectTGs(object, groups = NULL, tglists = NULL,
   diff.method = "welch", diff.thresh = 0.01, ...)
 }
+\arguments{
+\item{object}{A sincera object}
+
+\item{groups}{A vector of cell groups; if NULL, use to all defined cell groups}
+
+\item{tglists}{A list containing user-provided candidate TGs for each group specified in the groups parameter}
+
+\item{diff.method}{The method used to perform the differential expression analysis}
+
+\item{diff.thresh}{The pvalue for determining differentially expressed genes}
+}
+\value{
+An updated sincera object, use getDF with name="tgs" to access the selected TGs
+}
 \description{
-Please use the \"tglists\" parameter to provide pre-selected tgs
-Otherwise, the function will select candidate TGs for each group using the following criteria:
-* Genes differentially expressed in the cell group (pvalue < \"diff.thresh\")
+Select candidate TGs for network inference and TF ranking
 }
 \details{
-@param object A sincera object
- @param clusters A vector of cell groups; if NULL, use all defined cell groups
- @param tglists A list containing user-provided candidate TGs for each group specified in \"groups\"
- @param diff.method The method used to perform the differential expression analysis
- @param diff.thresh The pvalue for determining differentially expressed genes
- @return An updated sincera object, use getDF with name="tgs" to access the selected TGs
+Please use the tglists parameter to provide pre-selected tgs
+Otherwise, the function will select candidate TGs for each group using the following criteria: Genes differentially expressed in the cell group (pvalue < diff.thresh)
 }

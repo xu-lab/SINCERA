@@ -9,9 +9,9 @@ drivingforce.getLCC(object, groups = NULL, thresh = 0.05, ...)
 \arguments{
 \item{object}{A sincera object}
 
-\item{thresh}{The threshold for significant interactions}
+\item{groups}{The cell groups for LCC extraction}
 
-\item{clusters}{The cell groups for LCC extraction}
+\item{thresh}{The threshold for significant interactions}
 }
 \value{
 An updated sincera object, use getDF with name="lcc" to access the lcc

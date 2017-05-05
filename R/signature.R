@@ -188,7 +188,7 @@ setMethod("signature.prediction","sincera",
                     es <- sigpred.testing.sets(es, group.by=group.by, groups=groups, testset.prefix=testset.prefix, diff.expr.prefix=diff.expr.prefix, diff.expr.threshold=diff.expr.threshold)
 
                     # performing signature prediction
-                    es <- signature.prediction.old(es, group.by=group.by, groups=groups,
+                    es <- signature.prediction.1(es, group.by=group.by, groups=groups,
                                                trainset.prefix=trainset.prefix,
                                                train.class.prefix=train.class.prefix,
                                                testset.prefix=testset.prefix,
@@ -452,3 +452,403 @@ setMethod("signature.validation","sincera",
         }
 
 )
+
+
+
+
+##########################################################################################
+# The following code is from SINCERA version a10242015. It will be upgraded soon.
+##########################################################################################
+
+if (FALSE) {
+  dir.delim <- "/"
+  TIMESTAMP.FORMAT <- '%m%d%Y_%Hh%Mm%Ss'
+  TF.LABEL = "TF"										      # for labeling the column encoding the transcription factors/cofactors
+}
+
+GENE.SYMBOL.LABEL = "SYMBOL"					    # for labeling the column encoding the official gene symbol
+SAMPLE.LABEL = "SAMPLE"                   # for labeling the column encoding the sample information
+CLUSTER.LABEL = "CLUSTER"  					   		# for labeling the column encoding the results of cluster assignment
+  
+
+COMMON.TRESHOLD=5                         # in common gene metric, expression > COMMON.TRESHOLD will considered as expressed
+COMMON.PERCENTAGE=0.8                     # in common gene metric, genes that express in >COMMON.PRECENTAGE cluster cells will be considered as a common gene shared by cluster cells.
+UNIQUE.RATIO=2                            # parameters for unique gene metric
+UNIQUE.QUANTILE=0.85								      # parameters for unique gene metric
+
+
+EXPR.SPECIFICITY.PREFIX <- "specificity_"      		# for labeling the columns encoding the results of expression specificity calculation for each group
+EXPR.ABUNDANCY.PREFIX <- "abundancy_"          		# for labeling the columns encoding the results of expression abundance calculation
+PREFILTERING.PREFIX <- "use_for_analysis"	   		# for labeling the column encoding the result of prefiltering
+
+
+DIFF.EXPR.PREFIX = "test_"                     		# for labeling the columns encoding the results of differential expression test for each group
+CELLTYPE.ENRICHMENT.PREFIX = "use_for_celltype_"	# for labeling the columns encoding the gene list used for cell type enrichment analysis for each group
+MARKER.PREFIX = "use_as_marker_"					# for labeling the columns encoding the biomarkers for each group
+
+
+COMMON.PREFIX="common_"								# for labeling the columns encoding the results of common metric for each group
+UNIQUE.PREFIX="unique_"								# for labeling the columns encoding the results of unique metric for each group
+TEST.STATS.METRIC.PREFIX = "test_statistic_"		# for labeling the columns encoding the results of test statistic metric for each group
+SYN.SIM.PREFIX="synthetic_similiary_"				# for labeling the columns encoding the results of synthetic profile similarity metric for each group
+TRAINSET.PREFIX="use_for_train_"					# for labeling the columns encoding the training instances for each group
+TRAIN.CLASS.PREFIX="train_class_"					# for labeling the columns encoding the class of group specific training instances
+TESTSET.PREFIX="use_for_test_"						# for labeling the columns encoding the testing instances for each group
+SIGNATURE.PREFIX="sig_pred_"						# for labeling the columns encoding the results of signature prediction
+
+
+
+#######################################################
+#                 Signature Prediction                #
+#######################################################
+
+
+
+
+
+#' Identifying group specific common genes
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the cluster information
+#' @param groups (character) the clusters for signature prediction
+#' @param common.prefix (character) prefix for labeling the columns encoding the results of common metric for each group
+#' @param common.threshold (numeric) in common gene metric, expression > COMMON.TRESHOLD will considered as expressed
+#' @param common.percentage (numeric) in common gene metric, genes that express in >COMMON.PRECENTAGE cluster cells will be considered as a common
+#' @return an ExpressionSet object containing the results of common gene metrics in the attributes of fData
+#'
+exprs.common <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, common.threshold=5, common.percentage=0.8, common.prefix=COMMON.PREFIX) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  for (i in groups) {
+    i.cells <- rownames(subset(pData(ES), pData(ES)[, group.by] %in% i))
+    i.cells.idx <- which(colnames(exprs(ES)) %in% i.cells)
+    i.common <- apply(exprs(ES), 1, function(y) common.helper(y, i.cells.idx, common.threshold, common.percentage))
+    i.name <- paste(common.prefix, i, sep="")
+    fData(ES)[,i.name]<-i.common
+  }
+  return(ES)
+}
+common.helper <- function(a, idx.i, common.threshold=5, common.percentage=0.8) {
+  a <- as.numeric(a)
+  a_common_threshold <- ceiling(length(idx.i)*common.percentage)
+  a_common <- 0
+  if (length(which(a[idx.i] >= common.threshold)) >= a_common_threshold) {
+    a_common <- 1
+  }
+  return(a_common)
+}
+
+
+#' Identifying group specific unique genes
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the cluster information
+#' @param groups (character) the clusters for signature prediction
+#' @param unique.prefix (character) prefix for labeling the columns encoding the results of unique metric for each group
+#' @param unique.ratio (numeric) parameter for unique gene metric
+#' @param unique.quantile (numeric) parameters for unique gene metric
+#' @return an ExpressionSet object containing the results of unique gene metric in the attributes of fData
+#'
+exprs.unique <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, unique.ratio=2, unique.quantile=0.85, unique.prefix=UNIQUE.PREFIX) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  cells <- rownames(pData(ES))
+  for (i in groups) {
+    i.cells <- rownames(subset(pData(ES), pData(ES)[, group.by] %in% i))
+    i.cells.o <- setdiff(cells, i.cells)
+    i.cells.idx <- which(colnames(exprs(ES)) %in% i.cells)
+    i.cells.o.idx <- which(colnames(exprs(ES)) %in% i.cells.o)
+    i.unique <- apply(exprs(ES), 1, function(y) unique.helper(y, i.cells.idx, i.cells.o.idx, unique.ratio, unique.quantile))
+    i.name <- paste(unique.prefix, i, sep="")
+    fData(ES)[,i.name]<-i.unique
+  }
+  return(ES)
+}
+unique.helper <- function(a, idx.i, idx.o, unique.ratio=2, unique.quantile=0.85) {
+  a <- as.numeric(a)
+  a_mu <- mean(a[idx.i])
+  a_qn <- quantile(a[idx.o], unique.quantile)[[1]]
+  a_unique <- 0
+  
+  if (a_mu/a_qn >= unique.ratio) {
+    a_unique <- 1
+  }
+  
+  return(a_unique)
+}
+
+
+#' Normalized and smoothened results of group specific differential expression test
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the cluster information
+#' @param groups (character) the clusters for signature prediction
+#' @param log.base (numeric) the base of logarithm
+#' @param test.statistic.metric.prefix (character) prefix for labeling the columns encoding the results of test statistic metric for each group
+#' @param diff.expr.prefix (character) prefix for labeling the columns encoding the results of differential test
+#' @return an ExpressionSet object containing the results of test statistic metrics in the attributes of fData
+#'
+exprs.test.statistic.metric <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, log.base=2, test.statistic.metric.prefix=TEST.STATS.METRIC.PREFIX, diff.expr.prefix=DIFF.EXPR.PREFIX) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  #cells <- rownames(pData(ES))
+  for (i in groups) {
+    i.name <- paste(test.statistic.metric.prefix, i, sep="")
+    i.diffexpr.test.name <- paste(diff.expr.prefix, i, sep="")
+    
+    fData(ES)[,i.name] <- fData(ES)[, i.diffexpr.test.name]
+    fData(ES)[,i.name] <- -log(fData(ES)[,i.name], log.base)
+    i.min <- min(fData(ES)[,i.name])
+    i.max <- max(fData(ES)[,i.name])
+    fData(ES)[,i.name] <- fData(ES)[,i.name]/i.max
+  }
+  return(ES)
+}
+
+
+#' Calculating the similarity between each gene profile and group specific synthetic reference expression profile
+#' synthetic profile is created by setting fpkm(cluster cells)=1, fpkm(non cluster cells)=0
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the cluster information
+#' @param groups (character) the clusters for signature prediction
+#' @param syn.sim.prefix (character) prefix for labeling the columns encoding the results of synthetic profile similarity metric for each group
+#' @return an ExpressionSet object containing the results of synthetic profile similarity metrics in the attributes of fData
+#'
+exprs.synthetic.similarity <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, syn.sim.prefix=SYN.SIM.PREFIX) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  cells <- rownames(pData(ES))
+  for (i in groups) {
+    i.cells <- rownames(subset(pData(ES), pData(ES)[, group.by] %in% i))
+    i.cells.o <- setdiff(cells, i.cells)
+    i.cells.idx <- which(colnames(exprs(ES)) %in% i.cells)
+    i.cells.o.idx <- which(colnames(exprs(ES)) %in% i.cells.o)
+    i.synthetic.profile <-  rep(0, dim(exprs(ES))[2])
+    i.synthetic.profile[i.cells.idx] <- 1
+    i.ss <- apply(exprs(ES), 1, function(y) (1+cor(i.synthetic.profile, as.numeric(y)))/2)
+    i.name <- paste(syn.sim.prefix, i, sep="")
+    fData(ES)[,i.name]<-i.ss
+  }
+  return(ES)
+}
+
+#' Constructing group specific training sets for signature prediction
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the cluster information
+#' @param groups (character) the clusters for signature prediction
+#' @param trainset.prefix (character) prefix for labeling the columns encoding the training instances for each group
+#' @param train.class.prefix (character) prefix for labeling the columns encoding the class of group specific training instances
+#' @param marker.prefix (character) prefix for labeling the columns encoding the biomarkers for each group
+#' @param common.prefix (character) prefix for labeling the columns encoding the results of common metric for each group
+#' @param unique.prefix (character) prefix for labeling the columns encoding the results of unique metric for each group
+#' @param test.statistic.metric.prefix (character) prefix for labeling the columns encoding the results of test statistic metric for each group
+#' @param syn.sim.prefix (character) prefix for labeling the columns encoding the results of synthetic profile similarity metric for each group
+#' @return an ExpressionSet object containing the constructed training sets in the attributes of fData
+#'
+sigpred.training.sets <- function(ES, group.by=CLUSTER.LABEL, groups=NULL,
+                                  trainset.prefix=TRAINSET.PREFIX,
+                                  train.class.prefix=TRAIN.CLASS.PREFIX,
+                                  test.statistic.metric.prefix = TEST.STATS.METRIC.PREFIX,
+                                  common.prefix = COMMON.PREFIX,
+                                  unique.prefix = UNIQUE.PREFIX,
+                                  syn.sim.prefix = SYN.SIM.PREFIX,
+                                  marker.prefix = MARKER.PREFIX
+) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  
+  for (i in groups) {
+    i.train.name <- paste(trainset.prefix, i, sep="")
+    fData(ES)[,i.train.name] <- 0
+    i.train.class <- paste(train.class.prefix, i, sep="")
+    fData(ES)[,i.train.class] <- NA
+    
+    i.p.candidates <- c()
+    i.n.candidates <- c()
+    
+    i.test.name <- paste(test.statistic.metric.prefix, i, sep="")
+    i.common.name <- paste(common.prefix, i, sep="")
+    i.unique.name <- paste(unique.prefix, i, sep="")
+    i.ss.name <- paste(syn.sim.prefix, i, sep="")
+    
+    fd <- fData(ES)
+    fd <- fd[order(fd[,i.test.name]),]
+    
+    i.marker.name <- paste(marker.prefix, i, sep="")
+    #i.p.symbols <- markers$SYMBOL[which(markers$CLUSTER %in% i)]
+    i.p.candidates <- rownames(fd)[which(fd[, i.marker.name] == 1)]
+    
+    lambda_n =length(i.p.candidates)
+    
+    fd <- fData(ES)
+    #fd <- fd[order(fd[,i.test.name], decreasing=T),]
+    fd <- fd[order(fd[,i.test.name], decreasing=F),]
+    fd <- subset(fd, fd[,i.common.name]==0 & fd[,i.unique.name]==0)
+    i.n.candidates <- rownames(fd)[1:lambda_n]
+    
+    if (lambda_n > 0) {
+      
+      i.p.idx <- which(rownames(fData(ES)) %in% i.p.candidates)
+      i.n.idx <- which(rownames(fData(ES)) %in% i.n.candidates)
+      
+      fData(ES)[c(i.p.idx, i.n.idx), i.train.name] <- 1
+      fData(ES)[i.p.idx, i.train.class] <- 1
+      fData(ES)[i.n.idx, i.train.class] <- 0
+    }
+  }
+  return(ES)
+}
+
+
+#' Constructing group specific testing sets for signature prediction
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the cluster information
+#' @param groups (character) the clusters for signature prediction
+#' @param testset.prefix (character) prefix for labeling the columns encoding the testing instances for each group
+#' @param diff.expr.prefix (character) prefix for labeling the columns encoding the results of differential test
+#' @param diff.expr.threshold (numeric) genes with differential expression p-value<0.05 will be selected as candidates for signature
+#' @return an ExpressionSet object containing the constructed testing sets in the attributes of fData
+#'
+sigpred.testing.sets <- function(ES, group.by=CLUSTER.LABEL,  groups=NULL, testset.prefix=TESTSET.PREFIX, diff.expr.prefix=DIFF.EXPR.PREFIX, diff.expr.threshold=0.05) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  for (i in groups) {
+    i.name <- paste(testset.prefix, i, sep="")
+    fData(ES)[,i.name] <- 0
+    i.test.name <- paste(diff.expr.prefix, i, sep="")
+    i.test.idx <- which(fData(ES)[,i.test.name] < diff.expr.threshold)
+    if (length(i.test.idx) > 0) {
+      fData(ES)[i.test.idx, i.name] <- 1
+    }
+  }
+  return(ES)
+}
+
+
+
+#' logistic regression based signature prediction and cross cluster validation
+#' Cell type specific signature prediction
+#'
+#' @param ES (ExpressionSet) an ExpressionSet object containing the single cell RNA-seq data
+#' @param group.by (character) the name of the column that contains the cluster information
+#' @param groups (character) the clusters for signature prediction
+#' @param trainset.prefix (character) prefix for labeling the columns encoding the training instances for each group
+#' @param train.class.prefix (character) prefix for labeling the columns encoding the class of group specific training instances
+#' @param testset.prefix (character) prefix for labeling the columns encoding the testing instances for each group
+#' @param common.prefix (character) prefix for labeling the columns encoding the results of common metric for each group
+#' @param unique.prefix (character) prefix for labeling the columns encoding the results of unique metric for each group
+#' @param test.statistic.metric.prefix (character) prefix for labeling the columns encoding the results of test statistic metric for each group
+#' @param syn.sim.prefix (character) prefix for labeling the columns encoding the results of synthetic profile similarity metric for each group
+#' @param signature.prefix (character) prefix for labeling the columns encoding the results of signature prediction
+#' @param gene.symbol.label (character) the name of the column encoding gene symbols
+#' @param verbose (logical)
+#' @param export (logical) wheterh to export the ExpressionSet
+#' @param export.components (character) the components of an ExpressionSet object that will be exported
+#' @return an ExpressionSet object containing the results of signature prediction in the attributes of fData
+#'
+signature.prediction.1 <- function(ES, group.by="CLUSTER", groups=NULL,
+                                     trainset.prefix=TRAINSET.PREFIX,
+                                     train.class.prefix=TRAIN.CLASS.PREFIX,
+                                     testset.prefix=TESTSET.PREFIX,
+                                     test.statistic.metric.prefix = TEST.STATS.METRIC.PREFIX,
+                                     common.prefix = COMMON.PREFIX,
+                                     unique.prefix = UNIQUE.PREFIX,
+                                     syn.sim.prefix = SYN.SIM.PREFIX,
+                                     signature.prefix = SIGNATURE.PREFIX,
+                                     gene.symbol.label = GENE.SYMBOL.LABEL,
+                                     verbose=TRUE,
+                                     export=TRUE,
+                                     dir.prefix = ""
+) {
+  if (is.null(groups)) {
+    groups <- sort(unique(pData(ES)[,group.by]))
+  }
+  predictions <- list()
+  for (i in groups) {
+    
+    i.train.name <- paste(trainset.prefix, i, sep="")
+    
+    i.test.name <- paste(test.statistic.metric.prefix, i, sep="")
+    i.common.name <- paste(common.prefix, i, sep="")
+    i.unique.name <- paste(unique.prefix, i, sep="")
+    i.ss.name <- paste(syn.sim.prefix, i, sep="")
+    i.train.class <- paste(train.class.prefix, i, sep="")
+    
+    # train
+    i.train.data <- subset(fData(ES)[, c(i.common.name, i.unique.name, i.test.name, i.ss.name, i.train.class)], fData(ES)[, i.train.name] == 1)
+    
+    if (verbose == T) {
+      cat("\tConstructing model for cluster", i,":")
+    }
+    
+    formula_for_train <- paste(i.train.class, "~", i.test.name, "+", i.ss.name, sep="")
+    
+    i.train.p <- i.train.data[which(i.train.data[,i.train.class]==1),]
+    i.train.p.sd <- apply(as.matrix(i.train.p), 2, sd)
+    
+    # removing dominant factors
+    
+    factors <- c(i.common.name, i.unique.name, i.test.name, i.ss.name)
+    
+    if (i.train.p.sd[i.common.name] == 0) {
+      if (verbose) {
+        cat("ignore common gene metric ")
+      }
+    } else {
+      formula_for_train <- paste(formula_for_train, "+", i.common.name, sep="")
+    }
+    
+    if (i.train.p.sd[i.unique.name] == 0) {
+      if(verbose) {
+        cat(" ignore unique gene metric ")
+      }
+    } else {
+      formula_for_train <- paste(formula_for_train, "+", i.unique.name, sep="")
+    }
+    
+    i.glm <- glm(as.formula(formula_for_train),
+                 data=i.train.data,
+                 family = "binomial")
+    if (verbose) {
+      cat(" done\n")
+      cat("\tpredicting signature genes for group", i, " ")
+    }
+    
+    
+    # prediction
+    i.testing.name <- paste(testset.prefix, i, sep="")
+    i.test.data <- subset(fData(ES)[, c(gene.symbol.label, i.common.name, i.unique.name, i.test.name, i.ss.name)], fData(ES)[,i.testing.name]==1)
+    i.prediction <- predict(i.glm, i.test.data)
+    i.pred.name <- paste(signature.prefix, i, sep="")
+    #predictions[i.pred.name] <- data.frame(GENE=i.test.data$SYMBOL, P=as.numeric(i.prediction))
+    
+    i.prediction <- as.numeric(i.prediction)
+    i.prediction <- (i.prediction-min(i.prediction))/(max(i.prediction)-min(i.prediction))
+    
+    fData(ES)[,i.pred.name] <- NA
+    fData(ES)[rownames(i.test.data), i.pred.name] <- i.prediction
+    if (export) {
+      write.table(data.frame(GENE=rownames(i.test.data), SYMBOL=i.test.data[,gene.symbol.label], PREDICTION=as.numeric(i.prediction)), file=paste(dir.prefix , "signature_prediction_", i, ".txt", sep=""), sep="\t", col.names=T, row.names=F) #%%
+    }
+    if (verbose) {
+      cat("done\n")
+    }
+  }
+  
+  #print(glms)
+  return(ES)
+}
+
+
+
+
+

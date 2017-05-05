@@ -8,9 +8,9 @@ clusterings.compare(m, consistency.thresh = 0.5, do.plot = T,
   show.cell = FALSE, bar.width = 1, font.size = 12)
 }
 \arguments{
-\item{m}{The data.frame encoding different clustering results. Rows are cells, Columns are clustering results}
+\item{m}{The data.frame encoding different clustering results. Rows are cells, Columns are clustering results. Column names denote different clustering assignments.}
 
-\item{consistency.thresh}{For a cell, if less than \'consistency.thresh\' percent of its neighbors in clustering A remains in clustering B, the instability of the clustering assignment of the cell will increase}
+\item{consistency.thresh}{For a cell, if less than consistency.thresh percent of its neighbors in clustering A remains in clustering B, the instability of the clustering assignment of the cell will increase}
 
 \item{show.cell}{If TRUE, show cell names in the plot}
 
@@ -23,4 +23,7 @@ The data frame containing cell clustering assignments and instability scores
 }
 \description{
 Compare and visualze multiple clustering assignments
+}
+\details{
+The similarity between two clustering assignments is measured based on the metric proposed in Torres et al., International Journal of Electrical, Computer & Systems Engineer, 2009.
 }

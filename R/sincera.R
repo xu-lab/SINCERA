@@ -5,7 +5,7 @@
 #'
 #' Information is stored in slots. Key slots include:
 #'
-#'@section Slots:
+#' @section Slots:
 #'  \describe{
 #'    \item{\code{data}:}{\code{"ExpressionSet"}, the scRNA-seq data in ExpressionSet format, encoding the expression matrix, gene, and cell metadata, including sample and condition information. In most of the SINCERA functions, cell grouping is based on the "GROUP" metadata.  }
 #'    \item{\code{genes.forclustering}:}{\code{"vector"}, the set of genes used for the cell cluster identification  }
@@ -21,7 +21,7 @@
 #'    \item{\code{tfs}:}{\code{"vector"}, a vector containing a set of all transcription factors/cofactors   }
 #'    \item{\code{projname}:}{\code{"character"}, a string describing the data and analysis  }
 #'
-#'}
+#' }
 #' @name sincera
 #' @rdname sincera
 #' @aliases sincera-class
@@ -42,6 +42,7 @@ sincera <- setClass(Class="sincera", slots =
                       diffgenes="data.frame",                    # Differentially expressed genes
 
                       cte = "list",                              # cell type enrichment results
+                      ctv = "data.frame",                        # cell type validation results
 
                       ctmap = "data.frame",                      # mapping between cell types and clusters; column 1: cluster id; column 2: cell type
                       markers="data.frame",                      # marker information for cell types; column 1: cell type; column 2: gene
@@ -129,6 +130,8 @@ construct <- function(exprmatrix=NULL, exprfile=NULL,
   object@genes.forclustering <- unique(genenames)
 
   object@cte <- list()
+  
+  object@ctv <- data.frame(CELL=NULL, PVALUE=NULL, SCORE=NULL, CLUSTER.ASSIGNMENT=NULL, TYPE=NULL)
 
   object@ctmap <- data.frame(GROUP=sort(unique(rsampleinfo)), TYPE=rep("undefined", length(unique(rsampleinfo))), stringsAsFactors = FALSE)
   object@markers <- data.frame(TYPE=NULL, SYMBOL=NULL, stringsAsFactors = FALSE)
@@ -324,14 +327,16 @@ getGeneNum <- function(object) {
 #' @return The sincera object with the updated cell meta data
 #' @export
 #'
-setCellMeta <- function(object, name, value) {
+setCellMeta <- function(object, name, value, verbose=T) {
   if (length(value) != getCellNum(object)) {
     stop("The size of \'value\' is different from the number of cells in the object\n")
   }
-  if (!(name %in% colnames(pData(object@data)))) {
-    cat("\nAdding cell meta data \'", name, "\'\n", sep="")
-  } else {
-    cat("\nUpdating cell meta data \'", name, "\'\n", sep="")
+  if (verbose) {
+    if (!(name %in% colnames(pData(object@data)))) {
+      cat("\nAdding cell meta data \"", name, "\"\n", sep="")
+    } else {
+      cat("\nUpdating cell meta data \"", name, "\"\n", sep="")
+    }
   }
   pData(object@data)[, name] <- value
   return(object)
@@ -365,12 +370,12 @@ getCellMeta <- function(object, name) {
 #' @return The update sincera object
 #' @export
 #'
-copyCellMeta <- function(object, from, to) {
+copyCellMeta <- function(object, from, to, verbose=T) {
   if (!(from %in% colnames(pData(object@data)))) {
     stop("Undefined cell metadata \'", from, "\'\nHere are the defined cell meta data: ", paste(colnames(pData(object@data)), collapse = ", "),"\n")
   }
   object <- setCellMeta(object, name=to, value=getCellMeta(object, name=from))
-  cat("\nCopied meta data \'", from, "\' to \'", to, "\'\n", sep="")
+  if (verbose) cat("\nCopied meta data \'", from, "\' to \'", to, "\'\n", sep="")
   return(object)
 }
 
@@ -383,14 +388,16 @@ copyCellMeta <- function(object, from, to) {
 #' @return The sincera object with the updated gene meta data
 #' @export
 #'
-setGeneMeta <- function(object, name, value) {
+setGeneMeta <- function(object, name, value, verbose=T) {
   if (length(value) != getGeneNum(object)) {
     stop("The size of \'value\' is different from the number of cells in the object\n")
   }
-  if (!(name %in% colnames(fData(object@data)))) {
-    cat("\nAdding gene meta data \'", name, "\'\n", sep="")
-  } else {
-    cat("\nUpdating gene meta data \'", name, "\'\n", sep="")
+  if (verbose) {
+    if (!(name %in% colnames(fData(object@data)))) {
+      cat("\nAdding gene meta data \"", name, "\"\n", sep="")
+    } else {
+      cat("\nUpdating gene meta data \"", name, "\"\n", sep="")
+    }
   }
   fData(object@data)[, name] <- value
   return(object)
@@ -436,29 +443,60 @@ copyGeneMeta <- function(object, from, to) {
 #'
 #' Map cell clusters to cell types
 #' @param object A sincera object
-#' @param do.reset If TRUE, reset the cell types of all cells to "undefined"
+#' @param do.reset If TRUE, reset the cell types of all cells to "undefined". All the other parameters will be ignored.
 #' @param groups A set of cell groups
 #' @param types The cell types of cell groups
 #' @return A sincera object with the updated cell type and cell group mapping
 #' @export
 #'
 setCellType <- function(object, do.reset=FALSE, groups=NULL, types=NULL) {
+  
     if (do.reset) {
+      
+      if (FALSE) {
         groups <- sort(unique(getCellMeta(object, name="GROUP")))
         object@ctmap <- data.frame(GROUP=groups, TYPE=rep("undefined", length(groups)), stringsAsFactors = FALSE)
-
+      }
+      
+      if (!("TYPE" %in% colnames(pData(object@data)))) {
+        object <- setCellMeta(object, name="TYPE", value=rep("undefined", getCellNum(object)))
+        warning("Cell type was not defined previously. All cells were assigned to \"undefined\" cell type")
+      } else {
+        object <- setCellMeta(object, name="TYPE", value=rep("undefined", getCellNum(object)))
+        cat("All cells were reset to \"undefined\" cell type")
+      }
+        
     } else {
-        if (length(groups) != length(types)) {
-            stop("Inconsistent number of clusters and cell types.")
-        }
-        for (i in 1:length(groups)) {
+      if (length(groups) != length(types)) {
+          stop("The numbers of items in the \"groups\" and \"types\" parameters are inconsistent")
+      }
+      if (!("TYPE" %in% colnames(pData(object@data)))) {
+        object <- setCellMeta(object, name="TYPE", value=rep("undefined", getCellNum(object)))
+        warning("Cell type was not defined previously. All cells were assigned to \"undefined\" cell type")
+      }
+      for (i in 1:length(groups)) {
+        
+          if (FALSE) {
             idx <- which(object@ctmap$GROUP == groups[i])
             if (length(idx)==0) {
                 object@ctmap <- rbind(object@ctmap, data.frame(GROUP=groups[i], TYPE=types[i]))
             } else if (length(idx)==1) {
                 object@ctmap$TYPE[idx] <- types[i]
             }
-        }
+          }
+          
+          i.idx <- which(getCellMeta(object, name="GROUP") == groups[i])
+          if (length(i.idx)==0) {
+            stop("Cell group \"", groups[i], "\" was not defined.")
+          } else {
+            celltype <- as.character(getCellMeta(object, name="TYPE"))
+            celltype[i.idx] <- types[i]
+            object <- setCellMeta(object, name="TYPE", value=factor(celltype))
+          }
+      }
+      cat("\nThe updated cell type definitions are as follows:\n")
+      print(getCellType(object))
+      cat("\n")
     }
     return(object)
 }
@@ -472,22 +510,74 @@ setCellType <- function(object, do.reset=FALSE, groups=NULL, types=NULL) {
 #' @param groups The set of cell groups whose cell types will be returned; if NULL, set to all cell groups defined in the "GROUP" metadata
 #' @return A character vector of cell types
 #' @export
+#' @details
+#' This function takes "GROUP" metadata as cell group information, and returns mapping between the "GROUP" and "TYPE" metadata.
+#' An error message will be returned if the "TYPE" metadata does not exist.
+#' If any cell groups specified in the groups parameter are not defined in the "GROUP" metadata, an warning will be raised.
+#' If any cell groups mapped to multiple cell types, an warning will be raised.
+#' 
 #'
 getCellType <- function(object, groups=NULL) {
+  
+    if (FALSE) {
+      if (is.null(groups)) {
+        groups <- object@ctmap$GROUP
+      }
+      
+      ret <- c()
+      for (i in groups) {
+          i.idx <- which(object@ctmap$GROUP == i)
+          if (length(i.idx)>0) {
+              ret <- c(ret, as.character(object@ctmap$TYPE[i.idx]))
+          } else {
+              ret <- c(ret, "NotFound")
+          }
+      }
+      names(ret) <- groups
+    }
+    
+    
+    if (!("TYPE" %in% colnames(pData(object@data)))) {
+      stop("Cell type information was not defined in the object. Please run setCellType() first.")
+    }
+    
     if (is.null(groups)) {
-      groups <- object@ctmap$GROUP
+      groups2 <- sort(unique(as.character(getCellMeta(object, name="GROUP"))))
+    } else {
+      groups2 <- groups
     }
-    ret <- c()
-    for (i in groups) {
-        i.idx <- which(object@ctmap$GROUP == i)
-        if (length(i.idx)>0) {
-            ret <- c(ret, as.character(object@ctmap$TYPE[i.idx]))
-        } else {
-            ret <- c(ret, "NotFound")
-        }
+    
+    j <- 1
+    ret2 <- c()
+    groups.multimapped <- c()
+    groups.uniquemapped <- c()
+    groups.notmapped <- c()
+    celltype <- as.character(getCellMeta(object, name="TYPE"))
+    for (i in 1:length(groups2)) {
+      i.types <- unique(celltype[which(getCellMeta(object, "GROUP")==groups2[i])])
+      if (length(i.types)<1) {
+        groups.notmapped <- c(groups.notmapped, groups2[i])
+      } else if (length(i.types)==1) {
+        groups.uniquemapped <- c(groups.uniquemapped, groups2[i])
+        ret2[j] <- i.types
+        names(ret2)[j] <- groups2[i]
+        j <- j+1
+      } else {
+        groups.multimapped <- c(groups.multimapped, groups2[i])
+        ret2[j] <- paste(i.types, collapse=", ", sep="")
+        names(ret2)[j] <- groups2[i]
+        j <- j+1
+      }
     }
-    names(ret) <- groups
-    return(ret)
+    if (length(groups.notmapped)>0) {
+      warning("The following groups are not found in the object", paste(groups.notmapped, collapse=", "), "\n") 
+    }
+    if (length(groups.multimapped)>0) {
+      warning("The following groups mapped to multiple celltypes", paste(groups.multimapped, collpase=", "), "\n")
+    }
+    
+    
+    return(ret2)
 }
 
 #' Get cell type marker information defined in a sincera object
@@ -511,14 +601,26 @@ getCellTypeMarkers <- function(object) {
 #'
 #' @param object A sincera object
 #' @param value A data frame containing the markers and their corresponding cell types. The first column is cell type, and the second column is marker gene name.
-#' @param types
-#'
 #' @export
+#' @details 
+#' The value is a data frame with the first column containing the cell types and the second column containing the markers, e.g.,
+#'  TYPE   SYMBOL
+#'   AT2   SFTPB
+#'   AT2   ABCA3
+#'   AT2   SLC34A2
+#'   AT2   LPCAT1
+#'  Basal  KRT5
+#'  Basal  KRT14
+#'  
 setCellTypeMarkers <- function(object, value) {
 
-    value <- value[, 1:2]
-    colnames(value) <- c("TYPE", "SYMBOL")
-    object@markers <- value
+    if (is.data.frame(value) & dim(value)[2]>=2 & dim(value)[1]>0) { 
+      value <- value[, 1:2]
+      colnames(value) <- c("TYPE", "SYMBOL")
+      object@markers <- value
+    } else {
+      stop("Invalid input format. Please make sure \"value\" is a data frame with the first column containing the cell types and the second column containing the markers.")
+    }
 
     return(object)
 }
@@ -613,6 +715,26 @@ setTSNE <- function(object, name, value) {
   return(object)
 }
 
+#' @export
+setCellTypeValidation <- function(object, value) {
+  
+  if (!is.data.frame(value)) {
+    stop("Invalid input value. Please refer to ?setCellTypeValidation for input format.")
+  }
+  object@ctv <- value
+  return(object)
+}
+
+#' @export
+getCellTypeValidation <- function(object) {
+  ret <- NULL
+  if (dim(object@ctv)[1]==0) {
+    stop("No cell type validation data. Please run celltype.validation function first.")
+  }
+  ret <- object@ctv
+  return(ret)
+}
+
 
 #' @export
 setCellTypeEnrichment <- function(object, groups=NULL, value) {
@@ -631,6 +753,8 @@ setCellTypeEnrichment <- function(object, groups=NULL, value) {
 
     return(object)
 }
+
+
 
 #' @export
 getCellTypeEnrichment <- function(object, groups=NULL) {
@@ -1066,6 +1190,113 @@ GeneStats <- function(dp, ident, groups=NULL, genes=NULL, min.expression=1, min.
 
 
 
+#' consensus maximization
+#' @param x - normalized model prediction
+consensus_maximization <- function(x, prior=NULL, alpha=4, epslon=0.1, max.iter=100) {
+  
+  dir.delim <- "/"
+  
+  cat("sincera: consensus maximization...\n")
+  
+  wd <- paste(getwd(), dir.delim, "sincera.consensus.maximization.", getTimestamp(), dir.delim, sep="")
+  dir.create(wd)
+  
+  fs <- x
+  
+  # fs.type <- data.frame(NAME=colnames(fs), TYPE=model.type)
+  
+  A <- matrix(0, nrow=dim(fs)[1], ncol=dim(fs)[2]*2)
+  rownames(A) = rownames(fs)
+  colnames(A) = paste("q", seq(1,dim(A)[2],1), sep="")
+  
+  for (j in 0:(dim(fs)[2]-1)) {
+    for (i in 1:dim(fs)[1]) {
+      A[i,(2*j+1)] <- fs[i, (j+1)]
+      A[i,(2*j+2)] <- 1-fs[i, (j+1)]
+    }
+  }
+  
+  if (is.null(prior)) {
+    prior= rep(1, length=dim(A)[2])
+    idx <- seq(2, dim(A)[2], by=2)
+    prior[idx] <- 0
+  }
+  
+  Y <- matrix(0, nrow=dim(A)[2], ncol=2)
+  rownames(Y) <- colnames(A)
+  colnames(Y) <- c("P","N")
+  
+  Y[,1] <- prior
+  Y[,2] <- 1-Y[,1]
+  
+  
+  if (FALSE) {
+    type2.p <- 1
+    type2.n <- 0.5
+    
+    for (j in 0:(dim(fs)[2]-1) ) {
+      if (fs.type$TYPE[j+1] == 1) {
+        Y[(2*j+1),] <- c(1,0)
+        Y[(2*j+2),] <- c(0, 1)
+      } else if (fs.type$TYPE[j+1] == 2) {
+        Y[(2*j+1),] <- c(type2.p,1-type2.p)
+        Y[(2*j+2),] <- c(type2.n,1-type2.n)
+      }
+    }
+  }
+  
+  # start integration
+  Q <- matrix(0, nrow=dim(Y)[1], ncol=dim(Y)[2])
+  rownames(Q) <- rownames(Y)
+  colnames(Q) <- colnames(Y)
+  
+  U <- matrix(0, nrow=dim(A)[1], ncol=dim(Y)[2])
+  rownames(U) <- rownames(A)
+  colnames(U) <- colnames(Y)
+  
+  # init U
+  U[,1] <- fs[,2]
+  U[,2] <- 1-U[,1]
+  
+  iter <- 1
+  
+  data4viz <- data.frame(Iteration=1:(max.iter-1), Delta=NA)
+  
+  delta <- Inf #
+  while ( (delta>epslon) & (iter < max.iter)) {
+    U.1 <- U
+    # update Q
+    dv <- matrix(0, nrow=dim(Q)[1], ncol=dim(Q)[1])
+    diag(dv) <- apply(A, 2, sum)
+    kv <- matrix(0, nrow=dim(Q)[1], ncol=dim(Q)[1])
+    diag(kv) <- 1
+    Q <- solve(dv + alpha*kv) %*% (t(A) %*% U + (alpha*kv) %*% Y)
+    # update U
+    dn <- matrix(0, nrow=dim(A)[1], ncol=dim(A)[1])
+    diag(dn) <- apply(A, 1, sum)
+    U <- solve(dn) %*% A %*% Q
+    delta <- U-U.1
+    delta <- norm(as.matrix(delta), "f")
+    
+    data4viz$Delta[iter] <- delta
+    
+    iter <- iter + 1
+  }
+  
+  # visualization
+  ggplot(data4viz[1:(iter-1),], aes(x=Iteration, y=Delta)) + geom_line(colour="blue") + geom_hline(yintercept=epslon, colour="red") + xlab("Iteration") + ggtitle("Consensus Maximization") + sincera_theme(font_size=12)
+  ggsave(filename=paste(wd, "CM.pdf", sep=""))
+  
+  
+  dU <- cbind(RID=rownames(fs), U)
+  dU <- cbind(dU, x)
+  dU <- dU[order(dU$P, decreasing=T),]
+  
+  write.table(dU, file=paste(wd, "CM.U-alpha", alpha,"-epslon", epslon, "-max.iter", max.iter, ".txt", sep=""), sep="\t", col.names=T, row.names=F)
+  
+  cat("sincera: consensus maximization completed\n\n")
+}
+
 
 ###########################################################################################################
 ####################                                                                   ####################
@@ -1073,7 +1304,10 @@ GeneStats <- function(dp, ident, groups=NULL, genes=NULL, min.expression=1, min.
 ####################                                                                   ####################
 ###########################################################################################################
 
-
+# return Sys.time in specified format
+getTimestamp <- function(format.str='%m%d%Y_%Hh%Mm%Ss'){
+  return(format(Sys.time(),format.str))
+}
 
 
 pause <- function() {
@@ -1091,6 +1325,36 @@ getPlotDims <- function(n) {
     ncol <- ceiling(n/nrow)
     return(list(nrow=nrow, ncol=ncol))
 }
+
+
+
+multiplot <- function(..., plotlist=NULL, cols) {
+  require(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # Make the panel
+  plotCols = cols                          # Number of columns of plots
+  plotRows = ceiling(numPlots/plotCols) # Number of rows needed, calculated from # of cols
+  
+  # Set up the page
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(plotRows, plotCols)))
+  vplayout <- function(x, y)
+    viewport(layout.pos.row = x, layout.pos.col = y)
+  
+  # Make each plot, in the correct location
+  for (i in 1:numPlots) {
+    curRow = ceiling(i/plotCols)
+    curCol = (i-1) %% plotCols + 1
+    print(plots[[i]], vp = vplayout(curRow, curCol ))
+  }
+  
+}
+
 
 
 sincera_theme <- function(font_size=8) {

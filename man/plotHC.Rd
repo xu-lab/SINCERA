@@ -18,3 +18,7 @@ plotHC(object, horiz = FALSE, show.labels = FALSE, do.radial = FALSE, ...)
 \description{
 Plot the dendrogram tree of hierarchical clustering
 }
+\details{
+When do.radial is FALSE, the plotting uses plot(); one can use pdf(), tiff(), or other similar functions to save plots to files when needed
+when do.radial is TRUE, the plotting uses ggplot2:ggplot(); one can use ggsave() to save plots to files.
+}

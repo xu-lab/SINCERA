@@ -23,7 +23,6 @@ Collate:
     'sincera.R'
     'celltype.R'
     'drivingforce.R'
-    'old_functions.R'
     'plotting.R'
     'preprocessing.R'
     'signature.R'

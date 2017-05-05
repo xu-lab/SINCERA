@@ -11,13 +11,17 @@ doPCA(object, genes = NULL, use.scaled = T, use.fast = T, ...)
 
 \item{genes}{The set of genes used for PCA}
 
-\item{use.scaled}{If TRUE, use the scaled expression for PCA}
+\item{use.scaled}{If TRUE, use the scaled expression for PCA.}
 
-\item{use.fast}{If TRUE, use gmodels::fast.prcomp; otherwise, use stats::prcomp}
+\item{use.fast}{If TRUE, use gmodels::fast.prcomp(); otherwise, use stats::prcomp()}
 }
 \value{
 The update sincera object with PCA results in the pca slot
 }
 \description{
 Perform PCA based dimension reduction
+}
+\details{
+When use.fast is TRUE, please refer to ?gmodels::fast.prcomp for more parameters to control the PCA
+When use.fast is FALSE, please refer to ?stats:prcomp for more parameters to control the PCA
 }

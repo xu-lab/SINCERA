@@ -10,9 +10,9 @@ drivingforce.rankTFs(object, groups = NULL, metrics = c("DC", "CC", "BC",
 \arguments{
 \item{object}{A sincera object}
 
-\item{metrics}{The TF importance metrics that will be used for the ranking, possible values include DC, CC, BC, DFC, DCC, DDC.}
+\item{groups}{The cell groups for TF ranking}
 
-\item{clusters}{The cell groups for TF ranking}
+\item{metrics}{The TF importance metrics that will be used for the ranking, possible values include DC, CC, BC, DFC, DCC, DDC.}
 }
 \value{
 An updated sincera object, use getDF with name="tfranks" to access the lcc

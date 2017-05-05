@@ -16,9 +16,9 @@ cluster.diffgenes(object, groups = NULL, genes = NULL, method = "welch",
 
 \item{method}{The method for differential test, possible values include welch - one tailed welch's t-test, wilcoxon - one-tailed wilcoxon rank sum test}
 
-\item{thresh}{The threshold for significance}
+\item{do.fdr}{If TRUE, do the FDR correction}
 
-\item{do.far}{If TRUE, do the FDR correction}
+\item{thresh}{The threshold for significance}
 }
 \value{
 The update sincera object with diff test results in the difftests slot and the significant diff genes in the diffgenes slot
