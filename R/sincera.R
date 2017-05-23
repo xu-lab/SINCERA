@@ -1015,9 +1015,9 @@ getDF <- function(object, group, name) {
 
 #' Generate gene level global or per group statistics
 #'
-#' @param dp The expression matrix: rows are genes, columns are cells
-#' @param ident The vector of cell identity
-#' @param group The identity groups to be included in the calculation
+#' @param dp The expression matrix: rows are genes, columns are cells.
+#' @param ident A character/factor vector encoding the identities (e.g., cluster, type, sample, condition, etc.) of cells in the expression matrix. The length of the vector should be the same as the number of cells in the expression matrix and the order of cell identities should be the same as the order of cells in the expression matrix.
+#' @param groups The identity groups to be included in the calculation.
 #' @param genes The set of genes to be included in the calculation; if NULL, will be automatically set to all genes in the expression matrix
 #' @param min.exp The threshold vaule of gene expression
 #' @param min.gsize The minimum size of a group
