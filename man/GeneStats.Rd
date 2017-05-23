@@ -10,9 +10,11 @@ GeneStats(dp, ident, groups = NULL, genes = NULL, min.expression = 1,
   "ident.max", "ident.cnt", "ident.pct"))
 }
 \arguments{
-\item{dp}{The expression matrix: rows are genes, columns are cells}
+\item{dp}{The expression matrix: rows are genes, columns are cells.}
 
-\item{ident}{The vector of cell identity}
+\item{ident}{A character/factor vector encoding the identities (e.g., cluster, type, sample, condition, etc.) of cells in the expression matrix. The length of the vector should be the same as the number of cells in the expression matrix and the order of cell identities should be the same as the order of cells in the expression matrix.}
+
+\item{groups}{The identity groups to be included in the calculation.}
 
 \item{genes}{The set of genes to be included in the calculation; if NULL, will be automatically set to all genes in the expression matrix}
 
@@ -21,8 +23,6 @@ GeneStats(dp, ident, groups = NULL, genes = NULL, min.expression = 1,
 \item{min.avg}{The minimum of average expression values}
 
 \item{stats}{A vector containing the statistics to be calculated for each gene, including}
-
-\item{group}{The identity groups to be included in the calculation}
 
 \item{min.exp}{The threshold vaule of gene expression}
 }
