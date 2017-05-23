@@ -15,7 +15,7 @@ An R S4 implementation of the SINCERA pipeline for single-cell RNA-seq profiling
 * Then, use devtools to install SINCERA from github
   
   ```
-  devtools::install_github("minzheguo/SINCERA")
+  devtools::install_github("xu-lab/SINCERA")
   ```
 
 * Use library() to activate SINCERA
