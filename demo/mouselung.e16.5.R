@@ -65,12 +65,43 @@ plotPCASD(sc)
 sc <- doTSNE(sc, dims=1:9)
 plotRDS(sc, feature.type="tsne")
 
+
+
+# set clustering.method = "tight" to use tight clustering algorithm to find cell clusters
+# at least "target" and "k.min"
+# please refer to ?tightClust::tight.cluster for more information
+# sc <- cluster.assignment(sc, clustering.method = "tight", target=9, k.min=3)
+#
+# visualize clustering results in tSNE plot
+# plotRDS(sc, feature.type="tsne")
+#
+# save tight clustering results as cell meta 'tight'
+# sc <- copyCellMeta(sc, from="CLUSTER", to="tight")
+
+
+# set clustering.method = "consensus" to use consensus clustering algorithm to find cell clusters
+# please refer to ?ConsensusClusterPlus::ConsensusClusterPlus for parameter information
+# sc <- cluster.assignment(sc, clustering.method = "consensus", min.area.increase=0.01, maxK=15)
+# plotRDS(sc, feature.type="tsne")
+# sc <- copyCellMeta(sc, from="CLUSTER", to="consensus")
+
+
 # Run cluster.assignment function to assign cells to initial clusters.
 # The default algorithm uses hierarchical clustering with average linkage,
 # Pearson’s correlation based distance measurement, and z-score transformed expression values of the selected genes.
 sc <- cluster.assignment(sc, h=0.5)
 
-# save dendrogram with cell names to pdf file for 
+# save hierarchical clustering results as cell meta 'hc'
+# sc <- copyCellMeta(sc, from="CLUSTER", to="hc")
+# 
+# One can use clustering.compare function in SINCERA to compare multiple clustering schemes, 
+# such as hierarchical clustering and consensus clustering
+# clustering.
+# m <- pData(sc@data)[, c("hc", "consensus")]
+# clusterings.compare(m)
+
+
+# save dendrogram with cell names to pdf file
 pdf(file="HC.pdf", width=20, height=10) #adjust width or height based on the number of cells in the dendrogram
 plotHC(sc, show.labels = T)
 dev.off()

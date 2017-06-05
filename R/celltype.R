@@ -292,16 +292,16 @@ setMethod("cluster.geneSelection","sincera",
 #'   community.method - The community detection method, possible values include louvain, infomap, walktrap, spinglass, edge_betweenness, label_prop, optimal, fast_greedy.
 #'    
 #'    
-#' When clustering.method is tight, the function utilizes tightClust::tight.clust() to perform tight clustering; please refer to ?tightClust::tight.clust for parameters and more informaiton
+#' When clustering.method is tight, the function utilizes tightClust::tight.clust() to perform tight clustering. Note that this algorithm may produce a partial partition of cells. Cells will be assigned with "-1" membership if they are not assigned to any found tight clusters. please refer to ?tightClust::tight.clust for more informaiton.
 #' 
 #' 
-#' When clustering.method is consensus, the function utilizes ConsensusClusterPlus::ConsensusClusterPlus() to perform consensus clustering; please refer to ?ConsensusClusterPlus::ConsensusClusterPlus for parameters and more informaiton
+#' When clustering.method is consensus, the function utilizes ConsensusClusterPlus::ConsensusClusterPlus() to perform consensus clustering; the parameter "min.area.increase" is a threshold value for determining the number of clusters; let k be the current choice of the number of clusters, if the delta area from k-1 to k is greater than min.area.increase, k will be increased by 1 until the delta area increase is below min.area.increase or k=maxK. The calculation of delta area is defined in the original paper of ConsensusClusterPlus (Wilkerson et al., Bioinformatics 2010). Please refer to ?ConsensusClusterPlus::ConsensusClusterPlus for the setting of other parameters.
 #' 
 #' 
-#' When clustering.method is kmeans, the function utilizes stats::kmeans() to perform k-means clustering; please refer to ?kmeans for parameters and more informaiton
+#' When clustering.method is kmeans, the function utilizes stats::kmeans() to perform k-means clustering; please refer to ?kmeans for parameters and more informaiton.
 #' 
 #' 
-#' When clustering.method is pam, the function utilizes cluster::pam() to perform Partitioning Around Medoids clustering; please refer to ?cluster::pam for parameters and more information
+#' When clustering.method is pam, the function utilizes cluster::pam() to perform Partitioning Around Medoids clustering; please refer to ?cluster::pam for parameters and more information.
 #' 
 setGeneric("cluster.assignment", function(object, feature.type="gene", rds.dims=1:3,
                                           update.cellgroup=T,
@@ -389,18 +389,18 @@ setMethod("cluster.assignment","sincera",
             if (clustering.method=="tight") {
 
               if (verbose) {
-                cat("\tUsing tight clustering to find ", as.numeric(target), " cell clusters \n", sep="")
+                cat("\tUsing tight clustering to find cell clusters\n", sep="")
               }
 
               ret <- NULL
-              clusters <- clustering.tight(data.use, ...)
+              clusters <- clustering.tight(t(data.use), ...)
 
               object <- setCellMeta(object, name="CLUSTER", value=clusters)
 
             } else if (clustering.method=="consensus") {
 
               if (verbose) {
-                cat("Using consensus clustering", sep="")
+                cat("Using consensus clustering to find cell clusters\n", sep="")
               }
 
               clusters <- clustering.consensus(data.use, ...)
@@ -410,7 +410,7 @@ setMethod("cluster.assignment","sincera",
             } else if (clustering.method=="hc") {
 
               if (verbose) {
-                cat("Using hierarchical clustering", sep="")
+                cat("Using hierarchical clustering to find cell clusters\n", sep="")
               }
 
               ret <- clustering.hc(data.use, ...)
@@ -423,17 +423,23 @@ setMethod("cluster.assignment","sincera",
               plotHC(object)
 
             } else if (clustering.method=="graph") {
-
+              if (verbose) {
+                cat("Using kNN + Community dection algorithm to find cell clusters\n", sep="")
+              }
               clusters <- clustering.graph(data.use, ...)
               object <- setCellMeta(object, name="CLUSTER", value=clusters)
 
             } else if (clustering.method=="pam") {
-
+              if (verbose) {
+                cat("Using PAM algorithm to find cell clusters\n", sep="")
+              }
               clusters <- clustering.pam(data.use, ...)
               object <- setCellMeta(object, name="CLUSTER", value=clusters)
 
             } else if (clustering.method=="kmeans") {
-
+              if (verbose) {
+                cat("Using k-means algorithm to find cell clusters\n", sep="")
+              }
               clusters <- clustering.kmeans(data.use, ...)
               object <- setCellMeta(object, name="CLUSTER", value=clusters)
 
@@ -589,15 +595,24 @@ clusterings.compare <- function(m, consistency.thresh=0.5, do.plot=T, show.cell=
     g <- g + sincera_theme()
     g3 <- g
 
-    library(pheatmap)
-    library("RColorBrewer")
-    colors <- colorRampPalette( (brewer.pal(9, "Blues")) )(255)
-    g4 <- pheatmap(clusterings.sim, silent=T, col=colors)$gtable
-
+    
+    if (dim(m)[2]>2) {
+      library(pheatmap)
+      library("RColorBrewer")
+      colors <- colorRampPalette( (brewer.pal(9, "Blues")) )(255)
+      g4 <- pheatmap(clusterings.sim, silent=T, col=colors)$gtable
+    } else {
+      g4 <- NULL
+    }
 
     library(gridExtra)
     library(grid)
-    grid.arrange(g2, g3, g1, g4, ncol=2)
+    if (is.null(g4)) {
+      grid.arrange(g2, g3, g1, ncol=2)
+    } else {
+      grid.arrange(g2, g3, g1, g4, ncol=2)
+    }
+    
 
   }
 
@@ -1066,6 +1081,9 @@ diff.test.samseq <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, samseq.fdr
 #' @param top.k The number of top enriched cell types to be plotted at the end of the analysis
 #' @param verbose If TRUE, print verbose messages
 #' @return The updated sincera object with enrichment results in the cte slot
+#' @details 
+#' 
+#' Please note that the default gene-celltype association table was constructed based on mouse genes. The use of this function for human single cell analysis is still under testing. 
 #'
 setGeneric("celltype.enrichment", function(object, species="MUSMU", id.type="SYMBOL", do.plot=T, top.k=5, verbose=T, ...) standardGeneric("celltype.enrichment"))
 #' @export
@@ -1453,13 +1471,13 @@ setMethod("celltype.validation","sincera",
 ########## clustering algorithms #####################
 
 
-clustering.tight <- function(x, ...) {
+clustering.tight <- function(x, target=1, k.min=25, ...) {
   ret <- NULL
 
-  ret <- tight.clust(x, ...)
+  ret <- tight.clust(x, target=target, k.min=k.min, ...)
 
   clusters <- ret$cluster
-  names(clusters) <- colnames(x)
+  names(clusters) <- rownames(x)
 
   return(clusters)
 }
@@ -1469,7 +1487,7 @@ clustering.consensus <- function(x, min.area.increase=0.2, ...) {
 
 
   ret <- NULL
-  ret <- ConsensusClusterPlus(x, ..)
+  ret <- ConsensusClusterPlus(x, ...)
 
   kk <- length(ret)
   areaK <- c()
@@ -1498,10 +1516,10 @@ clustering.consensus <- function(x, min.area.increase=0.2, ...) {
   while(deltaK[i] > min.area.increase && i<kk) {
     i <- i+1
   }
-  #plot(1+(1:length(deltaK)),y=deltaK,xlab="k",ylab="relative change in area under CDF curve",main="Delta area",type="b")
+  #◙☻plot(1+(1:length(deltaK)),y=deltaK,xlab="k",ylab="relative change in area under CDF curve",main="Delta area",type="b")
 
   clusters <- as.character(ret[[i]][["consensusClass"]])
-  names(clusters) <- colnames(data.use)
+  names(clusters) <- colnames(x)
 
   return(clusters)
 }

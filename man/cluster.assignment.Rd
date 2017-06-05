@@ -44,14 +44,14 @@ Possible parameters include:
   community.method - The community detection method, possible values include louvain, infomap, walktrap, spinglass, edge_betweenness, label_prop, optimal, fast_greedy.
    
    
-When clustering.method is tight, the function utilizes tightClust::tight.clust() to perform tight clustering; please refer to ?tightClust::tight.clust for parameters and more informaiton
+When clustering.method is tight, the function utilizes tightClust::tight.clust() to perform tight clustering. Note that this algorithm may produce a partial partition of cells. Cells will be assigned with "-1" membership if they are not assigned to any found tight clusters. please refer to ?tightClust::tight.clust for more informaiton.
 
 
-When clustering.method is consensus, the function utilizes ConsensusClusterPlus::ConsensusClusterPlus() to perform consensus clustering; please refer to ?ConsensusClusterPlus::ConsensusClusterPlus for parameters and more informaiton
+When clustering.method is consensus, the function utilizes ConsensusClusterPlus::ConsensusClusterPlus() to perform consensus clustering; the parameter "min.area.increase" is a threshold value for determining the number of clusters; let k be the current choice of the number of clusters, if the delta area from k-1 to k is greater than min.area.increase, k will be increased by 1 until the delta area increase is below min.area.increase or k=maxK. The calculation of delta area is defined in the original paper of ConsensusClusterPlus (Wilkerson et al., Bioinformatics 2010). Please refer to ?ConsensusClusterPlus::ConsensusClusterPlus for the setting of other parameters.
 
 
-When clustering.method is kmeans, the function utilizes stats::kmeans() to perform k-means clustering; please refer to ?kmeans for parameters and more informaiton
+When clustering.method is kmeans, the function utilizes stats::kmeans() to perform k-means clustering; please refer to ?kmeans for parameters and more informaiton.
 
 
-When clustering.method is pam, the function utilizes cluster::pam() to perform Partitioning Around Medoids clustering; please refer to ?cluster::pam for parameters and more information
+When clustering.method is pam, the function utilizes cluster::pam() to perform Partitioning Around Medoids clustering; please refer to ?cluster::pam for parameters and more information.
 }

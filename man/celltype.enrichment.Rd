@@ -26,3 +26,6 @@ The updated sincera object with enrichment results in the cte slot
 \description{
 Perform cell type enrichment
 }
+\details{
+Please note that the default gene-celltype association table was constructed based on mouse genes. The use of this function for human single cell analysis is still under testing.
+}
