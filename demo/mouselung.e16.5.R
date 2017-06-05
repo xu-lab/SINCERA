@@ -70,7 +70,7 @@ plotRDS(sc, feature.type="tsne")
 # set clustering.method = "tight" to use tight clustering algorithm to find cell clusters
 # at least "target" and "k.min"
 # please refer to ?tightClust::tight.cluster for more information
-# sc <- cluster.assignment(sc, clustering.method = "tight", target=9, k.min=3)
+# sc <- cluster.assignment(sc, clustering.method = "tight", target=8, k.min=10)
 #
 # visualize clustering results in tSNE plot
 # plotRDS(sc, feature.type="tsne")
