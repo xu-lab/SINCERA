@@ -10,10 +10,10 @@
 #' @param color.by The cell metadata used to color cells
 #' @param pt.size The size of points (cells) in the plot
 #'
-setGeneric("plotRDS", function(object, feature.type="pca", dim1=1, dim2=2, color.by="GROUP", pt.size=5, ...) standardGeneric("plotRDS"))
+setGeneric("plotRDS", function(object, feature.type="pca", dim1=1, dim2=2, color.by="GROUP", pt.size=5, do.label=F, label.size=10, ...) standardGeneric("plotRDS"))
 #' @export
 setMethod("plotRDS","sincera",
-          function(object, feature.type="pca", dim1=1, dim2=2, color.by="GROUP", pt.size=5, ...) {
+          function(object, feature.type="pca", dim1=1, dim2=2, color.by="GROUP", pt.size=5, do.label=F, label.size=10, ...) {
 
               if (feature.type=="pca") {
 
@@ -38,11 +38,17 @@ setMethod("plotRDS","sincera",
                   if (!(dim2 %in% colnames(dims))) stop("Dimension ", dim2, " cannot be found in the PCA space.")
 
                   viz <- data.frame(getTSNE(object, name="rds"), Group=factor(getCellMeta(object, name=color.by)), stringsAsFactors = FALSE, check.names=FALSE)
-
               }
-
-              g <- ggplot(viz, aes_string(x=dim1, y=dim2, col="Group"))
+            
+              colnames(viz)[1:2] <- c("x","y")
+     
+              g <- ggplot(viz, aes(x=x, y=y, col=Group))
               g <- g + geom_point(size=pt.size)
+              if (do.label==T) {
+                viz %>% dplyr::group_by(Group) %>% summarize(x = median(x), y = median(y)) -> centers
+                g <- g + geom_point(data = centers, aes(x=x, y=y), size=0, alpha=0) + geom_text(data=centers, aes(label=Group), col="black", size = label.size)
+              }
+              g <- g + xlab(dim1) + ylab(dim2)
               g <- g + sincera_theme()
               print(g)
           }
