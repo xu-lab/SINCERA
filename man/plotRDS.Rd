@@ -5,7 +5,7 @@
 \title{2D plot of cells in the PCA or tSNE reduced dimensional spaces}
 \usage{
 plotRDS(object, feature.type = "pca", dim1 = 1, dim2 = 2,
-  color.by = "GROUP", pt.size = 5, ...)
+  color.by = "GROUP", pt.size = 5, do.label = F, label.size = 10, ...)
 }
 \arguments{
 \item{object}{A sincera object}
@@ -19,6 +19,10 @@ plotRDS(object, feature.type = "pca", dim1 = 1, dim2 = 2,
 \item{color.by}{The cell metadata used to color cells}
 
 \item{pt.size}{The size of points (cells) in the plot}
+
+\item{do.label}{If TRUE, show group label in the plot}
+
+\item{label.size}{The size of the group label}
 }
 \description{
 2D plot of cells using the PCA or tSNE components
