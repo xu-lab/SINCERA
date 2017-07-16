@@ -9,6 +9,8 @@
 #' @param dim2 The component for y axis
 #' @param color.by The cell metadata used to color cells
 #' @param pt.size The size of points (cells) in the plot
+#' @param do.label If TRUE, show group label in the plot
+#' @param label.size The size of the group label
 #'
 setGeneric("plotRDS", function(object, feature.type="pca", dim1=1, dim2=2, color.by="GROUP", pt.size=5, do.label=F, label.size=10, ...) standardGeneric("plotRDS"))
 #' @export
@@ -45,7 +47,9 @@ setMethod("plotRDS","sincera",
               g <- ggplot(viz, aes(x=x, y=y, col=Group))
               g <- g + geom_point(size=pt.size)
               if (do.label==T) {
-                viz %>% dplyr::group_by(Group) %>% summarize(x = median(x), y = median(y)) -> centers
+                #viz %>% dplyr::group_by(Group) %>% summarize(x = median(x), y = median(y)) -> centers
+                centers <- data.frame(x=tapply(viz$x, viz$Group, median), y=tapply(viz$y, viz$Group, median))
+                centers$Group <- rownames(centers)
                 g <- g + geom_point(data = centers, aes(x=x, y=y), size=0, alpha=0) + geom_text(data=centers, aes(label=Group), col="black", size = label.size)
               }
               g <- g + xlab(dim1) + ylab(dim2)
