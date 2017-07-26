@@ -309,13 +309,15 @@ setMethod("plotHC","sincera",
 #' @param do.log2 If TRUE, apply log2 transformation to the values
 #' @param do.order If TRUE, order cells based on their GROUP information
 #' @param show.jitter If TRUE, in the violin and boxplot, plot individual cells
-#' @param plots The type of plots to be shown, possible values include cell, violin, and boxplot
+#' @param plots The type of plots to be shown, possible values include cell, violin, boxplot, and rds
+#' @param rds.use The reduced dimensions to be used in rds plot. Possible values include pca and tsne.
 #' @param fontsize The size of font in the plot
+#' @param pt.size The size of points in the plot
 #'
-setGeneric("plotMarkers", function(object, genes, use.scaled=T, do.log2=FALSE, do.order=T, show.jitter=T, plots=c("cell", "boxplot"), font.size=8, ...) standardGeneric("plotMarkers"))
+setGeneric("plotMarkers", function(object, genes, use.scaled=T, do.log2=FALSE, do.order=T, show.jitter=T, plots=c("cell", "boxplot", "rds"), rds.use=c("pca","tsne"), font.size=8, pt.size=5, ...) standardGeneric("plotMarkers"))
 #' @export
 setMethod("plotMarkers","sincera",
-          function(object, genes, use.scaled=T, do.log2=FALSE, do.order=T, show.jitter=T, plots=c("cell", "boxplot"), font.size=8, ...) {
+          function(object, genes, use.scaled=T, do.log2=FALSE, do.order=T, show.jitter=T, plots=c("cell", "boxplot", "rds"), rds.use=c("pca","tsne"), font.size=8, pt.size=5, ...) {
 
               genes <- unique(genes)
               genes.notfound <- genes[which(!(genes %in% getGenes(object)))]
@@ -364,7 +366,7 @@ setMethod("plotMarkers","sincera",
                   }
 
                   g <- ggplot(viz.1, aes_string(x="CID", y="Expression")) + facet_wrap(~Gene, scale="free", nrow=nrow, ncol=ncol)
-                  g <- g + geom_point(aes_string(col="Group"))
+                  g <- g + geom_point(aes_string(col="Group"), size=pt.size)
                   g <- g + sincera_theme()
                   g <- g + theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
                   g <- g + theme(panel.border = element_blank())
@@ -378,7 +380,7 @@ setMethod("plotMarkers","sincera",
               if ("violin" %in% plots) {
                   g <- ggplot(viz, aes_string(x="Group", y="Expression")) + facet_wrap(~Gene, scale="free", nrow=nrow, ncol=ncol)
                   if (show.jitter==TRUE) {
-                    g <- g + geom_jitter(height=0, alpha=0.3)
+                    g <- g + geom_jitter(height=0, alpha=0.3, size=pt.size)
                   }
                   g <- g + geom_violin(aes_string(fill="Group"), alpha=0.7, scale="width",adjust=0.75)
                   g <- g + sincera_theme()
@@ -394,7 +396,7 @@ setMethod("plotMarkers","sincera",
               if ("boxplot" %in% plots) {
                 g <- ggplot(viz, aes_string(x="Group", y="Expression")) + facet_wrap(~Gene, scale="free", nrow=nrow, ncol=ncol)
                 if (show.jitter==TRUE) {
-                  g <- g + geom_jitter(height=0, alpha=0.3)
+                  g <- g + geom_jitter(height=0, alpha=0.3, size=pt.size)
                 }
                 g <- g + geom_boxplot(aes_string(fill="Group"), alpha=0.7, outlier.shape = NA)
                 g <- g + sincera_theme()
@@ -405,6 +407,68 @@ setMethod("plotMarkers","sincera",
                 g <- g + theme(axis.title.x=element_text(size=rel(1.2)), axis.title.y=element_text(size=rel(1.2)), strip.text.x=element_text(size=rel(1.2)))
                 print(g)
                 pause()
+              }
+              
+              if ("rds" %in% plots) {
+                
+                Dim1 <- Dim2 <- NULL
+                if (rds.use=="pca") {
+                  Dim1=getPCA(object, name="rds")[,1]
+                  Dim2=getPCA(object, name="rds")[,2]
+                } else if (rds.use=="tsne") {
+                  Dim1=getTSNE(object, name="rds")[,1]
+                  Dim2=getTSNE(object, name="rds")[,2]
+                }
+                
+                if (!is.null(Dim1) & !is.null(Dim2)) {
+                  
+                  if (n>1) {
+                    viz <- data.frame(Cell=getCells(object),
+                                      Dim1=Dim1,
+                                      Dim2=Dim2,
+                                      Group=factor(getCellMeta(object, name="GROUP")),
+                                      t(expr)
+                    )
+                  } else {
+                    viz <- data.frame(Cell=getCells(object),
+                                      Dim1=Dim1,
+                                      Dim2=Dim2,
+                                      Group=factor(getCellMeta(object, name="GROUP"))
+                    )
+                    viz[, genes] <- as.numeric(expr)
+                  }
+                  viz <- melt(viz, id.vars=c("Cell","Dim1","Dim2","Group"))
+                  colnames(viz)[5:6] <- c("Gene","Expression")
+                  
+                  gs <- list()
+                  for (i in 1:length(genes)) {
+                    i.viz <- subset(viz, Gene==genes[i])
+                    if (use.scaled==T) {
+                      i.viz$Col <- i.viz$Expression
+                    } else {
+                      i.viz$Col <- factor(as.numeric(as.factor(cut(as.numeric(i.viz$Expression),breaks = 2))))
+                    }
+                    g <- ggplot(i.viz, aes(x=Dim1, y=Dim2, col=Expression)) #+ facet_wrap(~Gene+Time, ncol=ntime)
+                    g <- g + geom_point(size=pt.size) 
+                    g <- g + ggtitle(paste(genes[i]))
+                    if(use.scaled==T) {
+                      g <- g + scale_color_gradient2(low="grey80", mid="grey",  high="red", midpoint=0)
+                    } else {
+                      g <- g + scale_color_gradientn(colors=c("grey80", "red")) #, guide=FALSE)
+                      #g <- g + guide_legend(guides=FALSE)
+                    }
+                    g <- g + theme(legend.text = element_text(size=8), plot.title = element_text(size=14))
+                    g <- g + sincera_theme()
+                    #g <- g + guides(color=guide_legend(title="", ncol=2, override.aes=list(size=5)))
+                    #g <- g + theme(legend.position = "bottom", legend.text=element_text(size=12))
+                    gs[[i]] <- g
+                    
+                  }
+                  grid.arrange(grobs=gs) 
+                  pause()
+                } else {
+                  warning(paste("Invalid", rds.use, "dimensions for rds plot"))
+                }
               }
 
 

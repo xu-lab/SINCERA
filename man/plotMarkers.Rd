@@ -5,7 +5,8 @@
 \title{Plot gene expression patterns}
 \usage{
 plotMarkers(object, genes, use.scaled = T, do.log2 = FALSE, do.order = T,
-  show.jitter = T, plots = c("cell", "boxplot"), font.size = 8, ...)
+  show.jitter = T, plots = c("cell", "boxplot", "rds"), rds.use = c("pca",
+  "tsne"), font.size = 8, pt.size = 5, ...)
 }
 \arguments{
 \item{object}{A sincera object}
@@ -20,7 +21,11 @@ plotMarkers(object, genes, use.scaled = T, do.log2 = FALSE, do.order = T,
 
 \item{show.jitter}{If TRUE, in the violin and boxplot, plot individual cells}
 
-\item{plots}{The type of plots to be shown, possible values include cell, violin, and boxplot}
+\item{plots}{The type of plots to be shown, possible values include cell, violin, boxplot, and rds}
+
+\item{rds.use}{The reduced dimensions to be used in rds plot. Possible values include pca and tsne.}
+
+\item{pt.size}{The size of points in the plot}
 
 \item{fontsize}{The size of font in the plot}
 }
