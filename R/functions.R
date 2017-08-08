@@ -37,6 +37,8 @@ prefiltering.cells <- function(x, y, mt.genes, min.exp=0,
     ret$MT <- colSums(x[mt.genes, ])/ret$nUMI
   }
   
+  ngroups <- length(unique(y))
+  
   gs <- list() 
   i <- 1
   
@@ -53,20 +55,21 @@ prefiltering.cells <- function(x, y, mt.genes, min.exp=0,
   gs[[i]] <- g
   i <- i+1
   
-  
-  g <- ggplot(data=ret, aes(x=nGene, y=nUMI))
-  g <- g + facet_wrap(~Group, scales="free")
-  if (draw.line==T) {
-    g <- g + geom_vline(xintercept=min.ngene, size=1, linetype="dashed", col="red")
-    g <- g + geom_vline(xintercept=max.ngene, size=1, linetype="dashed", col="red")
-    g <- g + geom_hline(yintercept=min.libsize, size=1, linetype="dashed", col="red")
-    g <- g + geom_hline(yintercept=max.libsize, size=1, linetype="dashed", col="red")
+  if (ngroups>1) {
+    g <- ggplot(data=ret, aes(x=nGene, y=nUMI))
+    g <- g + facet_wrap(~Group, scales="free")
+    if (draw.line==T) {
+      g <- g + geom_vline(xintercept=min.ngene, size=1, linetype="dashed", col="red")
+      g <- g + geom_vline(xintercept=max.ngene, size=1, linetype="dashed", col="red")
+      g <- g + geom_hline(yintercept=min.libsize, size=1, linetype="dashed", col="red")
+      g <- g + geom_hline(yintercept=max.libsize, size=1, linetype="dashed", col="red")
+    }
+    g <- g + geom_point(size=pt.size, col="grey60")
+    g <- g + ggtitle("nGenes vs. nCounts")
+    g <- g + sincera_theme()
+    gs[[i]] <- g
+    i <- i+1
   }
-  g <- g + geom_point(size=pt.size, col="grey60")
-  g <- g + ggtitle("nGenes vs. nCounts")
-  g <- g + sincera_theme()
-  gs[[i]] <- g
-  i <- i+1
   
   g <- ggplot(data=ret, aes(x=nGene, y=MT))
   g <- g + geom_point(size=pt.size, col="grey60")
@@ -81,20 +84,21 @@ prefiltering.cells <- function(x, y, mt.genes, min.exp=0,
   gs[[i]] <- g
   i <- i+1
   
-  g <- ggplot(data=ret, aes(x=nGene, y=MT))
-  g <- g + facet_wrap(~Group, scales="free")
-  if (draw.line==T) {
-    g <- g + geom_vline(xintercept=min.ngene, size=1, linetype="dashed", col="red")
-    g <- g + geom_vline(xintercept=max.ngene, size=1, linetype="dashed", col="red")
-    g <- g + geom_hline(yintercept=min.mt, size=1, linetype="dashed", col="red")
-    g <- g + geom_hline(yintercept=max.mt, size=1, linetype="dashed", col="red")
+  if (ngroups>1) {
+    g <- ggplot(data=ret, aes(x=nGene, y=MT))
+    g <- g + facet_wrap(~Group, scales="free")
+    if (draw.line==T) {
+      g <- g + geom_vline(xintercept=min.ngene, size=1, linetype="dashed", col="red")
+      g <- g + geom_vline(xintercept=max.ngene, size=1, linetype="dashed", col="red")
+      g <- g + geom_hline(yintercept=min.mt, size=1, linetype="dashed", col="red")
+      g <- g + geom_hline(yintercept=max.mt, size=1, linetype="dashed", col="red")
+    }
+    g <- g + geom_point(size=pt.size, col="grey60")
+    g <- g + ggtitle("nGenes vs. pMT")
+    g <- g + sincera_theme()
+    gs[[i]] <- g
+    i <- i+1
   }
-  g <- g + geom_point(size=pt.size, col="grey60")
-  g <- g + ggtitle("nGenes vs. pMT")
-  g <- g + sincera_theme()
-  gs[[i]] <- g
-  i <- i+1
-  
   
   
   
@@ -109,17 +113,19 @@ prefiltering.cells <- function(x, y, mt.genes, min.exp=0,
   gs[[i]] <- g
   i <- i+1
   
-  g <- ggplot(data=ret, aes(x=nGene))
-  g <- g + facet_wrap(~Group, scales="free")
-  g <- g + geom_histogram(binwidth = 100, fill="grey",  col="black")
-  if (draw.line==T) {
-    g <- g + geom_vline(xintercept=min.ngene, size=1,  linetype="dashed", col="red")
-    g <- g + geom_vline(xintercept=max.ngene, size=1,  linetype="dashed", col="red")
+  if (ngroups>1) {
+    g <- ggplot(data=ret, aes(x=nGene))
+    g <- g + facet_wrap(~Group, scales="free")
+    g <- g + geom_histogram(binwidth = 100, fill="grey",  col="black")
+    if (draw.line==T) {
+      g <- g + geom_vline(xintercept=min.ngene, size=1,  linetype="dashed", col="red")
+      g <- g + geom_vline(xintercept=max.ngene, size=1,  linetype="dashed", col="red")
+    }
+    g <- g + ggtitle("nGenes")
+    g <- g + sincera_theme()
+    gs[[i]] <- g
+    i <- i+1
   }
-  g <- g + ggtitle("nGenes")
-  g <- g + sincera_theme()
-  gs[[i]] <- g
-  i <- i+1
   
   g <- ggplot(data=ret, aes(x=Group, y=nGene))
   if (draw.line==T) {
@@ -154,17 +160,19 @@ prefiltering.cells <- function(x, y, mt.genes, min.exp=0,
   gs[[i]] <- g
   i <- i+1
   
-  g <- ggplot(data=ret, aes(x=nUMI))
-  g <- g + facet_wrap(~Group, scales="free")
-  g <- g + geom_histogram(binwidth = 500, fill="grey",  col="black")
-  if (draw.line==T) {
-    g <- g + geom_vline(xintercept=min.libsize, size=1, linetype="dashed", col="red")
-    g <- g + geom_vline(xintercept=max.libsize, size=1, linetype="dashed", col="red")
+  if (ngroups>1) {
+    g <- ggplot(data=ret, aes(x=nUMI))
+    g <- g + facet_wrap(~Group, scales="free")
+    g <- g + geom_histogram(binwidth = 500, fill="grey",  col="black")
+    if (draw.line==T) {
+      g <- g + geom_vline(xintercept=min.libsize, size=1, linetype="dashed", col="red")
+      g <- g + geom_vline(xintercept=max.libsize, size=1, linetype="dashed", col="red")
+    }
+    g <- g + ggtitle("nCounts")
+    g <- g + sincera_theme()
+    gs[[i]] <- g
+    i <- i+1
   }
-  g <- g + ggtitle("nCounts")
-  g <- g + sincera_theme()
-  gs[[i]] <- g
-  i <- i+1
   
   g <- ggplot(data=ret, aes(x=Group, y=nUMI))
   if (draw.line==T) {
@@ -199,17 +207,19 @@ prefiltering.cells <- function(x, y, mt.genes, min.exp=0,
   gs[[i]] <- g
   i <- i+1
   
-  g <- ggplot(data=ret, aes(x=MT))
-  g <- g + facet_wrap(~Group, scales="free")
-  g <- g + geom_histogram(binwidth = 0.01, fill="grey",  col="black")
-  if (draw.line==T) {
-    g <- g + geom_vline(xintercept=min.mt, size=1, linetype="dashed", col="red")
-    g <- g + geom_vline(xintercept=max.mt, size=1, linetype="dashed", col="red")
+  if (ngroups>1) {
+    g <- ggplot(data=ret, aes(x=MT))
+    g <- g + facet_wrap(~Group, scales="free")
+    g <- g + geom_histogram(binwidth = 0.01, fill="grey",  col="black")
+    if (draw.line==T) {
+      g <- g + geom_vline(xintercept=min.mt, size=1, linetype="dashed", col="red")
+      g <- g + geom_vline(xintercept=max.mt, size=1, linetype="dashed", col="red")
+    }
+    g <- g + ggtitle("pMT")
+    g <- g + sincera_theme()
+    gs[[i]] <- g
+    i <- i+1
   }
-  g <- g + ggtitle("pMT")
-  g <- g + sincera_theme()
-  gs[[i]] <- g
-  i <- i+1
   
   g <- ggplot(data=ret, aes(x=Group, y=MT))
   if (draw.line==T) {
