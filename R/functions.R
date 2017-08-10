@@ -37,6 +37,12 @@ prefiltering.cells <- function(x, y, mt.genes, min.exp=0,
     ret$MT <- colSums(x[mt.genes, ])/ret$nUMI
   }
   
+  cat("\nNumber of expressed genes per cell\n")
+  print(tapply(ret$nGene, ret$Group, summary))
+  
+  cat("\nLibrary size per cell\n")
+  print(tapply(ret$nUMI, ret$Group, summary))
+  
   ngroups <- length(unique(y))
   
   gs <- list() 
