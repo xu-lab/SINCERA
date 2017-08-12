@@ -287,5 +287,80 @@ NormalizeCounts <- function(x, genes=NULL, sf=0, log.base=2, count.pseudo=1) {
   return(list(norm=norm_counts, lognorm=lognorm_counts, libsize=col.sums, sf=sf))
 }
 
+enrichment <- function(params, use.scaled=T) {
+  
+  gene <- params$gene
+  if ((length(gene)>0) & (length(gene)<max.genes+1)) {
+    
+    if (length(gene)==1) {
+      gene <- c(gene, "Actb")
+    }
+    
+    if (use.scaled) {
+      gs <- GeneStats(dp=params$sdp@scale.data[gene, ], ident=params$sdp@ident, groups=NULL, 
+                    min.exp=params$min.exp, stats=c("ident.avg","ident.cnt","ident.pct", "ident.recall"))
+    } else {
+      gs <- GeneStats(dp=params$sdp@data[gene, ], ident=params$sdp@ident, groups=NULL, 
+                      min.exp=params$min.exp, stats=c("ident.avg","ident.cnt","ident.pct", "ident.recall"))
+      
+    }
+    gene.stats <- GetSigs(gs, groups=as.character(unique(params$sdp@ident)), criteria=c("ident.avg","ident.cnt","ident.pct", "ident.recall"))
+    
+     gene.stats$ident.avg <- round(gene.stats$ident.avg, 2)
+     gene.stats$ident.pct <- round(gene.stats$ident.pct, 2)
+     gene.stats$ident.recall <- round(gene.stats$ident.recall, 2)
+    
+    colnames(gene.stats) <- c("Gene","Group","Cluster.AverageExp", "Cluster.Expressed", "Cluster.Frequency", "Cluster.Recall")
+    
+    gene.stats <- gene.stats[which(gene.stats$Gene %in% params$gene), ]
+    
+    gene.stats <- unique(gene.stats)
+    
+    gene.stats$Total.Expressed <- rowSums(params$sdp@data[as.character(gene.stats$Gene), ]>params$min.exp)
+    gene.stats$Total.Frequency <- gene.stats$Total.Expressed/length(which(substr(as.character(params$sdp@ident), 1, 6) != "Contam"))
+    
+    
+    tmp <- table(params$sdp@ident)
+    typedist <- data.frame(Type=as.character(names(tmp)), Count=as.numeric(tmp), stringsAsFactors = FALSE)
+    typedist$Percent <- round(100*typedist$Count/sum(typedist$Count),2)
+    typedist[dim(typedist)[1]+1, ] <- c("Total", sum(typedist$Count), 100)
+    
+    ub <- 1000
+    
+    #score1 = recall/percent
+    gene.stats$Score1 <- 0
+    for (i in 1:dim(gene.stats)[1]) {
+      if (gene.stats$Total.Expressed[i] == 0) {
+        gene.stats$Score1[i] <- ifelse(gene.stats$Cluster.Recall[i]>0, ub, 0)
+      } else {
+        gene.stats$Score1[i] <- gene.stats$Cluster.Recall[i]/(as.numeric(typedist$Percent[which(typedist$Type == as.character(gene.stats$Group[i]))])/100)
+      }
+    }
+    
+    #score2 = frequency*prior
+    gene.stats$Score2 <- gene.stats$Cluster.Frequency*gene.stats$Total.Frequency
+    
+    gene.stats$Score3 <- 1
+    for (i in 1:dim(gene.stats)[1]) {
+      if (gene.stats$Total.Expressed[i] > 0) {
+        i.a <- gene.stats$Cluster.Expressed[i]
+        i.b <- (as.numeric(typedist$Count[which(typedist$Type == as.character(gene.stats$Group[i]))])) - i.a
+        i.c <- gene.stats$Total.Expressed[i]
+        i.d <- length(which(substr(as.character(params$sdp@ident), 1, 6) != "Contam")) - i.c
+        i.data <- matrix(c(i.a, i.b, i.c, i.d), nrow = 2) 
+        gene.stats$Score3[i] <- fisher.test(i.data, alternative="greater")$p.value
+      }
+    }
+    
+     gene.stats$Total.Frequency <- round(gene.stats$Total.Frequency, 2)
+     gene.stats$Score1 <- round(gene.stats$Score1, 2)
+     gene.stats$Score2 <- round(gene.stats$Score2, 2)
+     gene.stats$Score3 <- round(gene.stats$Score3, 3)
+  }
+  
+  return(gene.stats)
+  
+}
+
 
 
