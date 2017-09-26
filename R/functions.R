@@ -364,3 +364,445 @@ enrichment <- function(params, use.scaled=T) {
 
 
 
+GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, min.gsize=2, min.avg=1,
+                   stats=c("t", "bimod", "binom", "t.fdr", "bimod.fdr","binom.fdr",  "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+  if (is.null(groups)) {
+    groups <- sort(unique(ident))
+  }
+  
+  if (is.null(genes)) {
+    genes <- rownames(dp)
+  }
+  
+  ret <- data.frame(gene=genes)
+  rownames(ret) <- ret$gene
+  for (i in 1:length(groups)) {
+    ident.stats <- stats[which(substring(stats, 1, 6)=="ident.")]
+    if (length(ident.stats)>0) {
+      i.ret <- GS.one(dp=dp, ident=ident, cluster.1=groups[i], cluster.2=NULL, 
+                    min.exp=min.exp, min.gsize=min.gsize, min.avg=min.avg, stats=ident.stats)
+      ret <- data.frame(ret, i.ret[rownames(ret), -1], check.names=FALSE) 
+    }
+    pair.stats <- stats[which(substring(stats, 1, 6) != "ident.")]
+    if (length(pair.stats)>0) {
+      for (s in pair.stats) {
+        if (percluster==T) {
+          i.gs <- groups[-i]
+          i.ret <- data.frame(gene=rownames(dp))
+          rownames(i.ret) <- i.ret$gene
+          for (j in 1:length(i.gs)) {
+            i.j.ret <- GS.one(dp=dp, ident=ident, cluster.1=groups[i], cluster.2=i.gs[j], 
+                            min.exp=min.exp, min.gsize=min.gsize, min.avg=min.avg, stats=s)
+            i.ret[, colnames(i.j.ret)[2]] <- as.numeric(i.j.ret[, 2]) #, check.names=FALSE)
+          }
+          if (s %in% c("t","binom", "bimod")) {
+            ret[, paste(s, ".", groups[i], sep="")] <- apply(i.ret[rownames(ret), -1], 1, max)
+            ret <- data.frame(ret, i.ret[rownames(ret), -1], check.names=FALSE)
+          } else if (s %in% c("efsize","fc")) {
+            ret[, paste(s, ".", groups[i], sep="")] <- apply(i.ret[rownames(ret), -1], 1, min)
+            ret <- data.frame(ret, i.ret[rownames(ret), -1], check.names=FALSE)
+          }
+        } else {
+          i.ret <- GS.one(dp=dp, ident=ident, cluster.1=groups[i], cluster.2=NULL, 
+                          min.exp=min.exp, min.gsize=min.gsize, min.avg=min.avg, stats=s)
+          ret[, colnames(i.ret)[2]] <- as.numeric(i.ret[, 2])
+        }
+      }
+    }
+  }
+  
+  dd <- data.frame(gene=ret$gene)
+  for (s in stats) {
+    s.cols <- grep(paste("^", s, ".", sep=""), colnames(ret), value = TRUE)
+    dd <- cbind(dd, ret[, s.cols])
+  }
+  return(dd)
+  return(ret)
+}
+
+
+GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, min.gsize=2, min.avg=1,
+                      stats=c("t","bimod", "binom", "t.fdr", "bimod.fdr","binom.fdr", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+
+	
+  if (is.null(genes)) genes <- as.character(rownames(dp))    
+  
+  t_helper <- function(x, idx1, idx2) {
+    x <- as.numeric(x)
+    p <- NA
+    if (var(x[c(idx1, idx2)])==0) {
+      p<-1
+    } else {
+      tryCatch({
+          p<-t.test(x[idx1], x[idx2], alternative="greater", mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95)$p.value
+        }, warning=function(w) {
+          p <- 1
+        }, error=function(e) {
+          p <- 1
+        }, finally={
+          
+        }
+      )
+      
+    }
+    return(p)
+  }
+  
+  bimod_helper <- function(x, idx1, idx2) {
+    p<-NA
+    x <- as.numeric(x)
+    p <- diffLRT(x[idx1], x[idx2])
+    return(p)
+  }
+  
+  # the probability of seeing n1 or more cells in cluster cells for a gene given its probability in the comparing cells
+  binom_helper <- function(x, idx1, idx2, min.exp=0) {
+    x <- as.numeric(x)
+    n1 <- sum(x[idx1]>min.exp)
+    n2 <- max(sum(x[idx2]>min.exp), 1)
+    p <- pbinom(n1, length(idx1), n2/length(idx2), lower.tail = FALSE) + dbinom(n1, length(idx1), n2/length(idx2))
+    return(p)
+  }
+  
+  efsize_helper <- function(x, idx1, idx2, min.exp=0) {
+    x <- as.numeric(x)
+    n1 <- sum(x[idx1]>min.exp)
+    n2 <- max(sum(x[idx2]>min.exp), 1)
+    efs <- n1*length(idx2)/(n2*length(idx1))
+    return(efs)
+  }
+  
+  avg_helper <- function(x, idx) {
+    x <- as.numeric(x)
+    avg <- mean(x[idx])
+    return(avg)
+  }
+  
+  specificity_helper <- function(x) {
+    x <- as.numeric(x)
+    if (!any(x!=0)) { # if all zeros, return zero
+      return(0)
+    }
+    specificity <- 0
+    ma <- max(x)
+    x <- x/ma
+    x <- 1-x
+    specificity <- sum(x)/(length(x)-1)
+    return(specificity)
+  }
+  
+  dp <- dp[genes, ]
+
+  dd <- data.frame(gene=rownames(dp))
+  rownames(dd) <- dd$gene
+  
+  if (FALSE) {
+	  dd$nexpressed <- rowSums(dp>min.exp)
+	  dd$var <- apply(dp, 1, var)
+	  dd$specificity <- apply(dp, 1, specificity_helper)
+	  dd$avg <- apply(dp, 1, mean)
+	  dd$min <- apply(dp, 1, min)
+	  dd$max <- apply(dp, 1, max)
+	  	  
+	  dd$peak1.cluster <- NA
+	  dd$peak1.value <- NA
+	  dd$peak2.cluster <- NA
+	  dd$peak2.value <- NA
+	  	  
+	  for (i in 1:dim(dd)[1]) {
+		i.order <- order(as.numeric(dp[i, ]), decreasing=T)
+		i.peak1.idx <- i.order[1]
+		i.peak2.idx <- i.order[2]
+		dd$peak1.cluster[i] <- as.character(ident[i.peak1.idx])
+		dd$peak2.cluster[i] <- as.character(ident[i.peak2.idx])
+		dd$peak1.value[i] <- dp[i, i.peak1.idx]
+		dd$peak2.value[i] <- dp[i, i.peak2.idx]
+	  }
+  }
+  
+  #for (i in 1:length(groups)) {
+    
+  i.idx <- which(ident == cluster.1)
+	if (is.null(cluster.2)) {
+		#cluster.2 <- "rest"
+		j.idx <- which(ident != cluster.1)
+	} else {
+		j.idx <- which(ident == cluster.2)
+	}
+        
+  if ("t" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("t.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("t.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=t_helper, idx1=i.idx, idx2=j.idx)
+      dd[, i.colname] <- as.numeric(i.t)
+    }
+  }
+  if ("t.fdr" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("t.fdr.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("t.fdr.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=t_helper, idx1=i.idx, idx2=j.idx)
+      i.t <- as.numeric(i.t)
+      i.t <- p.adjust(i.t, method="fdr")
+      dd[, i.colname] <- i.t
+    }
+  }
+  
+  if ("bimod" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("bimod.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("bimod.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=bimod_helper, idx1=i.idx, idx2=j.idx)
+      dd[, i.colname] <- as.numeric(i.t)
+    }
+  }
+  if ("bimod.fdr" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("bimod.fdr.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("bimod.fdr.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=bimod_helper, idx1=i.idx, idx2=j.idx)
+      i.t <- as.numeric(i.t)
+      i.t <- p.adjust(i.t, method="fdr")
+      dd[, i.colname] <- i.t
+    }
+  }
+  
+  if ("binom" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("binom.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("binom.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=binom_helper, idx1=i.idx, idx2=j.idx, min.exp=min.exp)
+      dd[, i.colname] <- as.numeric(i.t)
+    }
+  }
+  
+  if ("binom.fdr" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("binom.fdr.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("binom.fdr.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=binom_helper, idx1=i.idx, idx2=j.idx, min.exp=min.exp)
+      i.t <- as.numeric(i.t)
+      i.t <- p.adjust(i.t, method="fdr")
+      dd[, i.colname] <- i.t
+    }
+  }
+  
+  
+  if ("efsize" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("efsize.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("efsize.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=efsize_helper, idx1=i.idx, idx2=j.idx, min.exp=min.exp)
+      dd[, i.colname] <- as.numeric(i.t)
+    }
+  }
+  
+  if ("fc" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("fc.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("fc.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.avg <- apply(dp, 1, FUN=avg_helper, idx=i.idx)
+      j.avg <- apply(dp, 1, FUN=avg_helper, idx=j.idx)
+      i.avg[which(i.avg < min.avg)] <- min.avg
+      j.avg[which(j.avg < min.avg)] <- min.avg
+      i.fc <- i.avg/j.avg
+      dd[, i.colname] <- as.numeric(i.fc)
+    }
+  }
+  
+  if ("ident.avg" %in% stats) {
+    if (length(i.idx)>=min.gsize) {
+      i.colname <- paste("ident.avg.", cluster.1, sep="")
+      i.avg <- apply(dp, 1, FUN=avg_helper, idx=i.idx)
+      dd[, i.colname] <- as.numeric(i.avg)
+    }
+  }
+  
+  if ("ident.min" %in% stats) {
+    if (length(i.idx)>=min.gsize) {
+      i.colname <- paste("ident.min.", cluster.1, sep="")
+      i.avg <- apply(dp[, i.idx], 1, function(x) min(as.numeric(x)))
+      dd[, i.colname] <- as.numeric(i.avg)
+    }
+  }
+  
+  if ("ident.max" %in% stats) {
+    if (length(i.idx)>=min.gsize) {
+      i.colname <- paste("ident.max.", cluster.1, sep="")
+      i.avg <- apply(dp[, i.idx], 1, function(x) max(as.numeric(x)))
+      dd[, i.colname] <- as.numeric(i.avg)
+    }
+  }
+  
+  if ("ident.q0" %in% stats) {
+    if (length(i.idx)>=min.gsize) {
+      i.colname <- paste("ident.q0.", cluster.1, sep="")
+      i.q <- apply(dp[, i.idx], 1, function(x) quantile(as.numeric(x), probs=c(0)))
+      dd[, i.colname] <- as.numeric(i.q)
+    }
+  }
+  
+  if ("ident.q25" %in% stats) {
+    if (length(i.idx)>=min.gsize) {
+      i.colname <- paste("ident.q25.", cluster.1, sep="")
+      i.q <- apply(dp[, i.idx], 1, function(x) quantile(as.numeric(x), probs=c(0.25)))
+      dd[, i.colname] <- as.numeric(i.q)
+    }
+  }
+  
+  if ("ident.q50" %in% stats) {
+    if (length(i.idx)>=min.gsize) {
+      i.colname <- paste("ident.q50.", cluster.1, sep="")
+      i.q <- apply(dp[, i.idx], 1, function(x) quantile(as.numeric(x), probs=c(0.50)))
+      dd[, i.colname] <- as.numeric(i.q)
+    }
+  }
+  
+  if ("ident.q75" %in% stats) {
+    if (length(i.idx)>=min.gsize) {
+      i.colname <- paste("ident.q75.", cluster.1, sep="")
+      i.q <- apply(dp[, i.idx], 1, function(x) quantile(as.numeric(x), probs=c(0.75)))
+      dd[, i.colname] <- as.numeric(i.q)
+    }
+  }
+  
+  if ("ident.q100" %in% stats) {
+    if (length(i.idx)>=min.gsize) {
+      i.colname <- paste("ident.q100.", cluster.1, sep="")
+      i.q <- apply(dp[, i.idx], 1, function(x) quantile(as.numeric(x), probs=c(1)))
+      dd[, i.colname] <- as.numeric(i.q)
+    }
+  }
+
+  if ("ident.cnt" %in% stats) {
+    if (length(i.idx) >= min.gsize) {
+      i.colname <- paste("ident.cnt.", cluster.1, sep="")
+      i.cnt <- rowSums(dp[, i.idx] > min.exp)
+      dd[, i.colname] <- as.numeric(i.cnt)
+    }
+  }
+  
+  if ("ident.pct" %in% stats) {
+    if (length(i.idx) >= min.gsize) {
+      i.colname <- paste("ident.pct.", cluster.1, sep="")
+      i.pct <- rowSums(dp[, i.idx] > min.exp)/length(i.idx)
+      dd[, i.colname] <- as.numeric(i.pct)
+    }
+  }
+  
+  if ("ident.recall" %in% stats) {
+    if (length(i.idx) >= min.gsize) {
+      i.colname <- paste("ident.recall.", cluster.1, sep="")
+      i.recall <- rowSums(dp[, i.idx] > min.exp)/rowSums(dp>min.exp)
+      dd[, i.colname] <- as.numeric(i.recall)
+    }
+  }
+  #}
+  
+  if (FALSE) {
+	  ret <- data.frame(gene=dd$gene)
+	  for (s in stats) {
+		s.cols <- grep(paste("^",s,".",sep=""), colnames(dd), value = TRUE)
+		ret <- cbind(ret, dd[, s.cols])
+	  }
+  }
+  return(dd)				  
+					  
+}
+
+
+# op: 2 >, 1>=, 0==, -1 <=, -2 <
+GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL) {
+  
+  if(is.null(thresh)) thresh=rep(-Inf, length(criteria))
+  if(is.null(op)) op=rep(1, length(criteria))
+  
+  getValid <- function(x, thresh, op) {
+    ret <- c()
+    if (op==0) {
+      ret <- which(x==thrsh)
+    } else if (op==1) {
+      ret <- which(x>=thresh)
+    } else if (op==2) {
+      ret <- which(x>thresh)
+    } else if (op==-1) {
+      ret <- which(x<=thresh)
+    } else if (op==-2) {
+      ret <- which(x<thresh)
+    }
+    return(ret)
+  }
+  
+  dd <- data.frame(gene=NULL, group=NULL)
+  for (i in criteria) {
+    dd[, i] <- NULL
+  }
+  
+  for (i in 1:length(groups)) {
+    i.g <- groups[i]
+    i.criteria <- paste(criteria, ".", i.g, sep="")
+    i.sig <- 1:dim(gs)[1]
+    for (j in 1:length(i.criteria)) {
+      #cat(i, ".", j,"\n")
+      i.sig <- intersect(i.sig, getValid(as.numeric(gs[, i.criteria[j]]), thresh[j], op[j]))
+    }
+    if (length(i.sig)>0) {
+      i.dd <- data.frame(gene=rownames(gs)[i.sig], group=i.g)
+      i.dd[, criteria] <- gs[i.sig, i.criteria]
+      dd <- rbind(dd, i.dd)
+    }
+  }
+  
+  return(dd)
+  
+}
+                   
+                   
+# from Seurat for bimod test ###############
+diffLRT = function(x,y,xmin=1) {
+  lrtX=bimodLikData(x)
+  lrtY=bimodLikData(y)
+  lrtZ=bimodLikData(c(x,y))
+  lrt_diff=2*(lrtX+lrtY-lrtZ)
+  return(pchisq(lrt_diff,3,lower.tail = F))
+}
+
+bimodLikData=function(x,xmin=0) {
+  x1=x[x<=xmin]
+  x2=x[x>xmin]
+  xal=minmax(length(x2)/length(x),min=1e-5,max=(1-1e-5))
+  likA=length(x1)*log(1-xal)
+  mysd=sd(x2)
+  if(length(x2)<2) {
+    mysd=1
+  }
+  likB=length(x2)*log(xal)+sum(dnorm(x2,mean(x2),mysd,log=TRUE))
+  return(likA+likB)
+}
+
+
