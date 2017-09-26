@@ -805,4 +805,10 @@ bimodLikData=function(x,xmin=0) {
   return(likA+likB)
 }
 
+minmax=function(data,min,max) {
+  data2=data
+  data2[data2>max]=max
+  data2[data2<min]=min
+  return(data2)
+}
 
