@@ -268,6 +268,7 @@ prefiltering.genes <- function(x, min.exp=0, min.cells=3, min.counts=1) {
   return(sgenes)
 }
 
+
 NormalizeCounts <- function(x, genes=NULL, sf=0, log.base=2, count.pseudo=1) {
   cat("\nNormalizing counts\n")
   dp <- x
@@ -812,3 +813,118 @@ minmax=function(data,min,max) {
   return(data2)
 }
 
+# A wrapper of MeanVarPlot function in Seurat to perform batch-aware highly variable gene selection
+pc.genes.selection <- function(lognorm, sgenes, scells.run1601, scells.run1888, x.low.cutoff = 0.2, x.high.cutoff=5, y.cutoff=0.25) {
+  
+  sdp <- new("seurat", raw.data = lognorm[sgenes, scells.run1601])
+  sdp <- Setup(sdp, min.cells = 0, min.genes = 0, is.expr=0, do.logNormalize = F, total.expr = 1e4, do.scale=TRUE, do.center=TRUE, project = db)
+  sdp@scale.data <- t(scale(t(sdp@data), center=T, scale=T))
+  sdp <- MeanVarPlot(sdp ,fxn.x = expMean, fxn.y = logVarDivMean, x.low.cutoff = x.low.cutoff, x.high.cutoff = x.high.cutoff, y.cutoff = y.cutoff, do.contour = F)
+  vargenes.1601 <- sdp@var.genes
+  
+  sdp <- new("seurat", raw.data = lognorm[sgenes, scells.run1888])
+  sdp <- Setup(sdp, min.cells = 0, min.genes = 0, is.expr=0, do.logNormalize = F, total.expr = 1e4, do.scale=TRUE, do.center=TRUE, project = db)
+  sdp@scale.data <- t(scale(t(sdp@data), center=T, scale=T))
+  sdp <- MeanVarPlot(sdp ,fxn.x = expMean, fxn.y = logVarDivMean, x.low.cutoff = x.low.cutoff, x.high.cutoff = x.high.cutoff, y.cutoff = y.cutoff, do.contour = F)
+  vargenes.1888 <- sdp@var.genes
+  
+  
+  sdp <- new("seurat", raw.data = lognorm[sgenes, c(scells.run1601, scells.run1888)])
+  sdp <- Setup(sdp, min.cells = 0, min.genes = 0, is.expr=0, do.logNormalize = F, total.expr = 1e4, do.scale=TRUE, do.center=TRUE, project = db)
+  sdp@scale.data <- t(scale(t(sdp@data), center=T, scale=T))
+  #sdp@raw.data <- dp[sgenes, scells]
+  #sdp@ident <- factor(sruns)
+  #names(sdp@ident) <- scells
+  #sdp@data.info <- data.frame(nGene=sdp@data.info$nGene, nUMI=sdp@data.info$nUMI, orig.ident=sdp@ident)
+  sdp <- MeanVarPlot(sdp ,fxn.x = expMean, fxn.y = logVarDivMean, x.low.cutoff = x.low.cutoff, x.high.cutoff = x.high.cutoff, y.cutoff = y.cutoff, do.contour = F)
+  vargenes.scells <- sdp@var.genes
+  
+  vargenes <- data.frame(gene=sort(unique(c(vargenes.1601,vargenes.1888,vargenes.scells))))
+  vargenes$run1601 <-  vargenes$run1888 <- vargenes$allruns <- 0
+  vargenes$run1601[which(vargenes$gene %in% vargenes.1601)] <- 1
+  #vargenes$run1887[which(vargenes$gene %in% vargenes.1887)] <- 1
+  vargenes$run1888[which(vargenes$gene %in% vargenes.1888)] <- 1
+  vargenes$allruns[which(vargenes$gene %in% vargenes.scells)] <- 1
+  rownames(vargenes) <- vargenes$gene
+  table(vargenes$allruns, vargenes$run1601)
+  nc <- rowSums(vargenes[, c("run1601","run1888")])
+  pc.genes <- rownames(vargenes)[which(nc==2)]
+  
+  return(list(vargenes=vargenes, pc.genes=pc.genes))
+}
+
+# x - row is genes, column is cells, and gene expression has been per gene zscore normalized
+pc.test <- function(x, B=1000, seed=NULL, min.ev=sqrt(3), max.r.ev=2, df=NULL, do.plot=T,...) {
+	if (!is.null(seed)) set.seed(seed)
+  n <- ncol(x)
+  m <- nrow(x)
+  
+  if (is.null(df)) df <- n
+  ev <- (prcomp(x)$sdev)
+  evs <- as.data.frame(matrix(0, nrow=B, ncol=df))
+  j <- 1
+  for (i in 1:B) {
+    xi <- t(apply(x, 1, sample, replace=FALSE))
+    evi <- (prcomp(xi)$sdev)
+    if (!any(is.na(evi[1:df]))) {
+      evs[j, ]<-evi[1:df]
+      j <- j + 1
+    } else {
+      cat("\n", i, " contains NAs\n", sep="")
+    }
+    if ((i %% 50)==0) cat("\r",i,"/",B, sep="")
+  }
+  cat("\n")
+  if (j < (B+1)) {
+    evs <- evs[1:(j-1),]
+  }
+  colnames(evs) <- paste("P", 1:dim(evs)[2], sep="")
+  evsm <- melt(evs)
+  colnames(evsm) <- c("PC","EV")
+  
+  r <- 3
+  max.ev <- max(max(evsm[which(evsm$EV<=max.r.ev), "EV"]), min.ev)
+  #if (do.ceiling) max.ev <- ceiling(max.ev)
+  ev.p <- length(which(evsm$EV>max.ev))/length(evsm$EV)
+  r <- length(which(ev>max.ev))
+  
+  cat(round(100*ev.p, digits = 2), "% random EVs > ", max.ev, "\n", sep="")
+  cat(r, " PCs with EV greater than ", max.ev, "\n", sep="")
+  
+  if (do.plot==T) {
+    plot(ev)
+    g <- ggplot(data=evsm) + geom_density(aes(x=EV), fill="grey", col="black")
+    g <- g + geom_vline(xintercept=max.ev, col="blue")
+    g <- g + geom_text(aes( max.ev, 0.2, label = paste("threshold=", round(max.ev,3), sep=""), hjust = -0.1), col="blue", size = 5)
+    ev <- sort(ev, decreasing=T)
+    g <- g + geom_point(data=data.frame(x=ev[1:r],y=0.5), aes(x=x, y=y), col=2, size=2)
+    #for (i in 1:r) {
+    # g <- g + geom_vline(xintercept=ev[i], col="red")
+    #}
+     
+    g <- g + theme_bw() 
+    g <- g + theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())
+    print(g)
+  }
+  
+  if (FALSE) {
+    ret <- permutationPA(x, B, verbose=FALSE)
+    cat(ret$r, " sig PCs based on permutationPA\n")
+  }
+  
+  return(list(r=r, evsm=evsm))
+}
+
+# a wrapper of ComBat for batch correction
+pc.batch.combat <- function(x, sample, do.plot=T, par.prior=TRUE, db) {
+  library(caret)
+  x1 <- t(sva::ComBat(t(x), sample, par.prior = par.prior))
+  xm <- melt(data.frame(x, cell=rownames(x), sample=sample), id.vars=c("cell", "sample"))
+  x1m <- melt(data.frame(x1, cell=rownames(x1), sample=sample), id.vars=c("cell", "sample"))
+  xm$category <- "original"
+  x1m$category <- "combat"
+  viz <- rbind(xm, x1m)
+  #g <- ggplot(viz, aes(x=sample, y=value, fill=sample)) + facet_wrap(~variable + category, scales="free") + geom_point(pch=21)
+  #ggsave(file=paste(db, ".pc.combat.pdf", sep=""))
+  return(x1)
+}
