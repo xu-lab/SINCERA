@@ -621,7 +621,11 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
       #i.t <- p.adjust(i.t, method="fdr")
       conds <- rep("A", dim(dp)[2])
       conds[j.idx] <- "B"
-      rs.2 <- nbTestSH.2(dp, conds=conds)
+      names(conds) <- colnames(dp)
+      conds <- sort(conds)
+      dp.2 <- dp[, names(conds)]
+      rs.2 <- nbTestSH.2(dp.2, conds=conds)
+      rm(dp.2)
       dd[, i.colname] <- rs.2$pval   
       dd[, i.colname.2] <- rs.2$rawLog2FoldChange
     }
