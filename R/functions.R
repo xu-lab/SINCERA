@@ -619,12 +619,14 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
       #i.t <- apply(dp, 1, FUN=binom_helper, idx1=i.idx, idx2=j.idx, min.exp=min.exp)
       #i.t <- as.numeric(i.t)
       #i.t <- p.adjust(i.t, method="fdr")
+	    print(cluster.1)
       conds <- rep("A", dim(dp)[2])
       conds[j.idx] <- "B"
       names(conds) <- colnames(dp)
       conds <- sort(conds)
       dp.2 <- dp[, names(conds)]
-      rs.2 <- nbTestSH.2(dp.2, conds=conds)
+      #rs.2 <- nbTestSH.2(dp.2, conds=conds)
+	    rs.2 <- nbTestSH(dp.2, conds=conds)
       rm(dp.2)
       dd[, i.colname] <- rs.2$pval   
       dd[, i.colname.2] <- rs.2$rawLog2FoldChange
