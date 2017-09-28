@@ -423,8 +423,9 @@ GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, 
 	colnames(dd) <- c(dd.colnames, s.cols)
     }
   }
+  rownames(dd) <- dd$gene
   return(dd)
-  return(ret)
+  #return(ret)
 }
 
 
@@ -825,7 +826,7 @@ GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL, do.fdr=TRUE) {
 		    i.sig.pvalues <- 1:dim(i.gs)[1]
 		    for (j in 1:length(i.criteria.pvalues)) {
 		      if (do.fdr == T) {
-			      i.gs[, i.criteria.pvalues[j]] <- p.adjust(i.gs[, i.criteria.pvalues[j]], method="fdr")
+			      i.gs[, i.criteria.pvalues[j]] <- p.adjust(as.numeric(i.gs[, i.criteria.pvalues[j]]), method="fdr")
 		      }
 		      i.sig.pvalues <- intersect(i.sig.pvalues, getValid(as.numeric(i.gs[, i.criteria.pvalues[j]]), thresh.pvalues[j], op.pvalues[j]))
 		    }
@@ -837,7 +838,6 @@ GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL, do.fdr=TRUE) {
     }
     i.criteria <- paste(criteria, ".", i.g, sep="")
     if (length(i.sig)>1) {
-      
       i.dd <- data.frame(gene=rownames(i.gs)[i.sig], group=i.g)
       i.dd[, criteria] <- i.gs[, i.criteria]
       dd <- rbind(dd, i.dd)
