@@ -835,7 +835,9 @@ GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL, do.fdr=TRUE) {
 		    }
 	    }
     }
+    i.criteria <- paste(criteria, ".", i.g, sep="")
     if (length(i.sig)>1) {
+      
       i.dd <- data.frame(gene=rownames(i.gs)[i.sig], group=i.g)
       i.dd[, criteria] <- i.gs[, i.criteria]
       dd <- rbind(dd, i.dd)
