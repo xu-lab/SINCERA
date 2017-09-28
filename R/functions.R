@@ -366,7 +366,7 @@ enrichment <- function(params, use.scaled=T) {
 
 
 GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, min.gsize=2, min.avg=1,
-                   stats=c("t", "bimod", "binom", "t.fdr", "bimod.fdr","binom.fdr",  "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+                   stats=c("welch", "bimod", "binom", "t.fdr", "bimod.fdr","binom.fdr", "sSeq.p", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
   if (is.null(groups)) {
     groups <- sort(unique(ident))
   }
@@ -396,10 +396,10 @@ GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, 
                             min.exp=min.exp, min.gsize=min.gsize, min.avg=min.avg, stats=s)
             i.ret[, colnames(i.j.ret)[2]] <- as.numeric(i.j.ret[, 2]) #, check.names=FALSE)
           }
-          if (s %in% c("t","binom", "bimod")) {
+          if (s %in% c("welch","binom", "bimod", "sSeq.p")) {
             ret[, paste(s, ".", groups[i], sep="")] <- apply(i.ret[rownames(ret), -1], 1, max)
             ret <- data.frame(ret, i.ret[rownames(ret), -1], check.names=FALSE)
-          } else if (s %in% c("efsize","fc")) {
+          } else if (s %in% c("efsize", "fc", "sSeq.fc")) {
             ret[, paste(s, ".", groups[i], sep="")] <- apply(i.ret[rownames(ret), -1], 1, min)
             ret <- data.frame(ret, i.ret[rownames(ret), -1], check.names=FALSE)
           }
@@ -423,12 +423,12 @@ GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, 
 
 
 GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, min.gsize=2, min.avg=1,
-                      stats=c("t","bimod", "binom", "t.fdr", "bimod.fdr","binom.fdr", "sSeq",  "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+                      stats=c("welch", "bimod", "binom", "sSeq.p", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
 
 	
   if (is.null(genes)) genes <- as.character(rownames(dp))    
   
-  t_helper <- function(x, idx1, idx2) {
+  welch_helper <- function(x, idx1, idx2) {
     x <- as.numeric(x)
     p <- NA
     if (var(x[c(idx1, idx2)])==0) {
@@ -531,17 +531,18 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
 		j.idx <- which(ident == cluster.2)
 	}
         
-  if ("t" %in% stats) {
+  if ("welch" %in% stats) {
     if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
       if (is.null(cluster.2)) {
-        i.colname <- paste("t.", cluster.1, sep="")
+        i.colname <- paste("welch.", cluster.1, sep="")
       } else {
-        i.colname <- paste("t.", cluster.1, ".", cluster.2, sep="")
+        i.colname <- paste("welch.", cluster.1, ".", cluster.2, sep="")
       }
-      i.t <- apply(dp, 1, FUN=t_helper, idx1=i.idx, idx2=j.idx)
+      i.t <- apply(dp, 1, FUN=welch_helper, idx1=i.idx, idx2=j.idx)
       dd[, i.colname] <- as.numeric(i.t)
     }
   }
+	
   if ("t.fdr" %in% stats) {
     if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
       if (is.null(cluster.2)) {
@@ -607,19 +608,15 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
     }
   }
 	
- if ("sSeq" %in% stats) {
+ if (("sSeq.p" %in% stats) | ("sSeq.fc" %in% stats)) {
     if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
       if (is.null(cluster.2)) {
-        i.colname <- paste("sSeq.", cluster.1, sep="")
-	i.colname.2 <- paste("log2FC.", cluster.1, sep="")
+        i.colname <- paste("sSeq.p.", cluster.1, sep="")
+	i.colname.2 <- paste("sSeq.fc.", cluster.1, sep="")
       } else {
-        i.colname <- paste("sSeq.", cluster.1, ".", cluster.2, sep="")
-	i.colname.2 <- paste("log2FC.", cluster.1, ".", cluster.2, sep="")
+        i.colname <- paste("sSeq.p.", cluster.1, ".", cluster.2, sep="")
+	i.colname.2 <- paste("sSeq.fc.", cluster.1, ".", cluster.2, sep="")
       }
-      #i.t <- apply(dp, 1, FUN=binom_helper, idx1=i.idx, idx2=j.idx, min.exp=min.exp)
-      #i.t <- as.numeric(i.t)
-      #i.t <- p.adjust(i.t, method="fdr")
-	    print(cluster.1)
       conds <- rep("A", dim(dp)[2])
       conds[j.idx] <- "B"
       names(conds) <- colnames(dp)
@@ -627,8 +624,8 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
       dp.2 <- dp[, names(conds)]
       rs.2 <- nbTestSH.2(dp.2, conds=conds)
       rm(dp.2)
-      dd[, i.colname] <- rs.2$pval   
-      dd[, i.colname.2] <- rs.2$rawLog2FoldChange
+      if ("sSeq.p" %in% stats) { dd[, i.colname] <- rs.2$pval }  
+      if ("sSeq.fc" %in% stats) { dd[, i.colname.2] <- rs.2$rawLog2FoldChange }
     }
  }
   
@@ -760,9 +757,9 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
 					  
 }
 
-
+# criteria: "welch", "bimod", "binom", "sSeq.p", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall"
 # op: 2 >, 1>=, 0==, -1 <=, -2 <
-GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL) {
+GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL, do.fdr=TRUE) {
   
   if(is.null(thresh)) thresh=rep(-Inf, length(criteria))
   if(is.null(op)) op=rep(1, length(criteria))
@@ -788,17 +785,53 @@ GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL) {
     dd[, i] <- NULL
   }
   
+  names(op) <- criteria
+  names(thresh) <- criteria
+  criteria.pvalues <- criteria[which(criteria %in% c("welch", "bimod", "binom", "sSeq.p")]
+  if (length(criteria.pvalues)>0) { 
+	  op.pvalues <- op[criteria.pvalues]
+	  thresh.pvalues <- thresh[criteria.pvalues] 
+  }
+  criteria.other <- setdiff(criteria, criteria.pvalues)
+  if (length(criteria.other)>0) { 
+	  op.other <- op[criteria.other]
+	  thresh.other <- thresh[criteria.other] 
+  }
   for (i in 1:length(groups)) {
     i.g <- groups[i]
-    i.criteria <- paste(criteria, ".", i.g, sep="")
-    i.sig <- 1:dim(gs)[1]
-    for (j in 1:length(i.criteria)) {
-      #cat(i, ".", j,"\n")
-      i.sig <- intersect(i.sig, getValid(as.numeric(gs[, i.criteria[j]]), thresh[j], op[j]))
+    i.gs <- gs
+    i.sig <- 1:dim(i.gs)[1]
+    if (length(criteria.other)>0) {
+	    i.criteria.other <- paste(criteria.other, ".", i.g, sep="")
+	    i.sig.other <- 1:dim(i.gs)[1]
+	    for (j in 1:length(i.criteria.other)) {
+	      #cat(i, ".", j,"\n")
+	      i.sig.other <- intersect(i.sig.other, getValid(as.numeric(i.gs[, i.criteria.other[j]]), thresh.other[j], op.other[j]))
+	    }
+	    i.sig <- i.sig.other
+	    if (length(i.sig)>1) {
+	       i.gs <- i.gs[i.sig, ]
+	    }
     }
-    if (length(i.sig)>0) {
-      i.dd <- data.frame(gene=rownames(gs)[i.sig], group=i.g)
-      i.dd[, criteria] <- gs[i.sig, i.criteria]
+    if (length(criteria.pvalues)>0) {
+	    if (length(i.sig)>1) {
+		    i.criteria.pvalues <- paste(criteria.pvalues, ".", i.g, sep="")
+		    i.sig.pvalues <- 1:dim(i.gs)[1]
+		    for (j in 1:length(i.criteria.pvalues)) {
+		      if (do.fdr == T) {
+			      i.gs[, i.criteria.pvalues[j]] <- p.adjust(i.gs[, i.criteria.pvalues[j]], method="fdr")
+		      }
+		      i.sig.pvalues <- intersect(i.sig.pvalues, getValid(as.numeric(i.gs[, i.criteria.pvalues[j]]), thresh.pvalues[j], op.pvalues[j]))
+		    }
+		    i.sig <- i.sig.pvalues
+		    if (length(i.sig)>1) {
+		       i.gs <- i.gs[i.sig, ]
+		    }
+	    }
+    }
+    if (length(i.sig)>1) {
+      i.dd <- data.frame(gene=rownames(i.gs)[i.sig], group=i.g)
+      i.dd[, criteria] <- i.gs[, i.criteria]
       dd <- rbind(dd, i.dd)
     }
   }
