@@ -366,7 +366,7 @@ enrichment <- function(params, use.scaled=T) {
 
 
 GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, min.gsize=2, min.avg=1,
-                   stats=c("welch", "bimod", "binom", "t.fdr", "bimod.fdr","binom.fdr", "sSeq.p", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+                   stats=c("welch", "bimod", "binom", "sSeq.p", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
   if (is.null(groups)) {
     groups <- sort(unique(ident))
   }
