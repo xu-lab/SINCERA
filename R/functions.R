@@ -388,7 +388,7 @@ GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, 
     if (length(pair.stats)>0) {
       for (s in pair.stats) {
         if (percluster==T) {
-          i.gs <- groups[-i]
+          i.gs <- groups[-i] 
           i.ret <- data.frame(gene=rownames(dp))
           rownames(i.ret) <- i.ret$gene
           for (j in 1:length(i.gs)) {
@@ -415,7 +415,13 @@ GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, 
   dd <- data.frame(gene=ret$gene)
   for (s in stats) {
     s.cols <- grep(paste("^", s, ".", sep=""), colnames(ret), value = TRUE)
-    dd <- cbind(dd, ret[, s.cols])
+    if (length(s.cols)==1) {
+	dd[, s.cols] <- as.numeric(ret[, s.cols])
+    } else {
+	dd.colnames <- colnames(dd)
+    	dd <- cbind(dd, ret[, s.cols])
+	colnames(dd) <- c(dd.colnames, s.cols)
+    }
   }
   return(dd)
   return(ret)
