@@ -787,7 +787,7 @@ GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL, do.fdr=TRUE) {
   
   names(op) <- criteria
   names(thresh) <- criteria
-  criteria.pvalues <- criteria[which(criteria %in% c("welch", "bimod", "binom", "sSeq.p")]
+  criteria.pvalues <- criteria[which(criteria %in% c("welch", "bimod", "binom", "sSeq.p"))]
   if (length(criteria.pvalues)>0) { 
 	  op.pvalues <- op[criteria.pvalues]
 	  thresh.pvalues <- thresh[criteria.pvalues] 
