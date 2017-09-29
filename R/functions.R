@@ -700,9 +700,9 @@ if ("sSeq.fdr" %in% stats) {
   if ("sSeq.fc" %in% stats) {
     if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
       if (is.null(cluster.2)) {     
-	i.colname. <- paste("sSeq.fc.", cluster.1, sep="")
+	i.colname <- paste("sSeq.fc.", cluster.1, sep="")
       } else {
-	i.colname. <- paste("sSeq.fc.", cluster.1, ".", cluster.2, sep="")
+	i.colname <- paste("sSeq.fc.", cluster.1, ".", cluster.2, sep="")
       }
       conds <- rep("A", dim(dp)[2])
       conds[j.idx] <- "B"
