@@ -366,7 +366,7 @@ enrichment <- function(params, use.scaled=T) {
 
 
 GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, min.gsize=2, min.avg=1,
-                   stats=c("welch", "bimod", "binom", "sSeq.p", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+                   stats=c("wilcox", "welch", "bimod", "binom", "sSeq.p", "wilcox.fdr", "welch.fdr", "bimod.fdr", "binom.fdr", "sSeq.fdr", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
   if (is.null(groups)) {
     groups <- sort(unique(ident))
   }
@@ -430,10 +430,31 @@ GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, 
 
 
 GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, min.gsize=2, min.avg=1,
-                      stats=c("welch", "bimod", "binom", "sSeq.p", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+                      stats=c("wilcox", "welch", "bimod", "binom", "sSeq.p", "wilcox.fdr", "welch.fdr", "bimod.fdr", "binom.fdr", "sSeq.fdr", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
 
 	
-  if (is.null(genes)) genes <- as.character(rownames(dp))    
+  if (is.null(genes)) genes <- as.character(rownames(dp))  
+	
+  wilcox_helper <- function(x, idx1, idx2) {
+    x <- as.numeric(x)
+    p <- NA
+    if (var(x[c(idx1, idx2)])==0) {
+      p<-1
+    } else {
+      tryCatch({
+          p<-wilcox.test(x[idx1], x[idx2], alternative="greater", mu = 0, paired = FALSE, conf.level = 0.95)$p.value
+        }, warning=function(w) {
+          p <- 1
+        }, error=function(e) {
+          p <- 1
+        }, finally={
+          
+        }
+      )
+      
+    }
+    return(p)
+  }
   
   welch_helper <- function(x, idx1, idx2) {
     x <- as.numeric(x)
@@ -537,7 +558,32 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
 	} else {
 		j.idx <- which(ident == cluster.2)
 	}
-        
+  if ("wilcox" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("wilcox.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("wilcox.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=wilcox_helper, idx1=i.idx, idx2=j.idx)
+      dd[, i.colname] <- as.numeric(i.t)
+    }
+  }
+	
+  if ("wilcox.fdr" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("wilcox.fdr.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("wilcox.fdr.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.t <- apply(dp, 1, FUN=welcox_helper, idx1=i.idx, idx2=j.idx)
+      i.t <- as.numeric(i.t)
+      i.t <- p.adjust(i.t, method="fdr")
+      dd[, i.colname] <- i.t
+    }
+  }  
+	
   if ("welch" %in% stats) {
     if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
       if (is.null(cluster.2)) {
@@ -550,14 +596,14 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
     }
   }
 	
-  if ("t.fdr" %in% stats) {
+  if ("welch.fdr" %in% stats) {
     if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
       if (is.null(cluster.2)) {
-        i.colname <- paste("t.fdr.", cluster.1, sep="")
+        i.colname <- paste("welch.fdr.", cluster.1, sep="")
       } else {
-        i.colname <- paste("t.fdr.", cluster.1, ".", cluster.2, sep="")
+        i.colname <- paste("welch.fdr.", cluster.1, ".", cluster.2, sep="")
       }
-      i.t <- apply(dp, 1, FUN=t_helper, idx1=i.idx, idx2=j.idx)
+      i.t <- apply(dp, 1, FUN=welch_helper, idx1=i.idx, idx2=j.idx)
       i.t <- as.numeric(i.t)
       i.t <- p.adjust(i.t, method="fdr")
       dd[, i.colname] <- i.t
@@ -615,14 +661,12 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
     }
   }
 	
- if (("sSeq.p" %in% stats) | ("sSeq.fc" %in% stats)) {
+ if ("sSeq.p" %in% stats) {
     if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
       if (is.null(cluster.2)) {
         i.colname <- paste("sSeq.p.", cluster.1, sep="")
-	i.colname.2 <- paste("sSeq.fc.", cluster.1, sep="")
       } else {
         i.colname <- paste("sSeq.p.", cluster.1, ".", cluster.2, sep="")
-	i.colname.2 <- paste("sSeq.fc.", cluster.1, ".", cluster.2, sep="")
       }
       conds <- rep("A", dim(dp)[2])
       conds[j.idx] <- "B"
@@ -631,8 +675,43 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
       dp.2 <- dp[, names(conds)]
       rs.2 <- nbTestSH.2(dp.2, conds=conds)
       rm(dp.2)
-      if ("sSeq.p" %in% stats) { dd[, i.colname] <- rs.2$pval }  
-      if ("sSeq.fc" %in% stats) { dd[, i.colname.2] <- rs.2$rawLog2FoldChange }
+      dd[, i.colname] <- rs.2$pval 
+    }
+ }
+	
+if ("sSeq.fdr" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("sSeq.fdr.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("sSeq.fdr.", cluster.1, ".", cluster.2, sep="")
+      }
+      conds <- rep("A", dim(dp)[2])
+      conds[j.idx] <- "B"
+      names(conds) <- colnames(dp)
+      conds <- sort(conds)
+      dp.2 <- dp[, names(conds)]
+      rs.2 <- nbTestSH.2(dp.2, conds=conds)
+      rm(dp.2)
+      dd[, i.colname] <- p.adjust(as.numeric(rs.2$pval), method="fdr")
+    }
+ }
+	
+  if ("sSeq.fc" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {     
+	i.colname. <- paste("sSeq.fc.", cluster.1, sep="")
+      } else {
+	i.colname. <- paste("sSeq.fc.", cluster.1, ".", cluster.2, sep="")
+      }
+      conds <- rep("A", dim(dp)[2])
+      conds[j.idx] <- "B"
+      names(conds) <- colnames(dp)
+      conds <- sort(conds)
+      dp.2 <- dp[, names(conds)]
+      rs.2 <- nbTestSH.2(dp.2, conds=conds)
+      rm(dp.2)
+      dd[, i.colname] <- rs.2$rawLog2FoldChange
     }
  }
   
