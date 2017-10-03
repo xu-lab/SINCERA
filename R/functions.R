@@ -1073,4 +1073,116 @@ pc.batch.combat <- function(x, sample, do.plot=T, par.prior=TRUE, db) {
   return(x1)
 }
 
+		   
+		   DoPCA <- function(sdp, genes=NULL, fast=FALSE, pcs.print=5,pcs.store=40) {
+  object <- sdp
+  if (fast==TRUE) {
+    data.use=object@scale.data
+    if (is.null(genes)) {
+      pc.genes = rownames(object@scale.data)
+    } else {
+      pc.genes = genes
+    }
+    
+    #Remove genes with zero variation
+    pc.genes.var = apply(data.use[pc.genes,],1,function(x) var(x))
+    genes.use = pc.genes[pc.genes.var>0]
+    pc.data = data.use[genes.use,]
+    
+    pca.obj = gmodels::fast.prcomp(t(pc.data),center=FALSE, scale=FALSE)
+    object@pca.obj=list(pca.obj)
+    pcs.store=min(pcs.store, ncol(pca.obj$rotation))
+    pcs.print=min(pcs.print, ncol(pca.obj$rotation))
+    object@pca.x=data.frame(pca.obj$rotation[,1:pcs.store])
+    object@pca.rot=data.frame(pca.obj$x[,1:pcs.store])
+    
+  } else {
+    object <- PCA(object, pc.genes = genes, do.print = FALSE, pcs.print = pcs.print, pcs.store=40, genes.print = 5)
+  }
+  return(object)
+}
+
+
+
+          
+graph.clustering <- function(object, cells.use=NULL, pcs.use=1:10, num.nn=30, do.jaccard=FALSE, method="Louvain") {
+  
+  
+  if (do.jaccard){
+    weights=TRUE;
+    method_print = paste0(method,"-","Jaccard")
+  } else {
+    weights=NULL;
+    method_print = method
+  }
+  
+  print(paste0("Performing ", method_print, " clustering. Using ", num.nn, " nearest neighbors, and ", max(pcs.use), " PCs"))
+  
+  if (is.null(cells.use)){
+    data.use=object@pca.rot[,pcs.use]
+  } else {
+    data.use=object@pca.rot[cells.use,pcs.use]
+  } 
+  
+  Adj = get_edges(data.use,nn=num.nn,do.jaccard=do.jaccard)
+  
+  
+  g=igraph::graph.adjacency(Adj, mode = "undirected", weighted=weights)
+  if (method=="Louvain") graph.out = igraph::cluster_louvain(g)
+  if (method=="Infomap") graph.out = igraph::cluster_infomap(g)
+  
+  clust.assign = factor(graph.out$membership, levels=sort(unique(graph.out$membership)))
+  names(clust.assign) = graph.out$names
+  k=order(table(clust.assign), decreasing = TRUE)
+  new.levels = rep(1,length(unique(graph.out$membership)))
+  new.levels[k] = 1:length(unique(graph.out$membership))
+  levels(clust.assign) = new.levels
+  clust.assign = factor(clust.assign, levels=1:length(unique(graph.out$membership)))
+  print("Outputting clusters ..")
+  #object@meta$clust = NULL
+  #object@meta[names(clust.assign),"clust"]=clust.assign
+  object@ident=clust.assign; 
+  names(object@ident)=names(clust.assign);               
+  
+  
+  return(object) 
+}
+
+
+# Build a nearest neighbor graph with or without edge weights, and return an adjacency matrix
+get_edges=function(X,nn=30,do.jaccard=TRUE) {
+  nearest=RANN::nn2(X,X,k=nn+1, treetype = "bd", searchtype="priority")
+  print("Found nearest neighbors")
+  nearest$nn.idx = nearest$nn.idx[,-1]
+  nearest$nn.dists = nearest$nn.dists[,-1] #Convert to a similarity score
+  nearest$nn.sim = 1*(nearest$nn.dists >= 0 )
+  
+  
+  edges = melt(t(nearest$nn.idx)); colnames(edges) = c("B", "A", "C"); edges = edges[,c("A","B","C")]
+  edges$B = edges$C; edges$C=1
+  
+  #Remove repetitions
+  edges = unique(transform(edges, A = pmin(A,B), B=pmax(A,B)))
+  
+  if (do.jaccard){
+    
+    NN = nearest$nn.idx
+    jaccard_dist = apply(edges, 1, function(x) length(intersect(NN[x[1], ],NN[x[2], ]))/length(union(NN[x[1], ], NN[x[2], ])) )
+    
+    edges$C = jaccard_dist
+    edges = subset(edges, C != 0)
+    edges$C = edges$C/max(edges$C)
+  }
+  
+  
+  
+  
+  Adj = matrix(0, nrow=nrow(X), ncol=nrow(X))
+  rownames(Adj) = rownames(X); colnames(Adj) = rownames(X)
+  Adj[cbind(edges$A,edges$B)] = edges$C
+  Adj[cbind(edges$B,edges$A)] = edges$C
+  return(Adj)
+  
+}
+
 
