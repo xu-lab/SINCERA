@@ -298,10 +298,10 @@ enrichment <- function(params, use.scaled=T) {
     }
     
     if (use.scaled) {
-      gs <- GeneStats(dp=params$sdp@scale.data[gene, ], ident=params$sdp@ident, groups=NULL, 
+      gs <- GS.all(dp=params$sdp@scale.data[gene, ], ident=params$sdp@ident, groups=NULL, 
                     min.exp=params$min.exp, stats=c("ident.avg","ident.cnt","ident.pct", "ident.recall"))
     } else {
-      gs <- GeneStats(dp=params$sdp@data[gene, ], ident=params$sdp@ident, groups=NULL, 
+      gs <- GS.all(dp=params$sdp@data[gene, ], ident=params$sdp@ident, groups=NULL, 
                       min.exp=params$min.exp, stats=c("ident.avg","ident.cnt","ident.pct", "ident.recall"))
       
     }
