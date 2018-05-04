@@ -1103,7 +1103,42 @@ pc.batch.combat <- function(x, sample, do.plot=T, par.prior=TRUE, db) {
 }
 
 
+graph.clustering.0 <- function(data.use, num.nn=30, do.jaccard=FALSE, method="Louvain") {
+  
+  
+  if (do.jaccard){
+    weights=TRUE;
+    method_print = paste0(method,"-","Jaccard")
+  } else {
+    weights=NULL;
+    method_print = method
+  }
+  
+  print(paste0("Performing ", method_print, " clustering. Using ", num.nn, " nearest neighbors"))
+  
+  Adj = get_edges(data.use,nn=num.nn,do.jaccard=do.jaccard)
+  
+  
+  g=igraph::graph.adjacency(Adj, mode = "undirected", weighted=weights)
+  if (method=="Louvain") graph.out = igraph::cluster_louvain(g)
+  if (method=="Infomap") graph.out = igraph::cluster_infomap(g)
+  
+  clust.assign = factor(graph.out$membership, levels=sort(unique(graph.out$membership)))
+  names(clust.assign) = graph.out$names
+  k=order(table(clust.assign), decreasing = TRUE)
+  new.levels = rep(1,length(unique(graph.out$membership)))
+  new.levels[k] = 1:length(unique(graph.out$membership))
+  levels(clust.assign) = new.levels
+  clust.assign = factor(clust.assign, levels=1:length(unique(graph.out$membership)))
+  print("Outputting clusters ..")
+  #object@meta$clust = NULL
+  #object@meta[names(clust.assign),"clust"]=clust.assign
+  
+  #object@ident=clust.assign; 
+  #names(object@ident)=names(clust.assign);               
 
+  return(clust.assign) 
+}
           
 graph.clustering <- function(object, cells.use=NULL, pcs.use=1:10, num.nn=30, do.jaccard=FALSE, method="Louvain") {
   
