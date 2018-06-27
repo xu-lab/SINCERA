@@ -31,10 +31,10 @@ exprs.specificity <- function(ES, group.by=SAMPLE.LABEL, groups=NULL, specificit
     i.cells <- rownames(subset(pData(ES), pData(ES)[,group.by] %in% i))
     i.name <- paste(specificity.prefix,i,sep="")
     if (length(i.cells) <=1) {
-      i.specificity <- rep(1, dim(exprs(ES))[1])
+      i.specificity <- rep(1, dim(Biobase::exprs(ES))[1])
       fData(ES)[,i.name] <- i.specificity
     } else {
-      i.specificity <- apply(exprs(ES[,i.cells]), 1, function(y) specificity.helper(y))
+      i.specificity <- apply(Biobase::exprs(ES[,i.cells]), 1, function(y) specificity.helper(y))
       fData(ES)[,i.name] <- i.specificity
     }
   }
@@ -91,12 +91,12 @@ specificity.criterion.selection <- function(ES, group.by=SAMPLE.LABEL, groups=NU
     
     if (n==1) {
       col.idx <- 1:dim(pData(ES))[1]
-      ref.exp[which(rowSums(exprs(ES)[ref.idx, col.idx] > exp.t) > floor(length(col.idx)*exp.p)), paste("exp.", groups, sep="")] <- 1
+      ref.exp[which(rowSums(Biobase::exprs(ES)[ref.idx, col.idx] > exp.t) > floor(length(col.idx)*exp.p)), paste("exp.", groups, sep="")] <- 1
       ref.idx <- ref.idx[which(ref.exp[, cnames]>=length(groups))]
     } else if (n>1) { # more than one sample
       for (g in 1:n) {
         col.idx <- which(pData(ES)[, group.by] %in% groups[g])
-        ref.exp[which(rowSums(exprs(ES)[ref.idx, col.idx] > exp.t) > floor(length(col.idx)*exp.p)), paste("exp.", groups[g], sep="")] <- 1
+        ref.exp[which(rowSums(Biobase::exprs(ES)[ref.idx, col.idx] > exp.t) > floor(length(col.idx)*exp.p)), paste("exp.", groups[g], sep="")] <- 1
       }
       ref.idx <- ref.idx[which(rowSums(ref.exp[, cnames])>=length(groups))]
     }
@@ -217,7 +217,7 @@ setMethod("cluster.geneSelection","sincera",
                 if (length(s.idx)==1) {
                   stats[, s] <- rep(1, dim(stats)[1]) # singleton cluster has no effect on selection
                 } else {
-                  stats[, s] <- apply(exprs(object@data)[, s.idx], 1, function(x) specificity.helper(x))
+                  stats[, s] <- apply(Biobase::exprs(object@data)[, s.idx], 1, function(x) specificity.helper(x))
                 }
               }
 
@@ -782,7 +782,7 @@ cluster.permutation.analysis.1 <- function(ES, group.by="GROUP", n=20, distance.
   if (is.null(log.base)) {
     log.base=1
   }
-  if (log.base>1 & any(exprs(ES)<=0)) {
+  if (log.base>1 & any(Biobase::exprs(ES)<=0)) {
     log.base=1
     stop("There are zero or negative expression values. Please set log.base to NULL\n")
   }
@@ -835,11 +835,11 @@ cluster.permutation.analysis.1 <- function(ES, group.by="GROUP", n=20, distance.
 pa.helper <- function(ES, group.by="GROUP", log.base=2, cs, a, distance.method="euclidean") {
   s <- 0
   idx <- 1
-  x.mu <- matrix(0, nrow=dim(exprs(ES))[1], ncol=length(cs[, group.by]))
+  x.mu <- matrix(0, nrow=dim(Biobase::exprs(ES))[1], ncol=length(cs[, group.by]))
   # obtain cluster centroids
   for (i in 1:length(cs[, group.by])) {
-    i.x.mu <- apply(exprs(ES)[, a[idx:(idx+cs$SIZE[i]-1)]], 1, mean)
-    i.s <- sum(apply(exprs(ES)[, a[idx:(idx+cs$SIZE[i]-1)]], 2, function(z) pa.distance.helper(mu=as.numeric(i.x.mu), y=as.numeric(z), log.base=log.base, distance.method=distance.method)))
+    i.x.mu <- apply(Biobase::exprs(ES)[, a[idx:(idx+cs$SIZE[i]-1)]], 1, mean)
+    i.s <- sum(apply(Biobase::exprs(ES)[, a[idx:(idx+cs$SIZE[i]-1)]], 2, function(z) pa.distance.helper(mu=as.numeric(i.x.mu), y=as.numeric(z), log.base=log.base, distance.method=distance.method)))
     s <- s + i.s
     idx <- idx+cs$SIZE[i]
   }
@@ -876,9 +876,9 @@ cluster.ordering <- function(ES, col.order=NULL, row.order=NULL, verbose=TRUE) {
     if (verbose) {
       cat("Sincera: ordering columns... ")
     }
-    exprs.m <- exprs(ES)[,col.order]
+    exprs.m <- Biobase::exprs(ES)[,col.order]
     cells <- pData(ES)[col.order,]
-    exprs(ES) <- exprs.m
+    Biobase::exprs(ES) <- exprs.m
     pData(ES) <- cells
     if (verbose) {
       cat("done\n")
@@ -888,9 +888,9 @@ cluster.ordering <- function(ES, col.order=NULL, row.order=NULL, verbose=TRUE) {
     if (verbose) {
       cat("Sincera: ordering rows... ")
     }
-    exprs.m <- exprs(ES)[row.order,]
+    exprs.m <- Biobase::exprs(ES)[row.order,]
     genes <- fData(ES)[row.order,]
-    exprs(ES) <- exprs.m
+    Biobase::exprs(ES) <- exprs.m
     fData(ES) <- genes
     if (verbose) {
       cat("done\n")
@@ -1030,10 +1030,10 @@ diff.test.samseq <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, samseq.fdr
     i.cells <- rownames(subset(pData(ES), pData(ES)[, group.by] %in% i))
     i.cells.o <- setdiff(cells, i.cells)
     if (length(i.cells)>1 & length(i.cells.o)>1) {
-      i.cells.idx <- which(colnames(exprs(ES)) %in% i.cells)
-      i.cells.o.idx <- which(colnames(exprs(ES)) %in% i.cells.o)
+      i.cells.idx <- which(colnames(Biobase::exprs(ES)) %in% i.cells)
+      i.cells.o.idx <- which(colnames(Biobase::exprs(ES)) %in% i.cells.o)
       
-      x <- exprs(ES)
+      x <- Biobase::exprs(ES)
       x <- ceiling(x)
       y <- rep(-1, length(cells))
       y[i.cells.idx] <- 2

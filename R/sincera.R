@@ -161,7 +161,7 @@ getExpression <- function(object, scaled=FALSE, genes=NULL, cells=NULL) {
   if (scaled==TRUE) {
     ret <- object@sexprs
   } else {
-    ret <- exprs(object@data)
+    ret <- Biobase::exprs(object@data)
   }
 
   if (is.null(genes)) genes <- rownames(ret)
@@ -180,7 +180,7 @@ getExpression <- function(object, scaled=FALSE, genes=NULL, cells=NULL) {
 #'
 #' @param object A sincera object
 #' @param value An expression matrix, rows are genes, columns are cells, rownames are gene names, colnames are cell names
-#' @param scaled If TRUE, the update will be performed on the scaled expression matrix, object@sexprs; otherwise, it will be performed on exprs(object@data)
+#' @param scaled If TRUE, the update will be performed on the scaled expression matrix, object@sexprs; otherwise, it will be performed on Biobase::exprs(object@data)
 #' @export
 setExpression <- function(object, value, scaled=FALSE) {
 
@@ -205,7 +205,7 @@ setExpression <- function(object, value, scaled=FALSE) {
     colnames(object@sexprs) <- getCells(object)
     object@sexprs[genes, cells] <- value
   } else {
-    exprs(object@data)[genes, cells] <- value
+    Biobase::exprs(object@data)[genes, cells] <- value
   }
   return(object)
 }
@@ -248,13 +248,13 @@ getCells <- function(object, groups=NULL) {
 #'
 setCellNames <- function(object, value) {
 
-    if (length(value) != dim(exprs(object@data))[1]) {
+    if (length(value) != dim(Biobase::exprs(object@data))[1]) {
       stop("The size of \'value\' is inconsistent with the number of cells\n")
     }
     if (any(is.na(value))) {
       warning("The \'value\' contains missing values\n")
     }
-    colnames(exprs(object@data)) <- value
+    colnames(Biobase::exprs(object@data)) <- value
     rownames(pData(object@data)) <- value
     return(object)
 }
@@ -269,7 +269,7 @@ setCellNames <- function(object, value) {
 #'
 getCellNum <- function(object) {
     ret <- 0
-    ret <- dim(exprs(object@data))[2]
+    ret <- dim(Biobase::exprs(object@data))[2]
     return(ret)
 }
 
@@ -293,13 +293,13 @@ getGenes <- function(object) {
 #' @export
 #'
 setGeneNames <- function(object, value) {
-  if (length(value) != dim(exprs(object@data))[1]) {
+  if (length(value) != dim(Biobase::exprs(object@data))[1]) {
     stop("The size of \'value\' is inconsistent with the number of genes in the object\n")
   }
   if (any(is.na(value))) {
     warning("The \'value\' contains missing values.")
   }
-  rownames(exprs(object@data)) <- value
+  rownames(Biobase::exprs(object@data)) <- value
   rownames(fData(object@data)) <- value
   return(object)
 }
@@ -312,7 +312,7 @@ setGeneNames <- function(object, value) {
 #'
 getGeneNum <- function(object) {
   ret <- 0
-  ret <- dim(exprs(object@data))[1]
+  ret <- dim(Biobase::exprs(object@data))[1]
   return(ret)
 }
 

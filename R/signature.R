@@ -305,11 +305,11 @@ setMethod("signature.validation","sincera",
                                     j.cells.test.idx <- sample(cluster.cells.idx[[all.groups[j]]], j.n, replace=FALSE)
 
 
-                                    i.trainset <- data.frame(t(exprs(ES)[i.sigs.idx, setdiff(cluster.cells.idx[[sig.groups[i]]], i.cells.test.idx)]), CLUSTER=paste("C", sig.groups[i], sep=""))
-                                    j.trainset <- data.frame(t(exprs(ES)[i.sigs.idx, setdiff(cluster.cells.idx[[all.groups[j]]], j.cells.test.idx)]), CLUSTER=paste("C", all.groups[j], sep=""))
+                                    i.trainset <- data.frame(t(Biobase::exprs(ES)[i.sigs.idx, setdiff(cluster.cells.idx[[sig.groups[i]]], i.cells.test.idx)]), CLUSTER=paste("C", sig.groups[i], sep=""))
+                                    j.trainset <- data.frame(t(Biobase::exprs(ES)[i.sigs.idx, setdiff(cluster.cells.idx[[all.groups[j]]], j.cells.test.idx)]), CLUSTER=paste("C", all.groups[j], sep=""))
 
-                                    i.testset <- data.frame(t(exprs(ES)[i.sigs.idx, i.cells.test.idx]), CLUSTER=paste("C", sig.groups[i], sep=""))
-                                    j.testset <- data.frame(t(exprs(ES)[i.sigs.idx, j.cells.test.idx]), CLUSTER=paste("C", all.groups[j], sep=""))
+                                    i.testset <- data.frame(t(Biobase::exprs(ES)[i.sigs.idx, i.cells.test.idx]), CLUSTER=paste("C", sig.groups[i], sep=""))
+                                    j.testset <- data.frame(t(Biobase::exprs(ES)[i.sigs.idx, j.cells.test.idx]), CLUSTER=paste("C", all.groups[j], sep=""))
 
                                     trainset = NULL
                                     testset = NULL
@@ -522,8 +522,8 @@ exprs.common <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, common.thresho
   }
   for (i in groups) {
     i.cells <- rownames(subset(pData(ES), pData(ES)[, group.by] %in% i))
-    i.cells.idx <- which(colnames(exprs(ES)) %in% i.cells)
-    i.common <- apply(exprs(ES), 1, function(y) common.helper(y, i.cells.idx, common.threshold, common.percentage))
+    i.cells.idx <- which(colnames(Biobase::exprs(ES)) %in% i.cells)
+    i.common <- apply(Biobase::exprs(ES), 1, function(y) common.helper(y, i.cells.idx, common.threshold, common.percentage))
     i.name <- paste(common.prefix, i, sep="")
     fData(ES)[,i.name]<-i.common
   }
@@ -558,9 +558,9 @@ exprs.unique <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, unique.ratio=2
   for (i in groups) {
     i.cells <- rownames(subset(pData(ES), pData(ES)[, group.by] %in% i))
     i.cells.o <- setdiff(cells, i.cells)
-    i.cells.idx <- which(colnames(exprs(ES)) %in% i.cells)
-    i.cells.o.idx <- which(colnames(exprs(ES)) %in% i.cells.o)
-    i.unique <- apply(exprs(ES), 1, function(y) unique.helper(y, i.cells.idx, i.cells.o.idx, unique.ratio, unique.quantile))
+    i.cells.idx <- which(colnames(Biobase::exprs(ES)) %in% i.cells)
+    i.cells.o.idx <- which(colnames(Biobase::exprs(ES)) %in% i.cells.o)
+    i.unique <- apply(Biobase::exprs(ES), 1, function(y) unique.helper(y, i.cells.idx, i.cells.o.idx, unique.ratio, unique.quantile))
     i.name <- paste(unique.prefix, i, sep="")
     fData(ES)[,i.name]<-i.unique
   }
@@ -626,11 +626,11 @@ exprs.synthetic.similarity <- function(ES, group.by=CLUSTER.LABEL, groups=NULL, 
   for (i in groups) {
     i.cells <- rownames(subset(pData(ES), pData(ES)[, group.by] %in% i))
     i.cells.o <- setdiff(cells, i.cells)
-    i.cells.idx <- which(colnames(exprs(ES)) %in% i.cells)
-    i.cells.o.idx <- which(colnames(exprs(ES)) %in% i.cells.o)
-    i.synthetic.profile <-  rep(0, dim(exprs(ES))[2])
+    i.cells.idx <- which(colnames(Biobase::exprs(ES)) %in% i.cells)
+    i.cells.o.idx <- which(colnames(Biobase::exprs(ES)) %in% i.cells.o)
+    i.synthetic.profile <-  rep(0, dim(Biobase::exprs(ES))[2])
     i.synthetic.profile[i.cells.idx] <- 1
-    i.ss <- apply(exprs(ES), 1, function(y) (1+cor(i.synthetic.profile, as.numeric(y)))/2)
+    i.ss <- apply(Biobase::exprs(ES), 1, function(y) (1+cor(i.synthetic.profile, as.numeric(y)))/2)
     i.name <- paste(syn.sim.prefix, i, sep="")
     fData(ES)[,i.name]<-i.ss
   }

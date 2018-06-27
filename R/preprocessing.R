@@ -430,12 +430,12 @@ setMethod("normalization.zscore","sincera",
             if (TRUE==pergroup) {
               es <- normalization.zscore.1(es, group.by="GROUP", groups=NULL, verbose=T)
             } else {
-              zexprs <- scale(t(exprs(es)), center=T, scale=T)
-              exprs(es) <- t(zexprs)
+              zexprs <- scale(t(Biobase::exprs(es)), center=T, scale=T)
+              Biobase::exprs(es) <- t(zexprs)
             }
 
             if (class(object)=="sincera") {
-              object <- setExpression(object, value=exprs(es), scaled=TRUE)
+              object <- setExpression(object, value=Biobase::exprs(es), scaled=TRUE)
             } else if (class(object)=="ExpressionSet") {
               object <- es
             }
@@ -461,10 +461,10 @@ normalization.zscore.1 <- function(ES, group.by="GROUP", groups=NULL, verbose=TR
   }
   for (i in groups) {
     i.cells <- rownames(subset(pData(ES), pData(ES)[,group.by] %in% i))
-    i.fpkm <- exprs(ES)[,i.cells]
+    i.fpkm <- Biobase::exprs(ES)[,i.cells]
     i.fpkm <- apply(i.fpkm, 1, function(y) z.transform.helper(y))
     i.fpkm <- t(i.fpkm)
-    exprs(ES)[,i.cells] <- i.fpkm
+    Biobase::exprs(ES)[,i.cells] <- i.fpkm
   }
   if (verbose) {
     cat("done\n\n")
@@ -733,7 +733,7 @@ normalization.sqrt <- function(x) {
 #' @return The normalized expression matrix
 #' @note This function is from SINCERA version a10242015. It will be upgraded soon.
 normalization.trimmed.mean <- function(x, up=0.9, lo=0.1, do.scaling=FALSE) {
-  #x <- exprs(ES)
+  #x <- Biobase::exprs(ES)
   trimmed.means <- apply(x, 2, function(y) trimmed.mean.helper(y, up=up, lo=lo) )
   x <- x/trimmed.means
   if (do.scaling==TRUE) {
