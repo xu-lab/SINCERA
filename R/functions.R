@@ -1,3 +1,30 @@
+co.tsne <- function(combined, genes.use, is.expr=0) {
+  g <- NULL
+  genes.use <- genes.use[which(genes.use %in% rownames(combined@data))]
+  if (length(genes.use)>1) {
+    viz <- data.frame(t(as.matrix(combined@data[genes.use, ])))
+    viz$Coexpressed <- rowSums(viz>is.expr)
+    viz$Coexpressed[which(viz$Coexpressed < length(genes.use))] <- 0
+    viz <- cbind(viz, combined@dr$tsne@cell.embeddings)
+    viz$Coexpressed <- factor(viz$Coexpressed)
+    g <- ggplot(viz, aes(x=tSNE_1, y=tSNE_2, col=Coexpressed))
+    g <- g + geom_point()
+    g <- g + ggtitle(paste(genes.use, collapse = " + "))
+    g <- g + scale_color_manual(values=c("grey80","red"))
+    g <- g + guides(color=FALSE)
+  } 
+  return(g)
+}
+
+cell.tsne <- function(combined, meta.name="louvain", meta.values, pt.size=0.5) {
+  viz <- data.frame(combined@dr$tsne@cell.embeddings)
+  viz[, meta.name] <- as.character(combined@meta.data[, meta.name])
+  viz[which(!(viz[, meta.name] %in% meta.values)), meta.name] <- "Other"
+  g <- ggplot(viz, aes(x=tSNE_1, y=tSNE_2)) + geom_point(aes_string(col=meta.name), size=pt.size)
+  print(g)
+  return(g)
+} 
+
 # from seurat
 extract_field=function(string,field=1,delim="_") {
   fields=as.numeric(unlist(strsplit(as.character(field),",")))
