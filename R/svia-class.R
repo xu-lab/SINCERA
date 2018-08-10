@@ -13,7 +13,7 @@ svia <- setClass(
 
 setMethod(
   f = "show",
-  signature = "seurat",
+  signature = "svia",
   definition = function(object) {
     cat(
       "An object of class",
