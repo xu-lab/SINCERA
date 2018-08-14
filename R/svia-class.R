@@ -50,6 +50,11 @@ getCellMeta <-  function(object, name) {
   }
 }
 
+getCellMetas <-  function(object, name) {
+  metas <- colnames(object@cellmeta)
+  return(metas)
+}
+
 getCellName <- function(object) {
   return(colnames(getExpression(object)))
 }
