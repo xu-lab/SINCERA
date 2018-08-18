@@ -96,7 +96,7 @@ construct <- function(exprmatrix=NULL, exprfile=NULL,
 	  if (!is.null(samplefile)) {
 		  rsampleinfo <- as.character(read.table(file=samplefile, sep="\t", header=F, check.names=FALSE)$V1)
 	  } else {
-		  rsampleinfo <- rep("sample1", dim(rexpr)[2])
+		  rsampleinfo <- rep("sample1", dim(rexprs)[2])
 	  }
   }
 
