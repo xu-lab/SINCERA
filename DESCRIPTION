@@ -17,7 +17,7 @@ Description: The pipeline
     given cell types.
 License: GPL-3
 LazyData: TRUE
-Imports: tightClust, samr, e1071
+Imports: e1071
 RoxygenNote: 6.0.1
 Collate:
     'sincera.R'
