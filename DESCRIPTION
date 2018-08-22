@@ -3,7 +3,7 @@ Type: Package
 Title: An R implementation of SINCERA pipeline for processing
     single-cell RNA-seq data.
 Version: 0.99.0
-Date: 2017-04-25
+Date: 2018-08-22
 Authors@R: person("Minzhe", "Guo", email = "minzhe.guo@cchmc.org", role = c("aut", "cre"))
 Depends: R (>= 3.2.0), Biobase, ROCR, RobustRankAggreg, Rtsne, tsne, RColorBrewer, gridExtra, dplyr,
     G1DBN, igraph, ggplot2, ggdendro, plyr, zoo, reshape2, gmodels, cluster, pheatmap, dendextend
