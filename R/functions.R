@@ -9,7 +9,7 @@ co.tsne <- function(combined, genes.use, is.expr=0, pt.size=0.5, cols=c("grey80"
     viz$Coexpressed <- factor(viz$Coexpressed)
     g <- ggplot(viz, aes(x=tSNE_1, y=tSNE_2, col=Coexpressed))
     g <- g + geom_point(size=pt.size)
-    g <- g + ggtitle(paste(paste(genes.use, collapse = " + "),"+ (n=", length(which(viz$Coexpressed==length(genes.use))), ")", sep="")
+    g <- g + ggtitle(paste(paste(genes.use, collapse = " + "),"+ (n=", length(which(viz$Coexpressed==length(genes.use))), ")", sep=""))
     g <- g + scale_color_manual(values=cols)
     g <- g + guides(color=FALSE)
   } 
