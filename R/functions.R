@@ -1,4 +1,4 @@
-co.tsne <- function(combined, genes.use, is.expr=0, pt.size=0.5) {
+co.tsne <- function(combined, genes.use, is.expr=0, pt.size=0.5, cols=c("grey80", "red")) {
   g <- NULL
   genes.use <- genes.use[which(genes.use %in% rownames(combined@data))]
   if (length(genes.use)>1) {
@@ -10,7 +10,7 @@ co.tsne <- function(combined, genes.use, is.expr=0, pt.size=0.5) {
     g <- ggplot(viz, aes(x=tSNE_1, y=tSNE_2, col=Coexpressed))
     g <- g + geom_point(size=pt.size)
     g <- g + ggtitle(paste(paste(genes.use, collapse = " + "),"+ (n=", length(which(viz$Coexpressed==length(genes.use))), ")", sep="")
-    g <- g + scale_color_manual(values=c("grey80","red"))
+    g <- g + scale_color_manual(values=cols)
     g <- g + guides(color=FALSE)
   } 
   return(g)
