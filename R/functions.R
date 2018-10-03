@@ -393,7 +393,7 @@ enrichment <- function(params, use.scaled=T) {
 
 
 GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, min.gsize=2, min.avg=1,
-                   stats=c("wilcox", "welch", "bimod", "binom", "sSeq.p", "wilcox.fdr", "welch.fdr", "bimod.fdr", "binom.fdr", "sSeq.fdr", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+                   stats=c("wilcox", "welch", "bimod", "binom", "sSeq.p", "wilcox.fdr", "welch.fdr", "bimod.fdr", "binom.fdr", "sSeq.fdr", "sSeq.fc", "efsize", "fc", "log2fc", "ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
   if (is.null(groups)) {
     groups <- sort(unique(ident))
   }
@@ -423,10 +423,10 @@ GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, 
                             min.exp=min.exp, min.gsize=min.gsize, min.avg=min.avg, stats=s)
             i.ret[, colnames(i.j.ret)[2]] <- as.numeric(i.j.ret[, 2]) #, check.names=FALSE)
           }
-          if (s %in% c("welch","binom", "bimod", "sSeq.p")) {
+          if (s %in% c("wilcox", "welch", "bimod", "binom", "sSeq.p", "wilcox.fdr", "welch.fdr", "bimod.fdr", "binom.fdr", "sSeq.fdr")) {
             ret[, paste(s, ".", groups[i], sep="")] <- apply(i.ret[rownames(ret), -1], 1, max)
             ret <- data.frame(ret, i.ret[rownames(ret), -1], check.names=FALSE)
-          } else if (s %in% c("efsize", "fc", "sSeq.fc")) {
+          } else if (s %in% c("efsize", "fc","log2fc", "sSeq.fc")) {
             ret[, paste(s, ".", groups[i], sep="")] <- apply(i.ret[rownames(ret), -1], 1, min)
             ret <- data.frame(ret, i.ret[rownames(ret), -1], check.names=FALSE)
           }
@@ -457,7 +457,7 @@ GS.all <- function(dp, ident, groups=NULL, genes=NULL, percluster=T, min.exp=1, 
 
 
 GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, min.gsize=2, min.avg=1,
-                      stats=c("wilcox", "welch", "bimod", "binom", "sSeq.p", "wilcox.fdr", "welch.fdr", "bimod.fdr", "binom.fdr", "sSeq.fdr", "sSeq.fc", "efsize", "fc","ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
+                      stats=c("wilcox", "welch", "bimod", "binom", "sSeq.p", "wilcox.fdr", "welch.fdr", "bimod.fdr", "binom.fdr", "sSeq.fdr", "sSeq.fc", "efsize", "fc", "log2fc", "ident.avg", "ident.q0","ident.q25","ident.q50", "ident.q75","ident.q100", "ident.cnt", "ident.pct", "ident.recall")) {
 
 	
   if (is.null(genes)) genes <- as.character(rownames(dp))  
@@ -545,6 +545,12 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
     x <- 1-x
     specificity <- sum(x)/(length(x)-1)
     return(specificity)
+  }
+	
+  log2fc_helper <- function(x, idx1, idx2) {
+    x1 <- log2(mean(expm1(x[idx1]))+1)
+    x2 <- log2(mean(expm1(x[idx2]))+1)
+    return(x1-x2)
   }
   
   dp <- dp[genes, ]
@@ -767,6 +773,18 @@ if ("sSeq.fdr" %in% stats) {
       j.avg[which(j.avg < min.avg)] <- min.avg
       i.fc <- i.avg/j.avg
       dd[, i.colname] <- as.numeric(i.fc)
+    }
+  }
+	
+  if ("log2fc" %in% stats) {
+    if (length(i.idx)>=min.gsize & length(j.idx)>=min.gsize) {
+      if (is.null(cluster.2)) {
+        i.colname <- paste("log2fc.", cluster.1, sep="")
+      } else {
+        i.colname <- paste("log2fc.", cluster.1, ".", cluster.2, sep="")
+      }
+      i.log2fc <- apply(dp, 1, FUN=log2fc_helper, idx1=i.idx, idx2=j.idx)
+      dd[, i.colname] <- as.numeric(i.log2fc)
     }
   }
   
