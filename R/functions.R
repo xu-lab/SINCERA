@@ -898,7 +898,7 @@ GetSigs <- function(gs, groups, criteria, thresh=NULL, op=NULL, do.fdr=TRUE) {
   getValid <- function(x, thresh, op) {
     ret <- c()
     if (op==0) {
-      ret <- which(x==thrsh)
+      ret <- which(x==thresh)
     } else if (op==1) {
       ret <- which(x>=thresh)
     } else if (op==2) {
