@@ -610,7 +610,7 @@ GS.one <- function(dp, ident, cluster.1, cluster.2=NULL, genes=NULL, min.exp=1, 
       } else {
         i.colname <- paste("wilcox.fdr.", cluster.1, ".", cluster.2, sep="")
       }
-      i.t <- apply(dp, 1, FUN=welcox_helper, idx1=i.idx, idx2=j.idx)
+      i.t <- apply(dp, 1, FUN=wilcox_helper, idx1=i.idx, idx2=j.idx)
       i.t <- as.numeric(i.t)
       i.t <- p.adjust(i.t, method="fdr")
       dd[, i.colname] <- i.t
