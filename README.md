@@ -2,6 +2,8 @@
 
 An R S4 implementation of the SINCERA pipeline for single-cell RNA-seq profiling analysis
 
+Developed by Minzhe Guo
+
 
 ## Installation
 
