@@ -1,0 +1,1509 @@
+# Mouse TFs were from TcoF-DBv2 (PMID: 27789689). We performed symbol update and Ensembl gene id mapping in December, 2020. -- MG
+Symbol	EntrezID	Name	Species	Symbol_20201219	EnsemblID
+9130023H24Rik	100043133	RIKEN cDNA 9130023H24 gene	mouse	9130023H24Rik	ENSMUSG00000062944
+Adnp	11538	activity-dependent neuroprotective protein	mouse	Adnp	ENSMUSG00000051149
+Adnp2	240442	ADNP homeobox 2	mouse	Adnp2	ENSMUSG00000053950
+Aebp1	11568	AE binding protein 1	mouse	Aebp1	ENSMUSG00000020473
+Aebp2	11569	AE binding protein 2	mouse	Aebp2	ENSMUSG00000030232
+Aff1	17355	"AF4/FMR2 family, member 1"	mouse	Aff1	ENSMUSG00000029313
+Aff2	14266	"AF4/FMR2 family, member 2"	mouse	Aff2	ENSMUSG00000031189
+Aff3	16764	"AF4/FMR2 family, member 3"	mouse	Aff3	ENSMUSG00000037138
+Aff4	93736	"AF4/FMR2 family, member 4"	mouse	Aff4	ENSMUSG00000049470
+Ahctf1	226747	AT hook containing transcription factor 1	mouse	Ahctf1	ENSMUSG00000026491
+Ahr	11622	aryl-hydrocarbon receptor	mouse	Ahr	ENSMUSG00000019256
+Ahrr	11624	aryl-hydrocarbon receptor repressor	mouse	Ahrr	ENSMUSG00000021575
+Aire	11634	autoimmune regulator (autoimmune polyendocrinopathy candidiasis ectodermal dystrophy)	mouse	Aire	ENSMUSG00000000731
+Akna	100182	AT-hook transcription factor	mouse	Akna	ENSMUSG00000039158
+Alx1	216285	ALX homeobox 1	mouse	Alx1	ENSMUSG00000036602
+Alx3	11694	aristaless-like homeobox 3	mouse	Alx3	ENSMUSG00000014603
+Alx4	11695	aristaless-like homeobox 4	mouse	Alx4	ENSMUSG00000040310
+Ankzf1	52231	ankyrin repeat and zinc finger domain containing 1	mouse	Ankzf1	ENSMUSG00000026199
+Ap5z1	231855	"adaptor-related protein complex 5, zeta 1 subunit"	mouse	Ap5z1	ENSMUSG00000039623
+Ar	11835	androgen receptor	mouse	Ar	ENSMUSG00000046532
+Arhgap35	232906	Rho GTPase activating protein 35	mouse	Arhgap35	ENSMUSG00000058230
+Arid1a	93760	AT rich interactive domain 1A (SWI-like)	mouse	Arid1a	ENSMUSG00000007880
+Arid1b	239985	AT rich interactive domain 1B (SWI-like)	mouse	Arid1b	ENSMUSG00000069729
+Arid2	77044	"AT rich interactive domain 2 (ARID, RFX-like)"	mouse	Arid2	ENSMUSG00000033237
+Arid3a	13496	AT rich interactive domain 3A (BRIGHT-like)	mouse	Arid3a	ENSMUSG00000019564
+Arid3b	56380	AT rich interactive domain 3B (BRIGHT-like)	mouse	Arid3b	ENSMUSG00000004661
+Arid3c	550619	AT rich interactive domain 3C (BRIGHT-like)	mouse	Arid3c	ENSMUSG00000066224
+Arid4a	238247	AT rich interactive domain 4A (RBP1-like)	mouse	Arid4a	ENSMUSG00000048118
+Arid4b	94246	AT rich interactive domain 4B (RBP1-like)	mouse	Arid4b	ENSMUSG00000039219
+Arid5a	214855	AT rich interactive domain 5A (MRF1-like)	mouse	Arid5a	ENSMUSG00000037447
+Arid5b	71371	AT rich interactive domain 5B (MRF1-like)	mouse	Arid5b	ENSMUSG00000019947
+Arnt	11863	aryl hydrocarbon receptor nuclear translocator	mouse	Arnt	ENSMUSG00000015522
+Arnt2	11864	aryl hydrocarbon receptor nuclear translocator 2	mouse	Arnt2	ENSMUSG00000015709
+Arntl	11865	aryl hydrocarbon receptor nuclear translocator-like	mouse	Arntl	ENSMUSG00000055116
+Arntl2	272322	aryl hydrocarbon receptor nuclear translocator-like 2	mouse	Arntl2	ENSMUSG00000040187
+Arx	11878	aristaless related homeobox	mouse	Arx	ENSMUSG00000035277
+Ascl1	17172	achaete-scute family bHLH transcription factor 1	mouse	Ascl1	ENSMUSG00000020052
+Ascl2	17173	achaete-scute family bHLH transcription factor 2	mouse	Ascl2	ENSMUSG00000009248
+Ascl3	56787	achaete-scute family bHLH transcription factor 3	mouse	Ascl3	ENSMUSG00000035951
+Ascl4	67341	achaete-scute family bHLH transcription factor 4	mouse	Ascl4	ENSMUSG00000085111
+Ash1l	192195	"ash1 (absent, small, or homeotic)-like (Drosophila)"	mouse	Ash1l	ENSMUSG00000028053
+Ash2l	23808	"ash2 (absent, small, or homeotic)-like (Drosophila)"	mouse	Ash2l	ENSMUSG00000031575
+Atf1	11908	activating transcription factor 1	mouse	Atf1	ENSMUSG00000023027
+Atf2	11909	activating transcription factor 2	mouse	Atf2	ENSMUSG00000027104
+Atf3	11910	activating transcription factor 3	mouse	Atf3	ENSMUSG00000026628
+Atf4	11911	activating transcription factor 4	mouse	Atf4	ENSMUSG00000042406
+Atf5	107503	activating transcription factor 5	mouse	Atf5	ENSMUSG00000038539
+Atf6	226641	activating transcription factor 6	mouse	Atf6	ENSMUSG00000026663
+Atf6b	12915	activating transcription factor 6 beta	mouse	Atf6b	ENSMUSG00000015461
+Atf7	223922	activating transcription factor 7	mouse	Atf7	ENSMUSG00000099083
+Atoh1	11921	atonal bHLH transcription factor 1	mouse	Atoh1	ENSMUSG00000073043
+Atoh7	53404	atonal bHLH transcription factor 7	mouse	Atoh7	ENSMUSG00000036816
+Atoh8	71093	atonal bHLH transcription factor 8	mouse	Atoh8	ENSMUSG00000037621
+Atrx	22589	alpha thalassemia/mental retardation syndrome X-linked	mouse	Atrx	ENSMUSG00000031229
+Atxn7	246103	ataxin 7	mouse	Atxn7	ENSMUSG00000021738
+Bach1	12013	"BTB and CNC homology 1, basic leucine zipper transcription factor 1"	mouse	Bach1	ENSMUSG00000025612
+Bach2	12014	"BTB and CNC homology, basic leucine zipper transcription factor 2"	mouse	Bach2	ENSMUSG00000040270
+Barhl1	54422	BarH-like 1 (Drosophila)	mouse	Barhl1	ENSMUSG00000026805
+Barhl2	104382	BarH-like 2 (Drosophila)	mouse	Barhl2	ENSMUSG00000034384
+Barx1	12022	BarH-like homeobox 1	mouse	Barx1	ENSMUSG00000021381
+Barx2	12023	BarH-like homeobox 2	mouse	Barx2	ENSMUSG00000032033
+Batf	53314	"basic leucine zipper transcription factor, ATF-like"	mouse	Batf	ENSMUSG00000034266
+Batf2	74481	"basic leucine zipper transcription factor, ATF-like 2"	mouse	Batf2	ENSMUSG00000039699
+Batf3	381319	"basic leucine zipper transcription factor, ATF-like 3"	mouse	Batf3	ENSMUSG00000026630
+Bbx	70508	bobby sox homolog (Drosophila)	mouse	Bbx	ENSMUSG00000022641
+Bcl11a	14025	B cell CLL/lymphoma 11A (zinc finger protein)	mouse	Bcl11a	ENSMUSG00000000861
+Bcl11b	58208	B cell leukemia/lymphoma 11B	mouse	Bcl11b	ENSMUSG00000048251
+Bcl3	12051	B cell leukemia/lymphoma 3	mouse	Bcl3	ENSMUSG00000053175
+Bcl6	12053	B cell leukemia/lymphoma 6	mouse	Bcl6	ENSMUSG00000022508
+Bcl6b	12029	"B cell CLL/lymphoma 6, member B"	mouse	Bcl6b	ENSMUSG00000000317
+Bclaf1	72567	BCL2-associated transcription factor 1	mouse	Bclaf1	ENSMUSG00000037608
+Bhlha15	17341	"basic helix-loop-helix family, member a15"	mouse	Bhlha15	ENSMUSG00000052271
+Bhlha9	320522	"basic helix-loop-helix family, member a9"	mouse	Bhlha9	ENSMUSG00000044243
+Bhlhb9	70237	"basic helix-loop-helix domain containing, class B9"	mouse	Bhlhb9	ENSMUSG00000072964
+Bhlhe22	59058	"basic helix-loop-helix family, member e22"	mouse	Bhlhe22	ENSMUSG00000025128
+Bhlhe23	140489	"basic helix-loop-helix family, member e23"	mouse	Bhlhe23	ENSMUSG00000045493
+Bhlhe40	20893	"basic helix-loop-helix family, member e40"	mouse	Bhlhe40	ENSMUSG00000030103
+Bhlhe41	79362	"basic helix-loop-helix family, member e41"	mouse	Bhlhe41	ENSMUSG00000030256
+Bmp2	12156	bone morphogenetic protein 2	mouse	Bmp2	ENSMUSG00000027358
+Bmyc	107771	brain expressed myelocytomatosis oncogene	mouse	Bmyc	ENSMUSG00000049086
+Bnc1	12173	basonuclin 1	mouse	Bnc1	ENSMUSG00000025105
+Bnc2	242509	basonuclin 2	mouse	Bnc2	ENSMUSG00000028487
+Bola1	69168	bolA-like 1 (E. coli)	mouse	Bola1	ENSMUSG00000015943
+Bola2	66162	bolA-like 2 (E. coli)	mouse	Bola2	ENSMUSG00000047721
+Bola3	78653	bolA-like 3 (E. coli)	mouse	Bola3	ENSMUSG00000045160
+Bptf	207165	bromodomain PHD finger transcription factor	mouse	Bptf	ENSMUSG00000040481
+Brca1	12189	"breast cancer 1, early onset"	mouse	Brca1	ENSMUSG00000017146
+Bsx	244813	brain specific homeobox	mouse	Bsx	ENSMUSG00000054360
+Camta1	100072	calmodulin binding transcription activator 1	mouse	Camta1	ENSMUSG00000014592
+Camta2	216874	calmodulin binding transcription activator 2	mouse	Camta2	ENSMUSG00000040712
+Carhsp1	52502	calcium regulated heat stable protein 1	mouse	Carhsp1	ENSMUSG00000008393
+Casz1	69743	castor zinc finger 1	mouse	Casz1	ENSMUSG00000028977
+Cbfb	12400	core binding factor beta	mouse	Cbfb	ENSMUSG00000031885
+Ccdc79	320022	coiled-coil domain containing 79	mouse	Terb1	ENSMUSG00000052616
+Cdc5l	71702	cell division cycle 5-like (S. pombe)	mouse	Cdc5l	ENSMUSG00000023932
+Cdx1	12590	caudal type homeobox 1	mouse	Cdx1	ENSMUSG00000024619
+Cdx2	12591	caudal type homeobox 2	mouse	Cdx2	ENSMUSG00000029646
+Cdx4	12592	caudal type homeobox 4	mouse	Cdx4	ENSMUSG00000031326
+Cebpa	12606	"CCAAT/enhancer binding protein (C/EBP), alpha"	mouse	Cebpa	ENSMUSG00000034957
+Cebpb	12608	"CCAAT/enhancer binding protein (C/EBP), beta"	mouse	Cebpb	ENSMUSG00000056501
+Cebpd	12609	"CCAAT/enhancer binding protein (C/EBP), delta"	mouse	Cebpd	ENSMUSG00000071637
+Cebpe	110794	"CCAAT/enhancer binding protein (C/EBP), epsilon"	mouse	Cebpe	ENSMUSG00000052435
+Cebpg	12611	"CCAAT/enhancer binding protein (C/EBP), gamma"	mouse	Cebpg	ENSMUSG00000056216
+Cebpz	12607	CCAAT/enhancer binding protein zeta	mouse	Cebpz	ENSMUSG00000024081
+Cenpt	320394	centromere protein T	mouse	Cenpt	ENSMUSG00000036672
+Champ1	101994	chromosome alignment maintaining phosphoprotein 1	mouse	Champ1	ENSMUSG00000047710
+Cic	71722	capicua transcriptional repressor	mouse	Cic	ENSMUSG00000005442
+Ciz1	68379	CDKN1A interacting zinc finger protein 1	mouse	Ciz1	ENSMUSG00000039205
+Clock	12753	circadian locomotor output cycles kaput	mouse	Clock	ENSMUSG00000029238
+Cnot4	53621	"CCR4-NOT transcription complex, subunit 4"	mouse	Cnot4	ENSMUSG00000038784
+Cpxcr1	382239	"CPX chromosome region, candidate 1"	mouse	Cpxcr1	ENSMUSG00000072995
+Cramp1l	57354	"Crm, cramped-like (Drosophila)"	mouse	Cramp1l	ENSMUSG00000038002
+Creb1	12912	cAMP responsive element binding protein 1	mouse	Creb1	ENSMUSG00000025958
+Creb3	12913	cAMP responsive element binding protein 3	mouse	Creb3	ENSMUSG00000028466
+Creb3l1	26427	cAMP responsive element binding protein 3-like 1	mouse	Creb3l1	ENSMUSG00000027230
+Creb3l2	208647	cAMP responsive element binding protein 3-like 2	mouse	Creb3l2	ENSMUSG00000038648
+Creb3l3	208677	cAMP responsive element binding protein 3-like 3	mouse	Creb3l3	ENSMUSG00000035041
+Creb3l4	78284	cAMP responsive element binding protein 3-like 4	mouse	Creb3l4	ENSMUSG00000027938
+Creb5	231991	cAMP responsive element binding protein 5	mouse	Creb5	ENSMUSG00000053007
+Crebbp	12914	CREB binding protein	mouse	Crebbp	ENSMUSG00000022521
+Crebl2	232430	cAMP responsive element binding protein-like 2	mouse	Crebl2	ENSMUSG00000032652
+Crebzf	233490	CREB/ATF bZIP transcription factor	mouse	Crebzf	ENSMUSG00000051451
+Crem	12916	cAMP responsive element modulator	mouse	Crem	ENSMUSG00000063889
+Crx	12951	cone-rod homeobox	mouse	Crx	ENSMUSG00000041578
+Csrnp1	215418	cysteine-serine-rich nuclear protein 1	mouse	Csrnp1	ENSMUSG00000032515
+Csrnp2	207785	cysteine-serine-rich nuclear protein 2	mouse	Csrnp2	ENSMUSG00000044636
+Csrnp3	77771	cysteine-serine-rich nuclear protein 3	mouse	Csrnp3	ENSMUSG00000044647
+Ctcf	13018	CCCTC-binding factor	mouse	Ctcf	ENSMUSG00000005698
+Ctcfl	664799	CCCTC-binding factor (zinc finger protein)-like	mouse	Ctcfl	ENSMUSG00000070495
+Cux1	13047	cut-like homeobox 1	mouse	Cux1	ENSMUSG00000029705
+Cux2	13048	cut-like homeobox 2	mouse	Cux2	ENSMUSG00000042589
+Cxxc1	74322	CXXC finger 1 (PHD domain)	mouse	Cxxc1	ENSMUSG00000024560
+D630045J12Rik	330286	RIKEN cDNA D630045J12 gene	mouse	D630045J12Rik	ENSMUSG00000063455
+Dach1	13134	dachshund 1 (Drosophila)	mouse	Dach1	ENSMUSG00000055639
+Dach2	93837	dachshund 2 (Drosophila)	mouse	Dach2	ENSMUSG00000025592
+Dbp	13170	D site albumin promoter binding protein	mouse	Dbp	ENSMUSG00000059824
+Dbx1	13172	developing brain homeobox 1	mouse	Dbx1	ENSMUSG00000030507
+Dbx2	223843	developing brain homeobox 2	mouse	Dbx2	ENSMUSG00000045608
+Ddb2	107986	damage specific DNA binding protein 2	mouse	Ddb2	ENSMUSG00000002109
+Ddit3	13198	DNA-damage inducible transcript 3	mouse	Ddit3	ENSMUSG00000025408
+Deaf1	54006	deformed epidermal autoregulatory factor 1 (Drosophila)	mouse	Deaf1	ENSMUSG00000058886
+Dlx1	13390	distal-less homeobox 1	mouse	Dlx1	ENSMUSG00000041911
+Dlx2	13392	distal-less homeobox 2	mouse	Dlx2	ENSMUSG00000023391
+Dlx3	13393	distal-less homeobox 3	mouse	Dlx3	ENSMUSG00000001510
+Dlx4	13394	distal-less homeobox 4	mouse	Dlx4	ENSMUSG00000020871
+Dlx5	13395	distal-less homeobox 5	mouse	Dlx5	ENSMUSG00000029755
+Dlx6	13396	distal-less homeobox 6	mouse	Dlx6	ENSMUSG00000029754
+Dmap1	66233	DNA methyltransferase 1-associated protein 1	mouse	Dmap1	ENSMUSG00000009640
+Dmbx1	140477	diencephalon/mesencephalon homeobox 1	mouse	Dmbx1	ENSMUSG00000028707
+Dmrt1	50796	doublesex and mab-3 related transcription factor 1	mouse	Dmrt1	ENSMUSG00000024837
+Dmrt2	226049	doublesex and mab-3 related transcription factor 2	mouse	Dmrt2	ENSMUSG00000048138
+Dmrt3	240590	doublesex and mab-3 related transcription factor 3	mouse	Dmrt3	ENSMUSG00000042372
+Dmrta1	242523	doublesex and mab-3 related transcription factor like family A1	mouse	Dmrta1	ENSMUSG00000043753
+Dmrta2	242620	doublesex and mab-3 related transcription factor like family A2	mouse	Dmrta2	ENSMUSG00000047143
+Dmrtb1	56296	"DMRT-like family B with proline-rich C-terminal, 1"	mouse	Dmrtb1	ENSMUSG00000028610
+Dmrtc1a	70887	DMRT-like family C1a	mouse	Dmrtc1a	ENSMUSG00000031323
+Dmrtc1b	632708	DMRT-like family C1b	mouse	Dmrtc1b	ENSMUSG00000073027
+Dmrtc1c1	71083	DMRT-like family C1c1	mouse	Dmrtc1c1	ENSMUSG00000067562
+Dmrtc1c2	668357	DMRT-like family C1c2	mouse	Dmrtc1c2	ENSMUSG00000067561
+Dmrtc2	71241	doublesex and mab-3 related transcription factor like family C2	mouse	Dmrtc2	ENSMUSG00000011349
+Dmtf1	23857	cyclin D binding myb-like transcription factor 1	mouse	Dmtf1	ENSMUSG00000042508
+Dnajc1	13418	DnaJ heat shock protein family (Hsp40) member C1	mouse	Dnajc1	ENSMUSG00000026740
+Dnajc2	22791	DnaJ heat shock protein family (Hsp40) member C2	mouse	Dnajc2	ENSMUSG00000029014
+Dnajc21	78244	DnaJ heat shock protein family (Hsp40) member C21	mouse	Dnajc21	ENSMUSG00000044224
+Dnmt1	13433	DNA methyltransferase (cytosine-5) 1	mouse	Dnmt1	ENSMUSG00000004099
+Dnmt3a	13435	DNA methyltransferase 3A	mouse	Dnmt3a	ENSMUSG00000020661
+Dnmt3b	13436	DNA methyltransferase 3B	mouse	Dnmt3b	ENSMUSG00000027478
+Dnmt3l	54427	DNA (cytosine-5-)-methyltransferase 3-like	mouse	Dnmt3l	ENSMUSG00000000730
+Dpf1	29861	"D4, zinc and double PHD fingers family 1"	mouse	Dpf1	ENSMUSG00000030584
+Dpf2	19708	"D4, zinc and double PHD fingers family 2"	mouse	Dpf2	ENSMUSG00000024826
+Dpf3	70127	"D4, zinc and double PHD fingers, family 3"	mouse	Dpf3	ENSMUSG00000021221
+Dr1	13486	down-regulator of transcription 1	mouse	Dr1	ENSMUSG00000029265
+Drap1	66556	Dr1 associated protein 1 (negative cofactor 2 alpha)	mouse	Drap1	ENSMUSG00000024914
+E2f1	13555	E2F transcription factor 1	mouse	E2f1	ENSMUSG00000027490
+E2f2	242705	E2F transcription factor 2	mouse	E2f2	ENSMUSG00000018983
+E2f3	13557	E2F transcription factor 3	mouse	E2f3	ENSMUSG00000016477
+E2f4	104394	E2F transcription factor 4	mouse	E2f4	ENSMUSG00000014859
+E2f5	13559	E2F transcription factor 5	mouse	E2f5	ENSMUSG00000027552
+E2f6	50496	E2F transcription factor 6	mouse	E2f6	ENSMUSG00000057469
+E2f7	52679	E2F transcription factor 7	mouse	E2f7	ENSMUSG00000020185
+E2f8	108961	E2F transcription factor 8	mouse	E2f8	ENSMUSG00000046179
+E4f1	13560	E4F transcription factor 1	mouse	E4f1	ENSMUSG00000024137
+Ebf1	13591	early B cell factor 1	mouse	Ebf1	ENSMUSG00000057098
+Ebf2	13592	early B cell factor 2	mouse	Ebf2	ENSMUSG00000022053
+Ebf3	13593	early B cell factor 3	mouse	Ebf3	ENSMUSG00000010476
+Ebf4	228598	early B cell factor 4	mouse	Ebf4	ENSMUSG00000053552
+Egr1	13653	early growth response 1	mouse	Egr1	ENSMUSG00000038418
+Egr2	13654	early growth response 2	mouse	Egr2	ENSMUSG00000037868
+Egr3	13655	early growth response 3	mouse	Egr3	ENSMUSG00000033730
+Egr4	13656	early growth response 4	mouse	Egr4	ENSMUSG00000071341
+Ehf	13661	ets homologous factor	mouse	Ehf	ENSMUSG00000012350
+Elf1	13709	E74-like factor 1	mouse	Elf1	ENSMUSG00000036461
+Elf2	69257	E74-like factor 2	mouse	Elf2	ENSMUSG00000037174
+Elf3	13710	E74-like factor 3	mouse	Elf3	ENSMUSG00000003051
+Elf4	56501	E74-like factor 4 (ets domain transcription factor)	mouse	Elf4	ENSMUSG00000031103
+Elf5	13711	E74-like factor 5	mouse	Elf5	ENSMUSG00000027186
+Elk1	13712	"ELK1, member of ETS oncogene family"	mouse	Elk1	ENSMUSG00000009406
+Elk3	13713	"ELK3, member of ETS oncogene family"	mouse	Elk3	ENSMUSG00000008398
+Elk4	13714	"ELK4, member of ETS oncogene family"	mouse	Elk4	ENSMUSG00000026436
+Elmsan1	238317	ELM2 and Myb/SANT-like domain containing 1	mouse	Mideas	ENSMUSG00000042507
+Emx1	13796	empty spiracles homeobox 1	mouse	Emx1	ENSMUSG00000033726
+Emx2	13797	empty spiracles homeobox 2	mouse	Emx2	ENSMUSG00000043969
+En1	13798	engrailed 1	mouse	En1	ENSMUSG00000058665
+En2	13799	engrailed 2	mouse	En2	ENSMUSG00000039095
+Eno1	13806	"enolase 1, alpha non-neuron"	mouse	Eno1	ENSMUSG00000063524
+Eomes	13813	eomesodermin	mouse	Eomes	ENSMUSG00000032446
+Epas1	13819	endothelial PAS domain protein 1	mouse	Epas1	ENSMUSG00000024140
+Erf	13875	Ets2 repressor factor	mouse	Erf	ENSMUSG00000040857
+Erg	13876	avian erythroblastosis virus E-26 (v-ets) oncogene related	mouse	Erg	ENSMUSG00000040732
+Esr1	13982	estrogen receptor 1 (alpha)	mouse	Esr1	ENSMUSG00000019768
+Esr2	13983	estrogen receptor 2 (beta)	mouse	Esr2	ENSMUSG00000021055
+Esrra	26379	"estrogen related receptor, alpha"	mouse	Esrra	ENSMUSG00000024955
+Esrrb	26380	"estrogen related receptor, beta"	mouse	Esrrb	ENSMUSG00000021255
+Esrrg	26381	estrogen-related receptor gamma	mouse	Esrrg	ENSMUSG00000026610
+Esx1	13984	"extraembryonic, spermatogenesis, homeobox 1"	mouse	Esx1	ENSMUSG00000023443
+Ets1	23871	"E26 avian leukemia oncogene 1, 5' domain"	mouse	Ets1	ENSMUSG00000032035
+Ets2	23872	"E26 avian leukemia oncogene 2, 3' domain"	mouse	Ets2	ENSMUSG00000022895
+Etv1	14009	ets variant 1	mouse	Etv1	ENSMUSG00000004151
+Etv2	14008	ets variant 2	mouse	Etv2	ENSMUSG00000006311
+Etv3	27049	ets variant 3	mouse	Etv3	ENSMUSG00000003382
+Etv3l	546801	ets variant 3-like	mouse	Etv3l	ENSMUSG00000118505
+Etv4	18612	ets variant 4	mouse	Etv4	ENSMUSG00000017724
+Etv5	104156	ets variant 5	mouse	Etv5	ENSMUSG00000013089
+Etv6	14011	ets variant 6	mouse	Etv6	ENSMUSG00000030199
+Evx1	14028	even-skipped homeobox 1	mouse	Evx1	ENSMUSG00000005503
+Evx2	14029	even-skipped homeobox 2	mouse	Evx2	ENSMUSG00000001815
+Ezh1	14055	enhancer of zeste 1 polycomb repressive complex 2 subunit	mouse	Ezh1	ENSMUSG00000006920
+Ezh2	14056	enhancer of zeste 2 polycomb repressive complex 2 subunit	mouse	Ezh2	ENSMUSG00000029687
+Fam170a	225497	"family with sequence similarity 170, member A"	mouse	Fam170a	ENSMUSG00000035420
+Ferd3l	114712	Fer3-like (Drosophila)	mouse	Ferd3l	ENSMUSG00000046518
+Fev	260298	FEV (ETS oncogene family)	mouse	Fev	ENSMUSG00000055197
+Fezf1	73191	Fez family zinc finger 1	mouse	Fezf1	ENSMUSG00000029697
+Fezf2	54713	Fez family zinc finger 2	mouse	Fezf2	ENSMUSG00000021743
+Figla	26910	folliculogenesis specific basic helix-loop-helix	mouse	Figla	ENSMUSG00000030001
+Fiz1	23877	Flt3 interacting zinc finger protein 1	mouse	Fiz1	ENSMUSG00000061374
+Fli1	14247	Friend leukemia integration 1	mouse	Fli1	ENSMUSG00000016087
+Fos	14281	FBJ osteosarcoma oncogene	mouse	Fos	ENSMUSG00000021250
+Fosb	14282	FBJ osteosarcoma oncogene B	mouse	Fosb	ENSMUSG00000003545
+Fosl1	14283	fos-like antigen 1	mouse	Fosl1	ENSMUSG00000024912
+Fosl2	14284	fos-like antigen 2	mouse	Fosl2	ENSMUSG00000029135
+Foxa1	15375	forkhead box A1	mouse	Foxa1	ENSMUSG00000035451
+Foxa2	15376	forkhead box A2	mouse	Foxa2	ENSMUSG00000037025
+Foxa3	15377	forkhead box A3	mouse	Foxa3	ENSMUSG00000040891
+Foxb1	64290	forkhead box B1	mouse	Foxb1	ENSMUSG00000059246
+Foxb2	14240	forkhead box B2	mouse	Foxb2	ENSMUSG00000056829
+Foxc1	17300	forkhead box C1	mouse	Foxc1	ENSMUSG00000050295
+Foxc2	14234	forkhead box C2	mouse	Foxc2	ENSMUSG00000046714
+Foxd1	15229	forkhead box D1	mouse	Foxd1	ENSMUSG00000078302
+Foxd2	17301	forkhead box D2	mouse	Foxd2	ENSMUSG00000055210
+Foxd3	15221	forkhead box D3	mouse	Foxd3	ENSMUSG00000067261
+Foxd4	14237	forkhead box D4	mouse	Foxd4	ENSMUSG00000051490
+Foxe1	110805	forkhead box E1	mouse	Foxe1	ENSMUSG00000070990
+Foxe3	30923	forkhead box E3	mouse	Foxe3	ENSMUSG00000044518
+Foxf1	15227	forkhead box F1	mouse	Foxf1	ENSMUSG00000042812
+Foxf2	14238	forkhead box F2	mouse	Foxf2	ENSMUSG00000038402
+Foxg1	15228	forkhead box G1	mouse	Foxg1	ENSMUSG00000020950
+Foxh1	14106	forkhead box H1	mouse	Foxh1	ENSMUSG00000033837
+Foxi1	14233	forkhead box I1	mouse	Foxi1	ENSMUSG00000047861
+Foxi2	270004	forkhead box I2	mouse	Foxi2	ENSMUSG00000048377
+Foxi3	232077	forkhead box I3	mouse	Foxi3	ENSMUSG00000055874
+Foxj1	15223	forkhead box J1	mouse	Foxj1	ENSMUSG00000034227
+Foxj2	60611	forkhead box J2	mouse	Foxj2	ENSMUSG00000003154
+Foxj3	230700	forkhead box J3	mouse	Foxj3	ENSMUSG00000032998
+Foxk1	17425	forkhead box K1	mouse	Foxk1	ENSMUSG00000056493
+Foxk2	68837	forkhead box K2	mouse	Foxk2	ENSMUSG00000039275
+Foxl1	14241	forkhead box L1	mouse	Foxl1	ENSMUSG00000097084
+Foxl2	26927	forkhead box L2	mouse	Foxl2	ENSMUSG00000050397
+Foxm1	14235	forkhead box M1	mouse	Foxm1	ENSMUSG00000001517
+Foxn1	15218	forkhead box N1	mouse	Foxn1	ENSMUSG00000002057
+Foxn2	14236	forkhead box N2	mouse	Foxn2	ENSMUSG00000034998
+Foxn3	71375	forkhead box N3	mouse	Foxn3	ENSMUSG00000033713
+Foxn4	116810	forkhead box N4	mouse	Foxn4	ENSMUSG00000042002
+Foxo1	56458	forkhead box O1	mouse	Foxo1	ENSMUSG00000044167
+Foxo3	56484	forkhead box O3	mouse	Foxo3	ENSMUSG00000048756
+Foxo4	54601	forkhead box O4	mouse	Foxo4	ENSMUSG00000042903
+Foxo6	329934	forkhead box O6	mouse	Foxo6	ENSMUSG00000052135
+Foxp1	108655	forkhead box P1	mouse	Foxp1	ENSMUSG00000030067
+Foxp2	114142	forkhead box P2	mouse	Foxp2	ENSMUSG00000029563
+Foxp3	20371	forkhead box P3	mouse	Foxp3	ENSMUSG00000039521
+Foxp4	74123	forkhead box P4	mouse	Foxp4	ENSMUSG00000023991
+Foxq1	15220	forkhead box Q1	mouse	Foxq1	ENSMUSG00000038415
+Foxr1	382074	forkhead box R1	mouse	Foxr1	ENSMUSG00000074397
+Foxr2	436240	forkhead box R2	mouse	Foxr2	ENSMUSG00000071665
+Foxs1	14239	forkhead box S1	mouse	Foxs1	ENSMUSG00000074676
+Fubp1	51886	far upstream element (FUSE) binding protein 1	mouse	Fubp1	ENSMUSG00000028034
+Fubp3	320267	far upstream element (FUSE) binding protein 3	mouse	Fubp3	ENSMUSG00000026843
+Gabpa	14390	"GA repeat binding protein, alpha"	mouse	Gabpa	ENSMUSG00000008976
+Gabpb1	14391	"GA repeat binding protein, beta 1"	mouse	Gabpb1	ENSMUSG00000027361
+Gabpb2	213054	"GA repeat binding protein, beta 2"	mouse	Gabpb2	ENSMUSG00000038766
+Gata1	14460	GATA binding protein 1	mouse	Gata1	ENSMUSG00000031162
+Gata2	14461	GATA binding protein 2	mouse	Gata2	ENSMUSG00000015053
+Gata3	14462	GATA binding protein 3	mouse	Gata3	ENSMUSG00000015619
+Gata4	14463	GATA binding protein 4	mouse	Gata4	ENSMUSG00000021944
+Gata5	14464	GATA binding protein 5	mouse	Gata5	ENSMUSG00000015627
+Gata6	14465	GATA binding protein 6	mouse	Gata6	ENSMUSG00000005836
+Gatad1	67210	GATA zinc finger domain containing 1	mouse	Gatad1	ENSMUSG00000007415
+Gatad2a	234366	GATA zinc finger domain containing 2A	mouse	Gatad2a	ENSMUSG00000036180
+Gatad2b	229542	GATA zinc finger domain containing 2B	mouse	Gatad2b	ENSMUSG00000042390
+Gbx1	231044	gastrulation brain homeobox 1	mouse	Gbx1	ENSMUSG00000067724
+Gbx2	14472	gastrulation brain homeobox 2	mouse	Gbx2	ENSMUSG00000034486
+Gcfc2	330361	GC-rich sequence DNA binding factor 2	mouse	Gcfc2	ENSMUSG00000035125
+Gcm1	14531	glial cells missing homolog 1 (Drosophila)	mouse	Gcm1	ENSMUSG00000023333
+Gcm2	107889	glial cells missing homolog 2 (Drosophila)	mouse	Gcm2	ENSMUSG00000021362
+Gfi1	14581	growth factor independent 1	mouse	Gfi1	ENSMUSG00000029275
+Gfi1b	14582	growth factor independent 1B	mouse	Gfi1b	ENSMUSG00000026815
+Gli1	14632	GLI-Kruppel family member GLI1	mouse	Gli1	ENSMUSG00000025407
+Gli2	14633	GLI-Kruppel family member GLI2	mouse	Gli2	ENSMUSG00000048402
+Gli3	14634	GLI-Kruppel family member GLI3	mouse	Gli3	ENSMUSG00000021318
+Glis1	230587	GLIS family zinc finger 1	mouse	Glis1	ENSMUSG00000034762
+Glis2	83396	GLIS family zinc finger 2	mouse	Glis2	ENSMUSG00000014303
+Glis3	226075	GLIS family zinc finger 3	mouse	Glis3	ENSMUSG00000052942
+Gm13154	433804	predicted gene 13154	mouse	Zfp985	ENSMUSG00000065999
+Gm22	195209	predicted gene 22	mouse	Zfp469	ENSMUSG00000043903
+Gm4944	240038	predicted gene 4944	mouse	Zfp994	ENSMUSG00000096433
+Gm5581	108169183	predicted gene 5581	mouse	Gm5581	ENSMUSG00000061969
+Gm6712	100862203	predicted gene 6712	mouse	Gm6712	ENSMUSG00000072761
+Gm8008	666257	predicted gene 8008	mouse	Zfp660	ENSMUSG00000111063
+Gmeb1	56809	glucocorticoid modulatory element binding protein 1	mouse	Gmeb1	ENSMUSG00000028901
+Gmeb2	229004	glucocorticoid modulatory element binding protein 2	mouse	Gmeb2	ENSMUSG00000038705
+Gon4l	76022	gon-4-like (C.elegans)	mouse	Gon4l	ENSMUSG00000054199
+Grhl1	195733	grainyhead-like 1 (Drosophila)	mouse	Grhl1	ENSMUSG00000020656
+Grhl2	252973	grainyhead-like 2 (Drosophila)	mouse	Grhl2	ENSMUSG00000022286
+Grhl3	230824	grainyhead-like 3 (Drosophila)	mouse	Grhl3	ENSMUSG00000037188
+Gsc	14836	goosecoid homeobox	mouse	Gsc	ENSMUSG00000021095
+Gsc2	195333	goosecoid homebox 2	mouse	Gsc2	ENSMUSG00000022738
+Gsx1	14842	GS homeobox 1	mouse	Gsx1	ENSMUSG00000053129
+Gsx2	14843	GS homeobox 2	mouse	Gsx2	ENSMUSG00000035946
+Gtf2i	14886	general transcription factor II I	mouse	Gtf2i	ENSMUSG00000060261
+Gtf3a	66596	general transcription factor III A	mouse	Gtf3a	ENSMUSG00000016503
+Gzf1	74533	GDNF-inducible zinc finger protein 1	mouse	Gzf1	ENSMUSG00000027439
+Hand1	15110	heart and neural crest derivatives expressed transcript 1	mouse	Hand1	ENSMUSG00000037335
+Hand2	15111	heart and neural crest derivatives expressed transcript 2	mouse	Hand2	ENSMUSG00000038193
+Hbp1	73389	high mobility group box transcription factor 1	mouse	Hbp1	ENSMUSG00000002996
+Hdx	245596	highly divergent homeobox	mouse	Hdx	ENSMUSG00000034551
+Helt	234219	helt bHLH transcription factor	mouse	Helt	ENSMUSG00000047171
+Hes1	15205	hairy and enhancer of split 1 (Drosophila)	mouse	Hes1	ENSMUSG00000022528
+Hes2	15206	hairy and enhancer of split 2 (Drosophila)	mouse	Hes2	ENSMUSG00000028940
+Hes3	15207	hairy and enhancer of split 3 (Drosophila)	mouse	Hes3	ENSMUSG00000028946
+Hes5	15208	hairy and enhancer of split 5 (Drosophila)	mouse	Hes5	ENSMUSG00000048001
+Hes6	55927	hairy and enhancer of split 6	mouse	Hes6	ENSMUSG00000067071
+Hes7	84653	hairy and enhancer of split 7 (Drosophila)	mouse	Hes7	ENSMUSG00000023781
+Hesx1	15209	homeobox gene expressed in ES cells	mouse	Hesx1	ENSMUSG00000040726
+Hey1	15213	hairy/enhancer-of-split related with YRPW motif 1	mouse	Hey1	ENSMUSG00000040289
+Hey2	15214	hairy/enhancer-of-split related with YRPW motif 2	mouse	Hey2	ENSMUSG00000019789
+Heyl	56198	hairy/enhancer-of-split related with YRPW motif-like	mouse	Heyl	ENSMUSG00000032744
+Hhex	15242	hematopoietically expressed homeobox	mouse	Hhex	ENSMUSG00000024986
+Hic1	15248	hypermethylated in cancer 1	mouse	Hic1	ENSMUSG00000043099
+Hic2	58180	hypermethylated in cancer 2	mouse	Hic2	ENSMUSG00000050240
+Hif1a	15251	"hypoxia inducible factor 1, alpha subunit"	mouse	Hif1a	ENSMUSG00000021109
+Hif3a	53417	"hypoxia inducible factor 3, alpha subunit"	mouse	Hif3a	ENSMUSG00000004328
+Hinfp	102423	histone H4 transcription factor	mouse	Hinfp	ENSMUSG00000032119
+Hivep1	110521	human immunodeficiency virus type I enhancer binding protein 1	mouse	Hivep1	ENSMUSG00000021366
+Hivep2	15273	human immunodeficiency virus type I enhancer binding protein 2	mouse	Hivep2	ENSMUSG00000015501
+Hivep3	16656	human immunodeficiency virus type I enhancer binding protein 3	mouse	Hivep3	ENSMUSG00000028634
+Hkr1	110189	GLI-Kruppel family member HKR1	mouse	Hkr1	
+Hlf	217082	hepatic leukemia factor	mouse	Hlf	ENSMUSG00000003949
+Hltf	20585	helicase-like transcription factor	mouse	Hltf	ENSMUSG00000002428
+Hlx	15284	H2.0-like homeobox	mouse	Hlx	ENSMUSG00000039377
+Hmbox1	219150	homeobox containing 1	mouse	Hmbox1	ENSMUSG00000021972
+Hmg20a	66867	high mobility group 20A	mouse	Hmg20a	ENSMUSG00000032329
+Hmg20b	15353	high mobility group 20B	mouse	Hmg20b	ENSMUSG00000020232
+Hmga1	15361	high mobility group AT-hook 1	mouse	Hmga1	ENSMUSG00000046711
+Hmga2	15364	high mobility group AT-hook 2	mouse	Hmga2	ENSMUSG00000056758
+Hmgxb3	106894	HMG box domain containing 3	mouse	Hmgxb3	ENSMUSG00000024622
+Hmgxb4	70823	HMG box domain containing 4	mouse	Hmgxb4	ENSMUSG00000034518
+Hmx1	15371	H6 homeobox 1	mouse	Hmx1	ENSMUSG00000067438
+Hmx2	15372	H6 homeobox 2	mouse	Hmx2	ENSMUSG00000050100
+Hmx3	15373	H6 homeobox 3	mouse	Hmx3	ENSMUSG00000040148
+Hnf1a	21405	HNF1 homeobox A	mouse	Hnf1a	ENSMUSG00000029556
+Hnf1b	21410	HNF1 homeobox B	mouse	Hnf1b	ENSMUSG00000020679
+Hnf4a	15378	"hepatic nuclear factor 4, alpha"	mouse	Hnf4a	ENSMUSG00000017950
+Hnf4g	30942	"hepatocyte nuclear factor 4, gamma"	mouse	Hnf4g	ENSMUSG00000017688
+Hnrnpk	15387	heterogeneous nuclear ribonucleoprotein K	mouse	Hnrnpk	ENSMUSG00000021546
+Homez	239099	homeodomain leucine zipper-encoding gene	mouse	Homez	ENSMUSG00000057156
+Hopx	74318	HOP homeobox	mouse	Hopx	ENSMUSG00000059325
+Hoxa1	15394	homeobox A1	mouse	Hoxa1	ENSMUSG00000029844
+Hoxa10	15395	homeobox A10	mouse	Hoxa10	ENSMUSG00000000938
+Hoxa11	15396	homeobox A11	mouse	Hoxa11	ENSMUSG00000038210
+Hoxa13	15398	homeobox A13	mouse	Hoxa13	ENSMUSG00000038203
+Hoxa2	15399	homeobox A2	mouse	Hoxa2	ENSMUSG00000014704
+Hoxa3	15400	homeobox A3	mouse	Hoxa3	ENSMUSG00000079560
+Hoxa4	15401	homeobox A4	mouse	Hoxa4	ENSMUSG00000000942
+Hoxa5	15402	homeobox A5	mouse	Hoxa5	ENSMUSG00000038253
+Hoxa6	15403	homeobox A6	mouse	Hoxa6	ENSMUSG00000043219
+Hoxa7	15404	homeobox A7	mouse	Hoxa7	ENSMUSG00000038236
+Hoxa9	15405	homeobox A9	mouse	Hoxa9	ENSMUSG00000038227
+Hoxb1	15407	homeobox B1	mouse	Hoxb1	ENSMUSG00000018973
+Hoxb13	15408	homeobox B13	mouse	Hoxb13	ENSMUSG00000049604
+Hoxb2	103889	homeobox B2	mouse	Hoxb2	ENSMUSG00000075588
+Hoxb3	15410	homeobox B3	mouse	Hoxb3	ENSMUSG00000048763
+Hoxb4	15412	homeobox B4	mouse	Hoxb4	ENSMUSG00000038692
+Hoxb5	15413	homeobox B5	mouse	Hoxb5	ENSMUSG00000038700
+Hoxb6	15414	homeobox B6	mouse	Hoxb6	ENSMUSG00000000690
+Hoxb7	15415	homeobox B7	mouse	Hoxb7	ENSMUSG00000038721
+Hoxb8	15416	homeobox B8	mouse	Hoxb8	ENSMUSG00000056648
+Hoxb9	15417	homeobox B9	mouse	Hoxb9	ENSMUSG00000020875
+Hoxc10	209448	homeobox C10	mouse	Hoxc10	ENSMUSG00000022484
+Hoxc11	109663	homeobox C11	mouse	Hoxc11	ENSMUSG00000001656
+Hoxc12	15421	homeobox C12	mouse	Hoxc12	ENSMUSG00000050328
+Hoxc13	15422	homeobox C13	mouse	Hoxc13	ENSMUSG00000001655
+Hoxc4	15423	homeobox C4	mouse	Hoxc4	ENSMUSG00000075394
+Hoxc5	15424	homeobox C5	mouse	Hoxc5	ENSMUSG00000022485
+Hoxc6	15425	homeobox C6	mouse	Hoxc6	ENSMUSG00000001661
+Hoxc8	15426	homeobox C8	mouse	Hoxc8	ENSMUSG00000001657
+Hoxc9	15427	homeobox C9	mouse	Hoxc9	ENSMUSG00000036139
+Hoxd1	15429	homeobox D1	mouse	Hoxd1	ENSMUSG00000042448
+Hoxd10	15430	homeobox D10	mouse	Hoxd10	ENSMUSG00000050368
+Hoxd11	15431	homeobox D11	mouse	Hoxd11	ENSMUSG00000042499
+Hoxd12	15432	homeobox D12	mouse	Hoxd12	ENSMUSG00000001823
+Hoxd13	15433	homeobox D13	mouse	Hoxd13	ENSMUSG00000001819
+Hoxd3	15434	homeobox D3	mouse	Hoxd3	ENSMUSG00000079277
+Hoxd4	15436	homeobox D4	mouse	Hoxd4	ENSMUSG00000101174
+Hoxd8	15437	homeobox D8	mouse	Hoxd8	ENSMUSG00000027102
+Hoxd9	15438	homeobox D9	mouse	Hoxd9	ENSMUSG00000043342
+Hsf1	15499	heat shock factor 1	mouse	Hsf1	ENSMUSG00000022556
+Hsf2	15500	heat shock factor 2	mouse	Hsf2	ENSMUSG00000019878
+Hsf3	245525	heat shock transcription factor 3	mouse	Hsf3	ENSMUSG00000045802
+Hsf4	26386	heat shock transcription factor 4	mouse	Hsf4	ENSMUSG00000033249
+Hsf5	327992	heat shock transcription factor family member 5	mouse	Hsf5	ENSMUSG00000070345
+Hsfy2	71066	"heat shock transcription factor, Y-linked 2"	mouse	Hsfy2	ENSMUSG00000045336
+Id1	15901	inhibitor of DNA binding 1	mouse	Id1	ENSMUSG00000042745
+Id2	15902	inhibitor of DNA binding 2	mouse	Id2	ENSMUSG00000020644
+Id3	15903	inhibitor of DNA binding 3	mouse	Id3	ENSMUSG00000007872
+Id4	15904	inhibitor of DNA binding 4	mouse	Id4	ENSMUSG00000021379
+Ikzf1	22778	IKAROS family zinc finger 1	mouse	Ikzf1	ENSMUSG00000018654
+Ikzf2	22779	IKAROS family zinc finger 2	mouse	Ikzf2	ENSMUSG00000025997
+Ikzf3	22780	IKAROS family zinc finger 3	mouse	Ikzf3	ENSMUSG00000018168
+Ikzf4	22781	IKAROS family zinc finger 4	mouse	Ikzf4	ENSMUSG00000002578
+Ikzf5	67143	IKAROS family zinc finger 5	mouse	Ikzf5	ENSMUSG00000040167
+Insm1	53626	insulinoma-associated 1	mouse	Insm1	ENSMUSG00000068154
+Insm2	56856	insulinoma-associated 2	mouse	Insm2	ENSMUSG00000045440
+Irf1	16362	interferon regulatory factor 1	mouse	Irf1	ENSMUSG00000018899
+Irf2	16363	interferon regulatory factor 2	mouse	Irf2	ENSMUSG00000031627
+Irf3	54131	interferon regulatory factor 3	mouse	Irf3	ENSMUSG00000003184
+Irf4	16364	interferon regulatory factor 4	mouse	Irf4	ENSMUSG00000021356
+Irf5	27056	interferon regulatory factor 5	mouse	Irf5	ENSMUSG00000029771
+Irf6	54139	interferon regulatory factor 6	mouse	Irf6	ENSMUSG00000026638
+Irf7	54123	interferon regulatory factor 7	mouse	Irf7	ENSMUSG00000025498
+Irf8	15900	interferon regulatory factor 8	mouse	Irf8	ENSMUSG00000041515
+Irf9	16391	interferon regulatory factor 9	mouse	Irf9	ENSMUSG00000002325
+Irx1	16371	Iroquois related homeobox 1 (Drosophila)	mouse	Irx1	ENSMUSG00000060969
+Irx2	16372	Iroquois related homeobox 2 (Drosophila)	mouse	Irx2	ENSMUSG00000001504
+Irx3	16373	Iroquois related homeobox 3	mouse	Irx3	ENSMUSG00000031734
+Irx4	50916	Iroquois related homeobox 4 (Drosophila)	mouse	Irx4	ENSMUSG00000021604
+Irx5	54352	Iroquois related homeobox 5 (Drosophila)	mouse	Irx5	ENSMUSG00000031737
+Irx6	64379	Iroquois related homeobox 6 (Drosophila)	mouse	Irx6	ENSMUSG00000031738
+Isl1	16392	"ISL1 transcription factor, LIM/homeodomain"	mouse	Isl1	ENSMUSG00000042258
+Isl2	104360	insulin related protein 2 (islet 2)	mouse	Isl2	ENSMUSG00000032318
+Isx	71597	intestine specific homeobox	mouse	Isx	ENSMUSG00000031621
+Jarid2	16468	"jumonji, AT rich interactive domain 2"	mouse	Jarid2	ENSMUSG00000038518
+Jazf1	231986	JAZF zinc finger 1	mouse	Jazf1	ENSMUSG00000063568
+Jdp2	81703	Jun dimerization protein 2	mouse	Jdp2	ENSMUSG00000034271
+Jun	16476	jun proto-oncogene	mouse	Jun	ENSMUSG00000052684
+Junb	16477	jun B proto-oncogene	mouse	Junb	ENSMUSG00000052837
+Jund	16478	jun D proto-oncogene	mouse	Jund	ENSMUSG00000071076
+Jund2	110330	Jun proto-oncogene related gene d2	mouse	Jund2	
+Kat5	81601	K(lysine) acetyltransferase 5	mouse	Kat5	ENSMUSG00000024926
+Kat6a	244349	K(lysine) acetyltransferase 6A	mouse	Kat6a	ENSMUSG00000031540
+Kat6b	54169	K(lysine) acetyltransferase 6B	mouse	Kat6b	ENSMUSG00000021767
+Kat7	217127	K(lysine) acetyltransferase 7	mouse	Kat7	ENSMUSG00000038909
+Kat8	67773	K(lysine) acetyltransferase 8	mouse	Kat8	ENSMUSG00000030801
+Kcmf1	74287	potassium channel modulatory factor 1	mouse	Kcmf1	ENSMUSG00000055239
+Kcnip3	56461	"Kv channel interacting protein 3, calsenilin"	mouse	Kcnip3	ENSMUSG00000079056
+Kdm2a	225876	lysine (K)-specific demethylase 2A	mouse	Kdm2a	ENSMUSG00000054611
+Kdm5a	214899	lysine (K)-specific demethylase 5A	mouse	Kdm5a	ENSMUSG00000030180
+Kdm5b	75605	lysine (K)-specific demethylase 5B	mouse	Kdm5b	ENSMUSG00000042207
+Kdm5c	20591	lysine (K)-specific demethylase 5C	mouse	Kdm5c	ENSMUSG00000025332
+Kdm5d	20592	lysine (K)-specific demethylase 5D	mouse	Kdm5d	ENSMUSG00000056673
+Khsrp	16549	KH-type splicing regulatory protein	mouse	Khsrp	ENSMUSG00000007670
+Klf1	16596	Kruppel-like factor 1 (erythroid)	mouse	Klf1	ENSMUSG00000054191
+Klf10	21847	Kruppel-like factor 10	mouse	Klf10	ENSMUSG00000037465
+Klf11	194655	Kruppel-like factor 11	mouse	Klf11	ENSMUSG00000020653
+Klf12	16597	Kruppel-like factor 12	mouse	Klf12	ENSMUSG00000072294
+Klf13	50794	Kruppel-like factor 13	mouse	Klf13	ENSMUSG00000052040
+Klf14	619665	Kruppel-like factor 14	mouse	Klf14	ENSMUSG00000073209
+Klf15	66277	Kruppel-like factor 15	mouse	Klf15	ENSMUSG00000030087
+Klf16	118445	Kruppel-like factor 16	mouse	Klf16	ENSMUSG00000035397
+Klf17	75753	Kruppel-like factor 17	mouse	Klf17	ENSMUSG00000048626
+Klf2	16598	Kruppel-like factor 2 (lung)	mouse	Klf2	ENSMUSG00000055148
+Klf3	16599	Kruppel-like factor 3 (basic)	mouse	Klf3	ENSMUSG00000029178
+Klf4	16600	Kruppel-like factor 4 (gut)	mouse	Klf4	ENSMUSG00000003032
+Klf5	12224	Kruppel-like factor 5	mouse	Klf5	ENSMUSG00000005148
+Klf6	23849	Kruppel-like factor 6	mouse	Klf6	ENSMUSG00000000078
+Klf7	93691	Kruppel-like factor 7 (ubiquitous)	mouse	Klf7	ENSMUSG00000025959
+Klf8	245671	Kruppel-like factor 8	mouse	Klf8	ENSMUSG00000041649
+Klf9	16601	Kruppel-like factor 9	mouse	Klf9	ENSMUSG00000033863
+Kmt2a	214162	lysine (K)-specific methyltransferase 2A	mouse	Kmt2a	ENSMUSG00000002028
+Kmt2b	75410	lysine (K)-specific methyltransferase 2B	mouse	Kmt2b	ENSMUSG00000006307
+Kmt2c	231051	lysine (K)-specific methyltransferase 2C	mouse	Kmt2c	ENSMUSG00000038056
+Kmt2e	69188	lysine (K)-specific methyltransferase 2E	mouse	Kmt2e	ENSMUSG00000029004
+L3mbtl1	241764	l(3)mbt-like (Drosophila)	mouse	L3mbtl1	ENSMUSG00000035576
+L3mbtl2	214669	l(3)mbt-like 2 (Drosophila)	mouse	L3mbtl2	ENSMUSG00000022394
+L3mbtl3	237339	l(3)mbt-like 3 (Drosophila)	mouse	L3mbtl3	ENSMUSG00000039089
+L3mbtl4	320858	l(3)mbt-like 4 (Drosophila)	mouse	L3mbtl4	ENSMUSG00000041565
+Lbx1	16814	ladybird homeobox homolog 1 (Drosophila)	mouse	Lbx1	ENSMUSG00000025216
+Lbx2	16815	ladybird homeobox homolog 2 (Drosophila)	mouse	Lbx2	ENSMUSG00000034968
+Lcor	212391	ligand dependent nuclear receptor corepressor	mouse	Lcor	ENSMUSG00000025019
+Lcorl	209707	ligand dependent nuclear receptor corepressor-like	mouse	Lcorl	ENSMUSG00000015882
+Lef1	16842	lymphoid enhancer binding factor 1	mouse	Lef1	ENSMUSG00000027985
+Lhx1	16869	LIM homeobox protein 1	mouse	Lhx1	ENSMUSG00000018698
+Lhx2	16870	LIM homeobox protein 2	mouse	Lhx2	ENSMUSG00000000247
+Lhx3	16871	LIM homeobox protein 3	mouse	Lhx3	ENSMUSG00000026934
+Lhx4	16872	LIM homeobox protein 4	mouse	Lhx4	ENSMUSG00000026468
+Lhx5	16873	LIM homeobox protein 5	mouse	Lhx5	ENSMUSG00000029595
+Lhx6	16874	LIM homeobox protein 6	mouse	Lhx6	ENSMUSG00000026890
+Lhx8	16875	LIM homeobox protein 8	mouse	Lhx8	ENSMUSG00000096225
+Lhx9	16876	LIM homeobox protein 9	mouse	Lhx9	ENSMUSG00000019230
+Lmx1a	110648	LIM homeobox transcription factor 1 alpha	mouse	Lmx1a	ENSMUSG00000026686
+Lmx1b	16917	LIM homeobox transcription factor 1 beta	mouse	Lmx1b	ENSMUSG00000038765
+Lmyc2	110450	lung carcinoma myc related oncogene 2	mouse	Lmyc2	
+Lrrfip1	16978	leucine rich repeat (in FLII) interacting protein 1	mouse	Lrrfip1	ENSMUSG00000026305
+Lrrfip2	71268	leucine rich repeat (in FLII) interacting protein 2	mouse	Lrrfip2	ENSMUSG00000032497
+Lyar	17089	Ly1 antibody reactive clone	mouse	Lyar	ENSMUSG00000067367
+Lyl1	17095	lymphoblastomic leukemia 1	mouse	Lyl1	ENSMUSG00000034041
+Mael	98558	maelstrom spermatogenic transposon silencer	mouse	Mael	ENSMUSG00000040629
+Maf	17132	avian musculoaponeurotic fibrosarcoma oncogene homolog	mouse	Maf	ENSMUSG00000055435
+Maf1	68877	"MAF1 homolog, negative regulator of RNA polymerase III"	mouse	Maf1	ENSMUSG00000022553
+Mafa	378435	"v-maf musculoaponeurotic fibrosarcoma oncogene family, protein A (avian)"	mouse	Mafa	ENSMUSG00000047591
+Mafb	16658	"v-maf musculoaponeurotic fibrosarcoma oncogene family, protein B (avian)"	mouse	Mafb	ENSMUSG00000074622
+Maff	17133	"v-maf musculoaponeurotic fibrosarcoma oncogene family, protein F (avian)"	mouse	Maff	ENSMUSG00000042622
+Mafg	17134	"v-maf musculoaponeurotic fibrosarcoma oncogene family, protein G (avian)"	mouse	Mafg	ENSMUSG00000051510
+Mafk	17135	"v-maf musculoaponeurotic fibrosarcoma oncogene family, protein K (avian)"	mouse	Mafk	ENSMUSG00000018143
+Matr3	17184	matrin 3	mouse	Matr3	ENSMUSG00000037236
+Max	17187	Max protein	mouse	Max	ENSMUSG00000059436
+Maz	17188	MYC-associated zinc finger protein (purine-binding transcription factor)	mouse	Maz	ENSMUSG00000030678
+Mbd1	17190	methyl-CpG binding domain protein 1	mouse	Mbd1	ENSMUSG00000024561
+Mbd2	17191	methyl-CpG binding domain protein 2	mouse	Mbd2	ENSMUSG00000024513
+Mbd3	17192	methyl-CpG binding domain protein 3	mouse	Mbd3	ENSMUSG00000035478
+Mbd3l1	73503	methyl-CpG binding domain protein 3-like 1	mouse	Mbd3l1	ENSMUSG00000038691
+Mbd3l2	234988	methyl-CpG binding domain protein 3-like 2	mouse	Mbd3l2	ENSMUSG00000047508
+Mbd4	17193	methyl-CpG binding domain protein 4	mouse	Mbd4	ENSMUSG00000030322
+Mbd5	109241	methyl-CpG binding domain protein 5	mouse	Mbd5	ENSMUSG00000036792
+Mbd6	110962	methyl-CpG binding domain protein 6	mouse	Mbd6	ENSMUSG00000025409
+Mbnl3	171170	muscleblind-like 3 (Drosophila)	mouse	Mbnl3	ENSMUSG00000036109
+Mecom	14013	MDS1 and EVI1 complex locus	mouse	Mecom	ENSMUSG00000027684
+Mecp2	17257	methyl CpG binding protein 2	mouse	Mecp2	ENSMUSG00000031393
+Mef2a	17258	myocyte enhancer factor 2A	mouse	Mef2a	ENSMUSG00000030557
+Mef2b	17259	myocyte enhancer factor 2B	mouse	Mef2b	ENSMUSG00000079033
+Mef2c	17260	myocyte enhancer factor 2C	mouse	Mef2c	ENSMUSG00000005583
+Mef2d	17261	myocyte enhancer factor 2D	mouse	Mef2d	ENSMUSG00000001419
+Meis1	17268	Meis homeobox 1	mouse	Meis1	ENSMUSG00000020160
+Meis2	17536	Meis homeobox 2	mouse	Meis2	ENSMUSG00000027210
+Meis3	17537	Meis homeobox 3	mouse	Meis3	ENSMUSG00000041420
+Meox1	17285	mesenchyme homeobox 1	mouse	Meox1	ENSMUSG00000001493
+Meox2	17286	mesenchyme homeobox 2	mouse	Meox2	ENSMUSG00000036144
+Mesp1	17292	mesoderm posterior 1	mouse	Mesp1	ENSMUSG00000030544
+Mesp2	17293	mesoderm posterior 2	mouse	Mesp2	ENSMUSG00000030543
+Mga	29808	MAX gene associated	mouse	Mga	ENSMUSG00000033943
+Mier1	71148	mesoderm induction early response 1 homolog (Xenopus laevis	mouse	Mier1	ENSMUSG00000028522
+Mier2	70427	"mesoderm induction early response 1, family member 2"	mouse	Mier2	ENSMUSG00000042570
+Mier3	218613	"mesoderm induction early response 1, family member 3"	mouse	Mier3	ENSMUSG00000032727
+Mitf	17342	microphthalmia-associated transcription factor	mouse	Mitf	ENSMUSG00000035158
+Mixl1	27217	Mix1 homeobox-like 1 (Xenopus laevis)	mouse	Mixl1	ENSMUSG00000026497
+Mkx	210719	mohawk homeobox	mouse	Mkx	ENSMUSG00000061013
+Mllt1	64144	"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila); translocated to, 1"	mouse	Mllt1	ENSMUSG00000024212
+Mllt10	17354	"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila); translocated to, 10"	mouse	Mllt10	ENSMUSG00000026743
+Mllt11	56772	"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila); translocated to, 11"	mouse	Mllt11	ENSMUSG00000053192
+Mllt3	70122	"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila); translocated to, 3"	mouse	Mllt3	ENSMUSG00000028496
+Mllt4	17356	"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila); translocated to, 4"	mouse	Afdn	ENSMUSG00000068036
+Mllt6	246198	"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila); translocated to, 6"	mouse	Mllt6	ENSMUSG00000038437
+Mlx	21428	MAX-like protein X	mouse	Mlx	ENSMUSG00000017801
+Mlxip	208104	MLX interacting protein	mouse	Mlxip	ENSMUSG00000038342
+Mlxipl	58805	MLX interacting protein-like	mouse	Mlxipl	ENSMUSG00000005373
+Mnt	17428	max binding protein	mouse	Mnt	ENSMUSG00000000282
+Mnx1	15285	motor neuron and pancreas homeobox 1	mouse	Mnx1	ENSMUSG00000001566
+Msc	17681	musculin	mouse	Msc	ENSMUSG00000025930
+Msgn1	56184	mesogenin 1	mouse	Msgn1	ENSMUSG00000047002
+Msx1	17701	msh homeobox 1	mouse	Msx1	ENSMUSG00000048450
+Msx2	17702	msh homeobox 2	mouse	Msx2	ENSMUSG00000021469
+Msx3	17703	msh homeobox 3	mouse	Msx3	ENSMUSG00000025469
+Mta1	116870	metastasis associated 1	mouse	Mta1	ENSMUSG00000021144
+Mta2	23942	"metastasis-associated gene family, member 2"	mouse	Mta2	ENSMUSG00000071646
+Mta3	116871	metastasis associated 3	mouse	Mta3	ENSMUSG00000055817
+Mtf1	17764	metal response element binding transcription factor 1	mouse	Mtf1	ENSMUSG00000028890
+Mtf2	17765	metal response element binding transcription factor 2	mouse	Mtf2	ENSMUSG00000029267
+Mxd1	17119	MAX dimerization protein 1	mouse	Mxd1	ENSMUSG00000001156
+Mxd3	17121	Max dimerization protein 3	mouse	Mxd3	ENSMUSG00000021485
+Mxd4	17122	Max dimerization protein 4	mouse	Mxd4	ENSMUSG00000037235
+Mxi1	17859	"MAX interactor 1, dimerization protein"	mouse	Mxi1	ENSMUSG00000025025
+Myb	17863	myeloblastosis oncogene	mouse	Myb	ENSMUSG00000019982
+Mybl1	17864	myeloblastosis oncogene-like 1	mouse	Mybl1	ENSMUSG00000025912
+Mybl2	17865	myeloblastosis oncogene-like 2	mouse	Mybl2	ENSMUSG00000017861
+Myc	17869	myelocytomatosis oncogene	mouse	Myc	ENSMUSG00000022346
+Mycl	16918	"v-myc myelocytomatosis viral oncogene homolog, lung carcinoma derived (avian)"	mouse	Mycl	ENSMUSG00000028654
+Mycn	18109	"v-myc myelocytomatosis viral related oncogene, neuroblastoma derived (avian)"	mouse	Mycn	ENSMUSG00000037169
+Mycs	17870	"myc-like oncogene, s-myc protein"	mouse	Mycs	ENSMUSG00000044597
+Myf5	17877	myogenic factor 5	mouse	Myf5	ENSMUSG00000000435
+Myf6	17878	myogenic factor 6	mouse	Myf6	ENSMUSG00000035923
+Mynn	80732	myoneurin	mouse	Mynn	ENSMUSG00000037730
+Myod1	17927	myogenic differentiation 1	mouse	Myod1	ENSMUSG00000009471
+Myog	17928	myogenin	mouse	Myog	ENSMUSG00000026459
+Myrf	225908	myelin regulatory factor	mouse	Myrf	ENSMUSG00000036098
+Mysm1	320713	"myb-like, SWIRM and MPN domains 1"	mouse	Mysm1	ENSMUSG00000062627
+Myt1	17932	myelin transcription factor 1	mouse	Myt1	ENSMUSG00000010505
+Myt1l	17933	myelin transcription factor 1-like	mouse	Myt1l	ENSMUSG00000061911
+Mzf1	109889	myeloid zinc finger 1	mouse	Mzf1	ENSMUSG00000030380
+Nanog	71950	Nanog homeobox	mouse	Nanog	ENSMUSG00000012396
+Ncoa1	17977	nuclear receptor coactivator 1	mouse	Ncoa1	ENSMUSG00000020647
+Ncoa2	17978	nuclear receptor coactivator 2	mouse	Ncoa2	ENSMUSG00000005886
+Ncoa3	17979	nuclear receptor coactivator 3	mouse	Ncoa3	ENSMUSG00000027678
+Ncoa4	27057	nuclear receptor coactivator 4	mouse	Ncoa4	ENSMUSG00000056234
+Ncoa5	228869	nuclear receptor coactivator 5	mouse	Ncoa5	ENSMUSG00000039804
+Ncoa6	56406	nuclear receptor coactivator 6	mouse	Ncoa6	ENSMUSG00000038369
+Ncoa7	211329	nuclear receptor coactivator 7	mouse	Ncoa7	ENSMUSG00000039697
+Ncor1	20185	nuclear receptor co-repressor 1	mouse	Ncor1	ENSMUSG00000018501
+Ncor2	20602	nuclear receptor co-repressor 2	mouse	Ncor2	ENSMUSG00000029478
+Neurod1	18012	neurogenic differentiation 1	mouse	Neurod1	ENSMUSG00000034701
+Neurod2	18013	neurogenic differentiation 2	mouse	Neurod2	ENSMUSG00000038255
+Neurod4	11923	neurogenic differentiation 4	mouse	Neurod4	ENSMUSG00000048015
+Neurod6	11922	neurogenic differentiation 6	mouse	Neurod6	ENSMUSG00000037984
+Neurog1	18014	neurogenin 1	mouse	Neurog1	ENSMUSG00000048904
+Neurog2	11924	neurogenin 2	mouse	Neurog2	ENSMUSG00000027967
+Neurog3	11925	neurogenin 3	mouse	Neurog3	ENSMUSG00000044312
+Nfat5	54446	nuclear factor of activated T cells 5	mouse	Nfat5	ENSMUSG00000003847
+Nfatc1	18018	"nuclear factor of activated T cells, cytoplasmic, calcineurin dependent 1"	mouse	Nfatc1	ENSMUSG00000033016
+Nfatc2	18019	"nuclear factor of activated T cells, cytoplasmic, calcineurin dependent 2"	mouse	Nfatc2	ENSMUSG00000027544
+Nfatc3	18021	"nuclear factor of activated T cells, cytoplasmic, calcineurin dependent 3"	mouse	Nfatc3	ENSMUSG00000031902
+Nfatc4	73181	"nuclear factor of activated T cells, cytoplasmic, calcineurin dependent 4"	mouse	Nfatc4	ENSMUSG00000023411
+Nfe2	18022	"nuclear factor, erythroid derived 2"	mouse	Nfe2	ENSMUSG00000058794
+Nfe2l1	18023	"nuclear factor, erythroid derived 2,-like 1"	mouse	Nfe2l1	ENSMUSG00000038615
+Nfe2l2	18024	"nuclear factor, erythroid derived 2, like 2"	mouse	Nfe2l2	ENSMUSG00000015839
+Nfe2l3	18025	"nuclear factor, erythroid derived 2, like 3"	mouse	Nfe2l3	ENSMUSG00000029832
+Nfia	18027	nuclear factor I/A	mouse	Nfia	ENSMUSG00000028565
+Nfib	18028	nuclear factor I/B	mouse	Nfib	ENSMUSG00000008575
+Nfic	18029	nuclear factor I/C	mouse	Nfic	ENSMUSG00000055053
+Nfil3	18030	"nuclear factor, interleukin 3, regulated"	mouse	Nfil3	ENSMUSG00000056749
+Nfix	18032	nuclear factor I/X	mouse	Nfix	ENSMUSG00000001911
+Nfkb1	18033	"nuclear factor of kappa light polypeptide gene enhancer in B cells 1, p105"	mouse	Nfkb1	ENSMUSG00000028163
+Nfkb2	18034	"nuclear factor of kappa light polypeptide gene enhancer in B cells 2, p49/p100"	mouse	Nfkb2	ENSMUSG00000025225
+Nfkbia	18035	"nuclear factor of kappa light polypeptide gene enhancer in B cells inhibitor, alpha"	mouse	Nfkbia	ENSMUSG00000021025
+Nfkbib	18036	"nuclear factor of kappa light polypeptide gene enhancer in B cells inhibitor, beta"	mouse	Nfkbib	ENSMUSG00000030595
+Nfkbid	243910	"nuclear factor of kappa light polypeptide gene enhancer in B cells inhibitor, delta"	mouse	Nfkbid	ENSMUSG00000036931
+Nfkbie	18037	"nuclear factor of kappa light polypeptide gene enhancer in B cells inhibitor, epsilon"	mouse	Nfkbie	ENSMUSG00000023947
+Nfkbil1	18038	nuclear factor of kappa light polypeptide gene enhancer in B cells inhibitor like 1	mouse	Nfkbil1	ENSMUSG00000042419
+Nfkbiz	80859	"nuclear factor of kappa light polypeptide gene enhancer in B cells inhibitor, zeta"	mouse	Nfkbiz	ENSMUSG00000035356
+Nfrkb	235134	nuclear factor related to kappa B binding protein	mouse	Nfrkb	ENSMUSG00000042185
+Nfx1	74164	"nuclear transcription factor, X-box binding 1"	mouse	Nfx1	ENSMUSG00000028423
+Nfxl1	100978	"nuclear transcription factor, X-box binding-like 1"	mouse	Nfxl1	ENSMUSG00000072889
+Nfya	18044	nuclear transcription factor-Y alpha	mouse	Nfya	ENSMUSG00000023994
+Nfyb	18045	nuclear transcription factor-Y beta	mouse	Nfyb	ENSMUSG00000020248
+Nfyc	18046	nuclear transcription factor-Y gamma	mouse	Nfyc	ENSMUSG00000032897
+Nhlh1	18071	nescient helix loop helix 1	mouse	Nhlh1	ENSMUSG00000051251
+Nhlh2	18072	nescient helix loop helix 2	mouse	Nhlh2	ENSMUSG00000048540
+Nkrf	77286	NF-kappaB repressing factor	mouse	Nkrf	ENSMUSG00000044149
+Nkx1-1	672284	"NK1 transcription factor related, locus 1 (Drosophila)"	mouse	Nkx1-1	ENSMUSG00000029112
+Nkx1-2	20231	"NK1 transcription factor related, locus 2 (Drosophila)"	mouse	Nkx1-2	ENSMUSG00000048528
+Nkx2-1	21869	NK2 homeobox 1	mouse	Nkx2-1	ENSMUSG00000001496
+Nkx2-2	18088	NK2 homeobox 2	mouse	Nkx2-2	ENSMUSG00000027434
+Nkx2-3	18089	NK2 homeobox 3	mouse	Nkx2-3	ENSMUSG00000044220
+Nkx2-4	228731	NK2 homeobox 4	mouse	Nkx2-4	ENSMUSG00000054160
+Nkx2-5	18091	NK2 homeobox 5	mouse	Nkx2-5	ENSMUSG00000015579
+Nkx2-6	18092	NK2 homeobox 6	mouse	Nkx2-6	ENSMUSG00000044186
+Nkx2-9	18094	NK2 homeobox 9	mouse	Nkx2-9	ENSMUSG00000058669
+Nkx3-1	18095	"NK-3 transcription factor, locus 1 (Drosophila)"	mouse	Nkx3-1	ENSMUSG00000022061
+Nkx3-2	12020	NK3 homeobox 2	mouse	Nkx3-2	ENSMUSG00000049691
+Nkx6-1	18096	NK6 homeobox 1	mouse	Nkx6-1	ENSMUSG00000035187
+Nkx6-2	14912	NK6 homeobox 2	mouse	Nkx6-2	ENSMUSG00000041309
+Nkx6-3	74561	NK6 homeobox 3	mouse	Nkx6-3	ENSMUSG00000063672
+Nobox	18291	NOBOX oogenesis homeobox	mouse	Nobox	ENSMUSG00000029736
+Noc3l	57753	nucleolar complex associated 3 homolog (S. cerevisiae)	mouse	Noc3l	ENSMUSG00000024999
+Noc4l	100608	nucleolar complex associated 4 homolog (S. cerevisiae)	mouse	Noc4l	ENSMUSG00000033294
+Nono	53610	"non-POU-domain-containing, octamer binding protein"	mouse	Nono	ENSMUSG00000031311
+Noto	384452	notochord homolog (Xenopus laevis)	mouse	Noto	ENSMUSG00000068302
+Npas1	18142	neuronal PAS domain protein 1	mouse	Npas1	ENSMUSG00000001988
+Npas2	18143	neuronal PAS domain protein 2	mouse	Npas2	ENSMUSG00000026077
+Npas3	27386	neuronal PAS domain protein 3	mouse	Npas3	ENSMUSG00000021010
+Npas4	225872	neuronal PAS domain protein 4	mouse	Npas4	ENSMUSG00000045903
+Nr0b1	11614	"nuclear receptor subfamily 0, group B, member 1"	mouse	Nr0b1	ENSMUSG00000025056
+Nr0b2	23957	"nuclear receptor subfamily 0, group B, member 2"	mouse	Nr0b2	ENSMUSG00000037583
+Nr1d1	217166	"nuclear receptor subfamily 1, group D, member 1"	mouse	Nr1d1	ENSMUSG00000020889
+Nr1d2	353187	"nuclear receptor subfamily 1, group D, member 2"	mouse	Nr1d2	ENSMUSG00000021775
+Nr1h2	22260	"nuclear receptor subfamily 1, group H, member 2"	mouse	Nr1h2	ENSMUSG00000060601
+Nr1h3	22259	"nuclear receptor subfamily 1, group H, member 3"	mouse	Nr1h3	ENSMUSG00000002108
+Nr1h4	20186	"nuclear receptor subfamily 1, group H, member 4"	mouse	Nr1h4	ENSMUSG00000047638
+Nr1h5	381463	"nuclear receptor subfamily 1, group H, member 5"	mouse	Nr1h5	ENSMUSG00000048938
+Nr1i2	18171	"nuclear receptor subfamily 1, group I, member 2"	mouse	Nr1i2	ENSMUSG00000022809
+Nr1i3	12355	"nuclear receptor subfamily 1, group I, member 3"	mouse	Nr1i3	ENSMUSG00000005677
+Nr2c1	22025	"nuclear receptor subfamily 2, group C, member 1"	mouse	Nr2c1	ENSMUSG00000005897
+Nr2c2	22026	"nuclear receptor subfamily 2, group C, member 2"	mouse	Nr2c2	ENSMUSG00000005893
+Nr2e1	21907	"nuclear receptor subfamily 2, group E, member 1"	mouse	Nr2e1	ENSMUSG00000019803
+Nr2e3	23958	"nuclear receptor subfamily 2, group E, member 3"	mouse	Nr2e3	ENSMUSG00000032292
+Nr2f1	13865	"nuclear receptor subfamily 2, group F, member 1"	mouse	Nr2f1	ENSMUSG00000069171
+Nr2f2	11819	"nuclear receptor subfamily 2, group F, member 2"	mouse	Nr2f2	ENSMUSG00000030551
+Nr2f6	13864	"nuclear receptor subfamily 2, group F, member 6"	mouse	Nr2f6	ENSMUSG00000002393
+Nr3c1	14815	"nuclear receptor subfamily 3, group C, member 1"	mouse	Nr3c1	ENSMUSG00000024431
+Nr3c2	110784	"nuclear receptor subfamily 3, group C, member 2"	mouse	Nr3c2	ENSMUSG00000031618
+Nr4a1	15370	"nuclear receptor subfamily 4, group A, member 1"	mouse	Nr4a1	ENSMUSG00000023034
+Nr4a2	18227	"nuclear receptor subfamily 4, group A, member 2"	mouse	Nr4a2	ENSMUSG00000026826
+Nr4a3	18124	"nuclear receptor subfamily 4, group A, member 3"	mouse	Nr4a3	ENSMUSG00000028341
+Nr5a1	26423	"nuclear receptor subfamily 5, group A, member 1"	mouse	Nr5a1	ENSMUSG00000026751
+Nr5a2	26424	"nuclear receptor subfamily 5, group A, member 2"	mouse	Nr5a2	ENSMUSG00000026398
+Nr6a1	14536	"nuclear receptor subfamily 6, group A, member 1"	mouse	Nr6a1	ENSMUSG00000063972
+Nrf1	18181	nuclear respiratory factor 1	mouse	Nrf1	ENSMUSG00000058440
+Nrl	18185	neural retina leucine zipper gene	mouse	Nrl	ENSMUSG00000040632
+Olig1	50914	oligodendrocyte transcription factor 1	mouse	Olig1	ENSMUSG00000046160
+Olig2	50913	oligodendrocyte transcription factor 2	mouse	Olig2	ENSMUSG00000039830
+Olig3	94222	oligodendrocyte transcription factor 3	mouse	Olig3	ENSMUSG00000045591
+Onecut1	15379	"one cut domain, family member 1"	mouse	Onecut1	ENSMUSG00000043013
+Onecut2	225631	"one cut domain, family member 2"	mouse	Onecut2	ENSMUSG00000045991
+Onecut3	246086	"one cut domain, family member 3"	mouse	Onecut3	ENSMUSG00000045518
+Osr1	23967	odd-skipped related 1 (Drosophila)	mouse	Osr1	ENSMUSG00000048387
+Osr2	107587	odd-skipped related 2	mouse	Osr2	ENSMUSG00000022330
+Otp	18420	orthopedia homolog (Drosophila)	mouse	Otp	ENSMUSG00000021685
+Otx1	18423	orthodenticle homolog 1	mouse	Otx1	ENSMUSG00000005917
+Otx2	18424	orthodenticle homolog 2	mouse	Otx2	ENSMUSG00000021848
+Ovol1	18426	OVO homolog-like 1 (Drosophila)	mouse	Ovol1	ENSMUSG00000024922
+Ovol2	107586	ovo-like 2 (Drosophila)	mouse	Ovol2	ENSMUSG00000037279
+Ovol3	381867	OVO homolog-like 3 (Drosophila)	mouse	Ovol3	ENSMUSG00000100512
+Parp1	11545	"poly (ADP-ribose) polymerase family, member 1"	mouse	Parp1	ENSMUSG00000026496
+Parp12	243771	"poly (ADP-ribose) polymerase family, member 12"	mouse	Parp12	ENSMUSG00000038507
+Patz1	56218	POZ (BTB) and AT hook containing zinc finger 1	mouse	Patz1	ENSMUSG00000020453
+Pawr	114774	"PRKC, apoptosis, WT1, regulator"	mouse	Pawr	ENSMUSG00000035873
+Pax1	18503	paired box 1	mouse	Pax1	ENSMUSG00000037034
+Pax2	18504	paired box 2	mouse	Pax2	ENSMUSG00000004231
+Pax3	18505	paired box 3	mouse	Pax3	ENSMUSG00000004872
+Pax4	18506	paired box 4	mouse	Pax4	ENSMUSG00000029706
+Pax5	18507	paired box 5	mouse	Pax5	ENSMUSG00000014030
+Pax6	18508	paired box 6	mouse	Pax6	ENSMUSG00000027168
+Pax7	18509	paired box 7	mouse	Pax7	ENSMUSG00000028736
+Pax8	18510	paired box 8	mouse	Pax8	ENSMUSG00000026976
+Pax9	18511	paired box 9	mouse	Pax9	ENSMUSG00000001497
+Paxbp1	67367	PAX3 and PAX7 binding protein 1	mouse	Paxbp1	ENSMUSG00000022974
+Pbrm1	66923	polybromo 1	mouse	Pbrm1	ENSMUSG00000042323
+Pbx1	18514	pre B cell leukemia homeobox 1	mouse	Pbx1	ENSMUSG00000052534
+Pbx2	18515	pre B cell leukemia homeobox 2	mouse	Pbx2	ENSMUSG00000034673
+Pbx3	18516	pre B cell leukemia homeobox 3	mouse	Pbx3	ENSMUSG00000038718
+Pbx4	80720	pre B cell leukemia homeobox 4	mouse	Pbx4	ENSMUSG00000031860
+Pcbp1	23983	poly(rC) binding protein 1	mouse	Pcbp1	ENSMUSG00000051695
+Pcbp2	18521	poly(rC) binding protein 2	mouse	Pcbp2	ENSMUSG00000056851
+Pcbp3	59093	poly(rC) binding protein 3	mouse	Pcbp3	ENSMUSG00000001120
+Pcbp4	59092	poly(rC) binding protein 4	mouse	Pcbp4	ENSMUSG00000023495
+Pcgf6	71041	polycomb group ring finger 6	mouse	Pcgf6	ENSMUSG00000025050
+Pdx1	18609	pancreatic and duodenal homeobox 1	mouse	Pdx1	ENSMUSG00000029644
+Peg3	18616	paternally expressed 3	mouse	Peg3	ENSMUSG00000002265
+Pgr	18667	progesterone receptor	mouse	Pgr	ENSMUSG00000031870
+Phb	18673	prohibitin	mouse	Phb	ENSMUSG00000038845
+Phb2	12034	prohibitin 2	mouse	Phb2	ENSMUSG00000004264
+Phf20	228829	PHD finger protein 20	mouse	Phf20	ENSMUSG00000038116
+Phf5a	68479	PHD finger protein 5A	mouse	Phf5a	ENSMUSG00000061360
+Phox2a	11859	paired-like homeobox 2a	mouse	Phox2a	ENSMUSG00000007946
+Phox2b	18935	paired-like homeobox 2b	mouse	Phox2b	ENSMUSG00000012520
+Phtf1	18685	putative homeodomain transcription factor 1	mouse	Phtf1	ENSMUSG00000058388
+Phtf2	68770	putative homeodomain transcription factor 2	mouse	Phtf2	ENSMUSG00000039987
+Pitx1	18740	paired-like homeodomain transcription factor 1	mouse	Pitx1	ENSMUSG00000021506
+Pitx2	18741	paired-like homeodomain transcription factor 2	mouse	Pitx2	ENSMUSG00000028023
+Pitx3	18742	paired-like homeodomain transcription factor 3	mouse	Pitx3	ENSMUSG00000025229
+Pknox1	18771	Pbx/knotted 1 homeobox	mouse	Pknox1	ENSMUSG00000006705
+Pknox2	208076	Pbx/knotted 1 homeobox 2	mouse	Pknox2	ENSMUSG00000035934
+Plag1	56711	pleiomorphic adenoma gene 1	mouse	Plag1	ENSMUSG00000003282
+Plagl1	22634	pleiomorphic adenoma gene-like 1	mouse	Plagl1	ENSMUSG00000019817
+Plagl2	54711	pleiomorphic adenoma gene-like 2	mouse	Plagl2	ENSMUSG00000051413
+Plek	56193	pleckstrin	mouse	Plek	ENSMUSG00000020120
+Pogz	229584	pogo transposable element with ZNF domain	mouse	Pogz	ENSMUSG00000038902
+Pou1f1	18736	"POU domain, class 1, transcription factor 1"	mouse	Pou1f1	ENSMUSG00000004842
+Pou2af1	18985	"POU domain, class 2, associating factor 1"	mouse	Pou2af1	ENSMUSG00000032053
+Pou2f1	18986	"POU domain, class 2, transcription factor 1"	mouse	Pou2f1	ENSMUSG00000026565
+Pou2f2	18987	"POU domain, class 2, transcription factor 2"	mouse	Pou2f2	ENSMUSG00000008496
+Pou2f3	18988	"POU domain, class 2, transcription factor 3"	mouse	Pou2f3	ENSMUSG00000032015
+Pou3f1	18991	"POU domain, class 3, transcription factor 1"	mouse	Pou3f1	ENSMUSG00000090125
+Pou3f2	18992	"POU domain, class 3, transcription factor 2"	mouse	Pou3f2	ENSMUSG00000095139
+Pou3f3	18993	"POU domain, class 3, transcription factor 3"	mouse	Pou3f3	ENSMUSG00000045515
+Pou3f4	18994	"POU domain, class 3, transcription factor 4"	mouse	Pou3f4	ENSMUSG00000056854
+Pou4f1	18996	"POU domain, class 4, transcription factor 1"	mouse	Pou4f1	ENSMUSG00000048349
+Pou4f2	18997	"POU domain, class 4, transcription factor 2"	mouse	Pou4f2	ENSMUSG00000031688
+Pou4f3	18998	"POU domain, class 4, transcription factor 3"	mouse	Pou4f3	ENSMUSG00000024497
+Pou5f1	18999	"POU domain, class 5, transcription factor 1"	mouse	Pou5f1	ENSMUSG00000024406
+Pou5f2	75507	"POU domain class 5, transcription factor 2"	mouse	Pou5f2	ENSMUSG00000093668
+Pou6f1	19009	"POU domain, class 6, transcription factor 1"	mouse	Pou6f1	ENSMUSG00000009739
+Pou6f2	218030	"POU domain, class 6, transcription factor 2"	mouse	Pou6f2	ENSMUSG00000009734
+Ppara	19013	peroxisome proliferator activated receptor alpha	mouse	Ppara	ENSMUSG00000022383
+Ppard	19015	peroxisome proliferator activator receptor delta	mouse	Ppard	ENSMUSG00000002250
+Pparg	19016	peroxisome proliferator activated receptor gamma	mouse	Pparg	ENSMUSG00000000440
+Ppp1r13l	333654	"protein phosphatase 1, regulatory (inhibitor) subunit 13 like"	mouse	Ppp1r13l	ENSMUSG00000040734
+Prdm1	12142	"PR domain containing 1, with ZNF domain"	mouse	Prdm1	ENSMUSG00000038151
+Prdm10	382066	PR domain containing 10	mouse	Prdm10	ENSMUSG00000042496
+Prdm11	100042784	PR domain containing 11	mouse	Prdm11	ENSMUSG00000075028
+Prdm12	381359	PR domain containing 12	mouse	Prdm12	ENSMUSG00000079466
+Prdm13	230025	PR domain containing 13	mouse	Prdm13	ENSMUSG00000040478
+Prdm14	383491	PR domain containing 14	mouse	Prdm14	ENSMUSG00000042414
+Prdm15	114604	PR domain containing 15	mouse	Prdm15	ENSMUSG00000014039
+Prdm16	70673	PR domain containing 16	mouse	Prdm16	ENSMUSG00000039410
+Prdm2	110593	"PR domain containing 2, with ZNF domain"	mouse	Prdm2	ENSMUSG00000057637
+Prdm4	72843	PR domain containing 4	mouse	Prdm4	ENSMUSG00000035529
+Prdm5	70779	PR domain containing 5	mouse	Prdm5	ENSMUSG00000029913
+Prdm6	225518	PR domain containing 6	mouse	Prdm6	ENSMUSG00000069378
+Prdm8	77630	PR domain containing 8	mouse	Prdm8	ENSMUSG00000035456
+Prdm9	213389	PR domain containing 9	mouse	Prdm9	ENSMUSG00000051977
+Preb	50907	prolactin regulatory element binding	mouse	Preb	ENSMUSG00000045302
+Prkrir	72981	"protein-kinase, interferon-inducible double stranded RNA dependent inhibitor, repressor of (P58 repressor)"	mouse	Thap12	ENSMUSG00000030753
+Prop1	19127	paired like homeodomain factor 1	mouse	Prop1	ENSMUSG00000044542
+Prox1	19130	prospero homeobox 1	mouse	Prox1	ENSMUSG00000010175
+Prox2	73422	prospero homeobox 2	mouse	Prox2	ENSMUSG00000042320
+Prrx1	18933	paired related homeobox 1	mouse	Prrx1	ENSMUSG00000026586
+Prrx2	20204	paired related homeobox 2	mouse	Prrx2	ENSMUSG00000039476
+Prrxl1	107751	paired related homeobox protein-like 1	mouse	Prrxl1	ENSMUSG00000041730
+Pspc1	66645	paraspeckle protein 1	mouse	Pspc1	ENSMUSG00000021938
+Ptf1a	19213	"pancreas specific transcription factor, 1a"	mouse	Ptf1a	ENSMUSG00000026735
+Pura	19290	purine rich element binding protein A	mouse	Pura	ENSMUSG00000043991
+Purb	19291	purine rich element binding protein B	mouse	Purb	ENSMUSG00000094483
+Purg	75029	purine-rich element binding protein G	mouse	Purg	ENSMUSG00000049184
+Rara	19401	"retinoic acid receptor, alpha"	mouse	Rara	ENSMUSG00000037992
+Rarb	218772	"retinoic acid receptor, beta"	mouse	Rarb	ENSMUSG00000017491
+Rarg	19411	"retinoic acid receptor, gamma"	mouse	Rarg	ENSMUSG00000001288
+Rax	19434	retina and anterior neural fold homeobox	mouse	Rax	ENSMUSG00000024518
+Rbak	57782	RB-associated KRAB zinc finger	mouse	Rbak	ENSMUSG00000061898
+Rbm22	66810	RNA binding motif protein 22	mouse	Rbm22	ENSMUSG00000024604
+Rbpj	19664	recombination signal binding protein for immunoglobulin kappa J region	mouse	Rbpj	ENSMUSG00000039191
+Rbpjl	19668	recombination signal binding protein for immunoglobulin kappa J region-like	mouse	Rbpjl	ENSMUSG00000017007
+Rc3h1	381305	RING CCCH (C3H) domains 1	mouse	Rc3h1	ENSMUSG00000040423
+Rc3h2	319817	ring finger and CCCH-type zinc finger domains 2	mouse	Rc3h2	ENSMUSG00000075376
+Rcor1	217864	REST corepressor 1	mouse	Rcor1	ENSMUSG00000037896
+Rcor2	104383	REST corepressor 2	mouse	Rcor2	ENSMUSG00000024968
+Rcor3	214742	REST corepressor 3	mouse	Rcor3	ENSMUSG00000037395
+Rel	19696	reticuloendotheliosis oncogene	mouse	Rel	ENSMUSG00000020275
+Rela	19697	v-rel reticuloendotheliosis viral oncogene homolog A (avian)	mouse	Rela	ENSMUSG00000024927
+Relb	19698	avian reticuloendotheliosis viral (v-rel) oncogene related B	mouse	Relb	ENSMUSG00000002983
+Rere	68703	arginine glutamic acid dipeptide (RE) repeats	mouse	Rere	ENSMUSG00000039852
+Rest	19712	RE1-silencing transcription factor	mouse	Rest	ENSMUSG00000029249
+Rex2	100043034	reduced expression 2	mouse	Rex2	ENSMUSG00000067919
+Rfx1	19724	"regulatory factor X, 1 (influences HLA class II expression)"	mouse	Rfx1	ENSMUSG00000031706
+Rfx2	19725	"regulatory factor X, 2 (influences HLA class II expression)"	mouse	Rfx2	ENSMUSG00000024206
+Rfx3	19726	"regulatory factor X, 3 (influences HLA class II expression)"	mouse	Rfx3	ENSMUSG00000040929
+Rfx4	71137	"regulatory factor X, 4 (influences HLA class II expression)"	mouse	Rfx4	ENSMUSG00000020037
+Rfx5	53970	"regulatory factor X, 5 (influences HLA class II expression)"	mouse	Rfx5	ENSMUSG00000005774
+Rfx6	320995	"regulatory factor X, 6"	mouse	Rfx6	ENSMUSG00000019900
+Rfx7	319758	"regulatory factor X, 7"	mouse	Rfx7	ENSMUSG00000037674
+Rfx8	619289	regulatory factor X 8	mouse	Rfx8	ENSMUSG00000057173
+Rfxank	19727	regulatory factor X-associated ankyrin-containing protein	mouse	Rfxank	ENSMUSG00000036120
+Rfxap	170767	regulatory factor X-associated protein	mouse	Rfxap	ENSMUSG00000036615
+Rhox1	385343	reproductive homeobox 1	mouse	Rhox1	ENSMUSG00000071773
+Rhox10	434769	reproductive homeobox 10	mouse	Rhox10	ENSMUSG00000053909
+Rhox11	194738	reproductive homeobox 11	mouse	Rhox11	ENSMUSG00000051038
+Rhox12	382282	reproductive homeobox 12	mouse	Rhox12	ENSMUSG00000071766
+Rhox13	73614	reproductive homeobox 13	mouse	Rhox13	ENSMUSG00000050197
+Rhox2a	75199	reproductive homeobox 2A	mouse	Rhox2a	ENSMUSG00000051827
+Rhox2b	100039913	reproductive homeobox 2B	mouse	Rhox2b	ENSMUSG00000079638
+Rhox2c	100039948	reproductive homeobox 2C	mouse	Rhox2c	ENSMUSG00000079637
+Rhox2d	434760	reproductive homeobox 2D	mouse	Rhox2d	ENSMUSG00000095698
+Rhox2e	100040016	reproductive homeobox 2E	mouse	Rhox2e	ENSMUSG00000096788
+Rhox3e	100135657	reproductive homeobox 3E	mouse	Rhox3e	ENSMUSG00000059626
+Rhox3f	621852	reproductive homeobox 3F	mouse	Rhox3f	ENSMUSG00000095510
+Rhox3h	434758	reproductive homeobox 3H	mouse	Rhox3h	ENSMUSG00000071769
+Rhox4a	664609	reproductive homeobox 4A	mouse	Rhox4a	ENSMUSG00000079639
+Rhox4b	57737	reproductive homeobox 4B	mouse	Rhox4b	ENSMUSG00000071771
+Rhox4c	434759	reproductive homeobox 4C	mouse	Rhox4c	ENSMUSG00000079635
+Rhox4d	664610	reproductive homeobox 4D	mouse	Rhox4d	ENSMUSG00000079633
+Rhox4e	194856	reproductive homeobox 4E	mouse	Rhox4e	ENSMUSG00000071770
+Rhox4f	636177	reproductive homeobox 4F	mouse	Rhox4f	ENSMUSG00000079630
+Rhox4g	664608	reproductive homeobox 4G	mouse	Rhox4g	ENSMUSG00000079628
+Rhox5	18617	reproductive homeobox 5	mouse	Rhox5	ENSMUSG00000095180
+Rhox6	19202	reproductive homeobox 6	mouse	Rhox6	ENSMUSG00000006200
+Rhox7a	547168	reproductive homeobox 7A	mouse	Rhox7a	ENSMUSG00000071767
+Rhox8	434768	reproductive homeobox 8	mouse	Rhox8	ENSMUSG00000064137
+Rhox9	104384	reproductive homeobox 9	mouse	Rhox9	ENSMUSG00000068048
+Rlf	109263	rearranged L-myc fusion sequence	mouse	Rlf	ENSMUSG00000049878
+Rora	19883	RAR-related orphan receptor alpha	mouse	Rora	ENSMUSG00000032238
+Rorb	225998	RAR-related orphan receptor beta	mouse	Rorb	ENSMUSG00000036192
+Rorc	19885	RAR-related orphan receptor gamma	mouse	Rorc	ENSMUSG00000028150
+Rreb1	68750	ras responsive element binding protein 1	mouse	Rreb1	ENSMUSG00000039087
+Rsl1	380855	regulator of sex limited protein 1	mouse	Rsl1	ENSMUSG00000058900
+Runx1	12394	runt related transcription factor 1	mouse	Runx1	ENSMUSG00000022952
+Runx1t1	12395	"runt-related transcription factor 1; translocated to, 1 (cyclin D-related)"	mouse	Runx1t1	ENSMUSG00000006586
+Runx2	12393	runt related transcription factor 2	mouse	Runx2	ENSMUSG00000039153
+Runx3	12399	runt related transcription factor 3	mouse	Runx3	ENSMUSG00000070691
+Rxra	20181	retinoid X receptor alpha	mouse	Rxra	ENSMUSG00000015846
+Rxrb	20182	retinoid X receptor beta	mouse	Rxrb	ENSMUSG00000039656
+Rxrg	20183	retinoid X receptor gamma	mouse	Rxrg	ENSMUSG00000015843
+Sall1	58198	sal-like 1 (Drosophila)	mouse	Sall1	ENSMUSG00000031665
+Sall2	50524	sal-like 2 (Drosophila)	mouse	Sall2	ENSMUSG00000049532
+Sall3	20689	sal-like 3 (Drosophila)	mouse	Sall3	ENSMUSG00000024565
+Sall4	99377	sal-like 4 (Drosophila)	mouse	Sall4	ENSMUSG00000027547
+Satb1	20230	special AT-rich sequence binding protein 1	mouse	Satb1	ENSMUSG00000023927
+Satb2	212712	special AT-rich sequence binding protein 2	mouse	Satb2	ENSMUSG00000038331
+Scaper	244891	S phase cyclin A-associated protein in the ER	mouse	Scaper	ENSMUSG00000034007
+Scrt1	170729	"scratch homolog 1, zinc finger protein (Drosophila)"	mouse	Scrt1	ENSMUSG00000048385
+Scrt2	545474	"scratch homolog 2, zinc finger protein (Drosophila)"	mouse	Scrt2	ENSMUSG00000060257
+Scx	20289	scleraxis	mouse	Scx	ENSMUSG00000034161
+Sebox	18292	SEBOX homeobox	mouse	Sebox	ENSMUSG00000001103
+Setbp1	240427	SET binding protein 1	mouse	Setbp1	ENSMUSG00000024548
+Sfpq	71514	splicing factor proline/glutamine rich (polypyrimidine tract binding protein associated)	mouse	Sfpq	ENSMUSG00000028820
+Shox2	20429	short stature homeobox 2	mouse	Shox2	ENSMUSG00000027833
+Sim1	20464	single-minded homolog 1 (Drosophila)	mouse	Sim1	ENSMUSG00000019913
+Sim2	20465	single-minded homolog 2 (Drosophila)	mouse	Sim2	ENSMUSG00000062713
+Six1	20471	sine oculis-related homeobox 1	mouse	Six1	ENSMUSG00000051367
+Six2	20472	sine oculis-related homeobox 2	mouse	Six2	ENSMUSG00000024134
+Six3	20473	sine oculis-related homeobox 3	mouse	Six3	ENSMUSG00000038805
+Six4	20474	sine oculis-related homeobox 4	mouse	Six4	ENSMUSG00000034460
+Six5	20475	sine oculis-related homeobox 5	mouse	Six5	ENSMUSG00000040841
+Six6	20476	sine oculis-related homeobox 6	mouse	Six6	ENSMUSG00000021099
+Ski	20481	ski sarcoma viral oncogene homolog (avian)	mouse	Ski	ENSMUSG00000029050
+Skil	20482	SKI-like	mouse	Skil	ENSMUSG00000027660
+Skor1	207667	SKI family transcriptional corepressor 1	mouse	Skor1	ENSMUSG00000022245
+Skor2	664805	SKI family transcriptional corepressor 2	mouse	Skor2	ENSMUSG00000091519
+Slc30a9	109108	"solute carrier family 30 (zinc transporter), member 9"	mouse	Slc30a9	ENSMUSG00000029221
+Smad1	17125	SMAD family member 1	mouse	Smad1	ENSMUSG00000031681
+Smad2	17126	SMAD family member 2	mouse	Smad2	ENSMUSG00000024563
+Smad3	17127	SMAD family member 3	mouse	Smad3	ENSMUSG00000032402
+Smad4	17128	SMAD family member 4	mouse	Smad4	ENSMUSG00000024515
+Smad5	17129	SMAD family member 5	mouse	Smad5	ENSMUSG00000021540
+Smad6	17130	SMAD family member 6	mouse	Smad6	ENSMUSG00000036867
+Smad7	17131	SMAD family member 7	mouse	Smad7	ENSMUSG00000025880
+Smad9	55994	SMAD family member 9	mouse	Smad9	ENSMUSG00000027796
+Smarca1	93761	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 1"	mouse	Smarca1	ENSMUSG00000031099
+Smarca2	67155	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 2"	mouse	Smarca2	ENSMUSG00000024921
+Smarca4	20586	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 4"	mouse	Smarca4	ENSMUSG00000032187
+Smarca5	93762	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 5"	mouse	Smarca5	ENSMUSG00000031715
+Smarcad1	13990	"SWI/SNF-related, matrix-associated actin-dependent regulator of chromatin, subfamily a, containing DEAD/H box 1"	mouse	Smarcad1	ENSMUSG00000029920
+Smarcal1	54380	"SWI/SNF related matrix associated, actin dependent regulator of chromatin, subfamily a-like 1"	mouse	Smarcal1	ENSMUSG00000039354
+Smarcb1	20587	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily b, member 1"	mouse	Smarcb1	ENSMUSG00000000902
+Smarcc1	20588	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily c, member 1"	mouse	Smarcc1	ENSMUSG00000032481
+Smarcc2	68094	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily c, member 2"	mouse	Smarcc2	ENSMUSG00000025369
+Smarcd1	83797	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily d, member 1"	mouse	Smarcd1	ENSMUSG00000023018
+Smarcd2	83796	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily d, member 2"	mouse	Smarcd2	ENSMUSG00000078619
+Smarcd3	66993	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily d, member 3"	mouse	Smarcd3	ENSMUSG00000028949
+Smarce1	57376	"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily e, member 1"	mouse	Smarce1	ENSMUSG00000037935
+Snai1	20613	snail family zinc finger 1	mouse	Snai1	ENSMUSG00000042821
+Snai2	20583	snail family zinc finger 2	mouse	Snai2	ENSMUSG00000022676
+Snai3	30927	snail family zinc finger 3	mouse	Snai3	ENSMUSG00000006587
+Snapc4	227644	"small nuclear RNA activating complex, polypeptide 4"	mouse	Snapc4	ENSMUSG00000036281
+Sohlh1	227631	spermatogenesis and oogenesis specific basic helix-loop-helix 1	mouse	Sohlh1	ENSMUSG00000059625
+Sohlh2	74434	spermatogenesis and oogenesis specific basic helix-loop-helix 2	mouse	Sohlh2	ENSMUSG00000027794
+Sox1	20664	SRY (sex determining region Y)-box 1	mouse	Sox1	ENSMUSG00000096014
+Sox10	20665	SRY (sex determining region Y)-box 10	mouse	Sox10	ENSMUSG00000033006
+Sox11	20666	SRY (sex determining region Y)-box 11	mouse	Sox11	ENSMUSG00000063632
+Sox12	20667	SRY (sex determining region Y)-box 12	mouse	Sox12	ENSMUSG00000051817
+Sox13	20668	SRY (sex determining region Y)-box 13	mouse	Sox13	ENSMUSG00000070643
+Sox14	20669	SRY (sex determining region Y)-box 14	mouse	Sox14	ENSMUSG00000053747
+Sox15	20670	SRY (sex determining region Y)-box 15	mouse	Sox15	ENSMUSG00000041287
+Sox16	116912	SRY (sex determining region Y)-box 16	mouse	Sox16	
+Sox17	20671	SRY (sex determining region Y)-box 17	mouse	Sox17	ENSMUSG00000025902
+Sox18	20672	SRY (sex determining region Y)-box 18	mouse	Sox18	ENSMUSG00000046470
+Sox2	20674	SRY (sex determining region Y)-box 2	mouse	Sox2	ENSMUSG00000074637
+Sox21	223227	SRY (sex determining region Y)-box 21	mouse	Sox21	ENSMUSG00000061517
+Sox3	20675	SRY (sex determining region Y)-box 3	mouse	Sox3	ENSMUSG00000045179
+Sox30	214105	SRY (sex determining region Y)-box 30	mouse	Sox30	ENSMUSG00000040489
+Sox4	20677	SRY (sex determining region Y)-box 4	mouse	Sox4	ENSMUSG00000076431
+Sox5	20678	SRY (sex determining region Y)-box 5	mouse	Sox5	ENSMUSG00000041540
+Sox6	20679	SRY (sex determining region Y)-box 6	mouse	Sox6	ENSMUSG00000051910
+Sox7	20680	SRY (sex determining region Y)-box 7	mouse	Sox7	ENSMUSG00000063060
+Sox8	20681	SRY (sex determining region Y)-box 8	mouse	Sox8	ENSMUSG00000024176
+Sox9	20682	SRY (sex determining region Y)-box 9	mouse	Sox9	ENSMUSG00000000567
+Sp1	20683	trans-acting transcription factor 1	mouse	Sp1	ENSMUSG00000001280
+Sp100	20684	nuclear antigen Sp100	mouse	Sp100	ENSMUSG00000026222
+Sp110	109032	Sp110 nuclear body protein	mouse	Sp110	ENSMUSG00000070034
+Sp140	434484	Sp140 nuclear body protein	mouse	Sp140	ENSMUSG00000070031
+Sp2	78912	Sp2 transcription factor	mouse	Sp2	ENSMUSG00000018678
+Sp3	20687	trans-acting transcription factor 3	mouse	Sp3	ENSMUSG00000027109
+Sp4	20688	trans-acting transcription factor 4	mouse	Sp4	ENSMUSG00000025323
+Sp5	64406	trans-acting transcription factor 5	mouse	Sp5	ENSMUSG00000075304
+Sp6	83395	trans-acting transcription factor 6	mouse	Sp6	ENSMUSG00000038560
+Sp7	170574	Sp7 transcription factor 7	mouse	Sp7	ENSMUSG00000060284
+Sp8	320145	trans-acting transcription factor 8	mouse	Sp8	ENSMUSG00000048562
+Sp9	381373	trans-acting transcription factor 9	mouse	Sp9	ENSMUSG00000068859
+Spdef	30051	SAM pointed domain containing ets transcription factor	mouse	Spdef	ENSMUSG00000024215
+Spi1	20375	spleen focus forming virus (SFFV) proviral integration oncogene	mouse	Spi1	ENSMUSG00000002111
+Spib	272382	Spi-B transcription factor (Spi-1/PU.1 related)	mouse	Spib	ENSMUSG00000008193
+Spic	20728	Spi-C transcription factor (Spi-1/PU.1 related)	mouse	Spic	ENSMUSG00000004359
+Spz1	79401	spermatogenic leucine zipper 1	mouse	Spz1	ENSMUSG00000046957
+Srebf1	20787	sterol regulatory element binding transcription factor 1	mouse	Srebf1	ENSMUSG00000020538
+Srebf2	20788	sterol regulatory element binding factor 2	mouse	Srebf2	ENSMUSG00000022463
+Srf	20807	serum response factor	mouse	Srf	ENSMUSG00000015605
+Sry	21674	sex determining region of Chr Y	mouse	Sry	ENSMUSG00000069036
+Ssrp1	20833	structure specific recognition protein 1	mouse	Ssrp1	ENSMUSG00000027067
+St18	240690	suppression of tumorigenicity 18	mouse	St18	ENSMUSG00000033740
+Stat1	20846	signal transducer and activator of transcription 1	mouse	Stat1	ENSMUSG00000026104
+Stat2	20847	signal transducer and activator of transcription 2	mouse	Stat2	ENSMUSG00000040033
+Stat3	20848	signal transducer and activator of transcription 3	mouse	Stat3	ENSMUSG00000004040
+Stat4	20849	signal transducer and activator of transcription 4	mouse	Stat4	ENSMUSG00000062939
+Stat5a	20850	signal transducer and activator of transcription 5A	mouse	Stat5a	ENSMUSG00000004043
+Stat5b	20851	signal transducer and activator of transcription 5B	mouse	Stat5b	ENSMUSG00000020919
+Stat6	20852	signal transducer and activator of transcription 6	mouse	Stat6	ENSMUSG00000002147
+T	20997	brachyury	mouse	T	ENSMUSG00000062327
+T2	21331	brachyury 2	mouse	T2	ENSMUSG00000058159
+Tada2a	217031	transcriptional adaptor 2A	mouse	Tada2a	ENSMUSG00000018651
+Tada2b	231151	transcriptional adaptor 2B	mouse	Tada2b	ENSMUSG00000029196
+Taf1	270627	"TAF1 RNA polymerase II, TATA box binding protein (TBP)-associated factor"	mouse	Taf1	ENSMUSG00000031314
+Tal1	21349	T cell acute lymphocytic leukemia 1	mouse	Tal1	ENSMUSG00000028717
+Tal2	21350	T cell acute lymphocytic leukemia 2	mouse	Tal2	ENSMUSG00000028417
+Tax1bp1	52440	Tax1 (human T cell leukemia virus type I) binding protein 1	mouse	Tax1bp1	ENSMUSG00000004535
+Tax1bp3	76281	Tax1 (human T cell leukemia virus type I) binding protein 3	mouse	Tax1bp3	ENSMUSG00000040158
+Tbp	21374	TATA box binding protein	mouse	Tbp	ENSMUSG00000014767
+Tbpl1	237336	TATA box binding protein-like 1	mouse	Tbpl1	ENSMUSG00000071359
+Tbpl2	227606	TATA box binding protein like 2	mouse	Tbpl2	ENSMUSG00000061809
+Tbr1	21375	T-box brain gene 1	mouse	Tbr1	ENSMUSG00000035033
+Tbx1	21380	T-box 1	mouse	Tbx1	ENSMUSG00000009097
+Tbx10	109575	T-box 10	mouse	Tbx10	ENSMUSG00000037477
+Tbx15	21384	T-box 15	mouse	Tbx15	ENSMUSG00000027868
+Tbx18	76365	T-box18	mouse	Tbx18	ENSMUSG00000032419
+Tbx19	83993	T-box 19	mouse	Tbx19	ENSMUSG00000026572
+Tbx2	21385	T-box 2	mouse	Tbx2	ENSMUSG00000000093
+Tbx20	57246	T-box 20	mouse	Tbx20	ENSMUSG00000031965
+Tbx21	57765	T-box 21	mouse	Tbx21	ENSMUSG00000001444
+Tbx22	245572	T-box 22	mouse	Tbx22	ENSMUSG00000031241
+Tbx3	21386	T-box 3	mouse	Tbx3	ENSMUSG00000018604
+Tbx4	21387	T-box 4	mouse	Tbx4	ENSMUSG00000000094
+Tbx5	21388	T-box 5	mouse	Tbx5	ENSMUSG00000018263
+Tbx6	21389	T-box 6	mouse	Tbx6	ENSMUSG00000030699
+Tcf12	21406	transcription factor 12	mouse	Tcf12	ENSMUSG00000032228
+Tcf15	21407	transcription factor 15	mouse	Tcf15	ENSMUSG00000068079
+Tcf19	106795	transcription factor 19	mouse	Tcf19	ENSMUSG00000050410
+Tcf20	21411	transcription factor 20	mouse	Tcf20	ENSMUSG00000041852
+Tcf21	21412	transcription factor 21	mouse	Tcf21	ENSMUSG00000045680
+Tcf23	69852	transcription factor 23	mouse	Tcf23	ENSMUSG00000006642
+Tcf24	100039596	transcription factor 24	mouse	Tcf24	ENSMUSG00000099032
+Tcf25	66855	transcription factor 25 (basic helix-loop-helix)	mouse	Tcf25	ENSMUSG00000001472
+Tcf3	21423	transcription factor 3	mouse	Tcf3	ENSMUSG00000020167
+Tcf4	21413	transcription factor 4	mouse	Tcf4	ENSMUSG00000053477
+Tcf7	21414	"transcription factor 7, T cell specific"	mouse	Tcf7	ENSMUSG00000000782
+Tcf7l1	21415	"transcription factor 7 like 1 (T cell specific, HMG box)"	mouse	Tcf7l1	ENSMUSG00000055799
+Tcf7l2	21416	"transcription factor 7 like 2, T cell specific, HMG box"	mouse	Tcf7l2	ENSMUSG00000024985
+Tcfl5	277353	transcription factor-like 5 (basic helix-loop-helix)	mouse	Tcfl5	ENSMUSG00000038932
+Tead1	21676	TEA domain family member 1	mouse	Tead1	ENSMUSG00000055320
+Tead2	21677	TEA domain family member 2	mouse	Tead2	ENSMUSG00000030796
+Tead3	21678	TEA domain family member 3	mouse	Tead3	ENSMUSG00000002249
+Tead4	21679	TEA domain family member 4	mouse	Tead4	ENSMUSG00000030353
+Tef	21685	thyrotroph embryonic factor	mouse	Tef	ENSMUSG00000022389
+Terf1	21749	telomeric repeat binding factor 1	mouse	Terf1	ENSMUSG00000025925
+Terf2	21750	telomeric repeat binding factor 2	mouse	Terf2	ENSMUSG00000031921
+Tet1	52463	tet methylcytosine dioxygenase 1	mouse	Tet1	ENSMUSG00000047146
+Tet2	214133	tet methylcytosine dioxygenase 2	mouse	Tet2	ENSMUSG00000040943
+Tet3	194388	tet methylcytosine dioxygenase 3	mouse	Tet3	ENSMUSG00000034832
+Tfam	21780	"transcription factor A, mitochondrial"	mouse	Tfam	ENSMUSG00000003923
+Tfap2a	21418	"transcription factor AP-2, alpha"	mouse	Tfap2a	ENSMUSG00000021359
+Tfap2b	21419	transcription factor AP-2 beta	mouse	Tfap2b	ENSMUSG00000025927
+Tfap2c	21420	"transcription factor AP-2, gamma"	mouse	Tfap2c	ENSMUSG00000028640
+Tfap2d	226896	"transcription factor AP-2, delta"	mouse	Tfap2d	ENSMUSG00000042596
+Tfap2e	332937	"transcription factor AP-2, epsilon"	mouse	Tfap2e	ENSMUSG00000042477
+Tfap4	83383	transcription factor AP4	mouse	Tfap4	ENSMUSG00000005718
+Tfb1m	224481	"transcription factor B1, mitochondrial"	mouse	Tfb1m	ENSMUSG00000036983
+Tfb2m	15278	"transcription factor B2, mitochondrial"	mouse	Tfb2m	ENSMUSG00000026492
+Tfcp2	21422	transcription factor CP2	mouse	Tfcp2	ENSMUSG00000009733
+Tfcp2l1	81879	transcription factor CP2-like 1	mouse	Tfcp2l1	ENSMUSG00000026380
+Tfdp1	21781	transcription factor Dp 1	mouse	Tfdp1	ENSMUSG00000038482
+Tfdp2	211586	transcription factor Dp 2	mouse	Tfdp2	ENSMUSG00000032411
+Tfe3	209446	transcription factor E3	mouse	Tfe3	ENSMUSG00000000134
+Tfeb	21425	transcription factor EB	mouse	Tfeb	ENSMUSG00000023990
+Tfec	21426	transcription factor EC	mouse	Tfec	ENSMUSG00000029553
+Tgif1	21815	TGFB-induced factor homeobox 1	mouse	Tgif1	ENSMUSG00000047407
+Tgif2	228839	TGFB-induced factor homeobox 2	mouse	Tgif2	ENSMUSG00000062175
+Tgif2lx1	245583	"TGFB-induced factor homeobox 2-like, X-linked 1"	mouse	Tgif2lx1	ENSMUSG00000100133
+Tgif2lx2	100039551	"TGFB-induced factor homeobox 2-like, X-linked 2"	mouse	Tgif2lx2	ENSMUSG00000100194
+Thap1	73754	"THAP domain containing, apoptosis associated protein 1"	mouse	Thap1	ENSMUSG00000037214
+Thap11	59016	THAP domain containing 11	mouse	Thap11	ENSMUSG00000036442
+Thap2	66816	"THAP domain containing, apoptosis associated protein 2"	mouse	Thap2	ENSMUSG00000020137
+Thap3	69876	"THAP domain containing, apoptosis associated protein 3"	mouse	Thap3	ENSMUSG00000039759
+Thap4	67026	THAP domain containing 4	mouse	Thap4	ENSMUSG00000026279
+Thap6	381650	THAP domain containing 6	mouse	Thap6	ENSMUSG00000102644
+Thap7	69009	THAP domain containing 7	mouse	Thap7	ENSMUSG00000022760
+Thap8	108167416	THAP domain containing 8	mouse	Thap8	ENSMUSG00000013928
+Thra	21833	thyroid hormone receptor alpha	mouse	Thra	ENSMUSG00000058756
+Thrb	21834	thyroid hormone receptor beta	mouse	Thrb	ENSMUSG00000021779
+Tlx1	21908	"T cell leukemia, homeobox 1"	mouse	Tlx1	ENSMUSG00000025215
+Tlx2	21909	"T cell leukemia, homeobox 2"	mouse	Tlx2	ENSMUSG00000068327
+Tlx3	27140	"T cell leukemia, homeobox 3"	mouse	Tlx3	ENSMUSG00000040610
+Toe1	68276	"target of EGR1, member 1 (nuclear)"	mouse	Toe1	ENSMUSG00000028688
+Topors	106021	"topoisomerase I binding, arginine/serine-rich"	mouse	Topors	ENSMUSG00000036822
+Tox	252838	thymocyte selection-associated high mobility group box	mouse	Tox	ENSMUSG00000041272
+Tox2	269389	TOX high mobility group box family member 2	mouse	Tox2	ENSMUSG00000074607
+Tox3	244579	TOX high mobility group box family member 3	mouse	Tox3	ENSMUSG00000043668
+Tox4	268741	TOX high mobility group box family member 4	mouse	Tox4	ENSMUSG00000016831
+Trerf1	224829	transcriptional regulating factor 1	mouse	Trerf1	ENSMUSG00000064043
+Trp53	22059	transformation related protein 53	mouse	Trp53	ENSMUSG00000059552
+Trp63	22061	transformation related protein 63	mouse	Trp63	ENSMUSG00000022510
+Trp73	22062	transformation related protein 73	mouse	Trp73	ENSMUSG00000029026
+Trps1	83925	trichorhinophalangeal syndrome I (human)	mouse	Trps1	ENSMUSG00000038679
+Tsc22d1	21807	"TSC22 domain family, member 1"	mouse	Tsc22d1	ENSMUSG00000022010
+Tsc22d2	72033	"TSC22 domain family, member 2"	mouse	Tsc22d2	ENSMUSG00000027806
+Tsc22d3	14605	"TSC22 domain family, member 3"	mouse	Tsc22d3	ENSMUSG00000031431
+Tsc22d4	78829	"TSC22 domain family, member 4"	mouse	Tsc22d4	ENSMUSG00000029723
+Tshz1	110796	teashirt zinc finger family member 1	mouse	Tshz1	ENSMUSG00000046982
+Tshz2	228911	teashirt zinc finger family member 2	mouse	Tshz2	ENSMUSG00000047907
+Tshz3	243931	teashirt zinc finger family member 3	mouse	Tshz3	ENSMUSG00000021217
+Ttf1	22130	"transcription termination factor, RNA polymerase I"	mouse	Ttf1	ENSMUSG00000026803
+Ttf2	74044	"transcription termination factor, RNA polymerase II"	mouse	Ttf2	ENSMUSG00000033222
+Tub	22141	tubby candidate gene	mouse	Tub	ENSMUSG00000031028
+Twist1	22160	twist basic helix-loop-helix transcription factor 1	mouse	Twist1	ENSMUSG00000035799
+Twist2	13345	twist basic helix-loop-helix transcription factor 2	mouse	Twist2	ENSMUSG00000007805
+Ubp1	22221	upstream binding protein 1	mouse	Ubp1	ENSMUSG00000009741
+Ubtf	21429	"upstream binding transcription factor, RNA polymerase I"	mouse	Ubtf	ENSMUSG00000020923
+Ubtfl1	546118	"upstream binding transcription factor, RNA polymerase I-like 1"	mouse	Ubtfl1	ENSMUSG00000074502
+Uncx	22255	UNC homeobox	mouse	Uncx	ENSMUSG00000029546
+Unk	217331	unkempt homolog (Drosophila)	mouse	Unk	ENSMUSG00000020770
+Unkl	74154	unkempt-like (Drosophila)	mouse	Unkl	ENSMUSG00000015127
+Usf1	22278	upstream transcription factor 1	mouse	Usf1	ENSMUSG00000026641
+Usf2	22282	upstream transcription factor 2	mouse	Usf2	ENSMUSG00000058239
+Usf3	207806	upstream transcription factor family member 3	mouse	Usf3	ENSMUSG00000068284
+Utf1	22286	undifferentiated embryonic cell transcription factor 1	mouse	Utf1	ENSMUSG00000047751
+Vax1	22326	ventral anterior homeobox 1	mouse	Vax1	ENSMUSG00000006270
+Vax2	24113	ventral anterior homeobox 2	mouse	Vax2	ENSMUSG00000034777
+Vdr	22337	vitamin D receptor	mouse	Vdr	ENSMUSG00000022479
+Vezf1	22344	vascular endothelial zinc finger 1	mouse	Vezf1	ENSMUSG00000018377
+Vsx1	114889	visual system homeobox 1 homolog (zebrafish)	mouse	Vsx1	ENSMUSG00000033080
+Vsx2	12677	visual system homeobox 2	mouse	Vsx2	ENSMUSG00000021239
+Wdhd1	218973	WD repeat and HMG-box DNA binding protein 1	mouse	Wdhd1	ENSMUSG00000037572
+Whsc1	107823	Wolf-Hirschhorn syndrome candidate 1 (human)	mouse	Nsd2	ENSMUSG00000057406
+Wiz	22404	widely-interspaced zinc finger motifs	mouse	Wiz	ENSMUSG00000024050
+Wt1	22431	Wilms tumor 1 homolog	mouse	Wt1	ENSMUSG00000016458
+Xbp1	22433	X-box binding protein 1	mouse	Xbp1	ENSMUSG00000020484
+Ybx1	22608	Y box protein 1	mouse	Ybx1	ENSMUSG00000028639
+Ybx2	53422	Y box protein 2	mouse	Ybx2	ENSMUSG00000018554
+Ybx3	56449	Y box protein 3	mouse	Ybx3	ENSMUSG00000030189
+Yeats2	208146	YEATS domain containing 2	mouse	Yeats2	ENSMUSG00000041215
+Yeats4	64050	YEATS domain containing 4	mouse	Yeats4	ENSMUSG00000020171
+Yy1	22632	YY1 transcription factor	mouse	Yy1	ENSMUSG00000021264
+Yy2	100073351	Yy2 transcription factor	mouse	Yy2	ENSMUSG00000091736
+Zbed3	72114	"zinc finger, BED type containing 3"	mouse	Zbed3	ENSMUSG00000041995
+Zbed4	223773	"zinc finger, BED type containing 4"	mouse	Zbed4	ENSMUSG00000034333
+Zbed6	667118	"zinc finger, BED type containing 6"	mouse	Zbed6	ENSMUSG00000094410
+Zbp1	58203	Z-DNA binding protein 1	mouse	Zbp1	ENSMUSG00000027514
+Zbtb1	268564	zinc finger and BTB domain containing 1	mouse	Zbtb1	ENSMUSG00000033454
+Zbtb10	229055	zinc finger and BTB domain containing 10	mouse	Zbtb10	ENSMUSG00000069114
+Zbtb11	271377	zinc finger and BTB domain containing 11	mouse	Zbtb11	ENSMUSG00000022601
+Zbtb12	193736	zinc finger and BTB domain containing 12	mouse	Zbtb12	ENSMUSG00000049823
+Zbtb14	22666	zinc finger and BTB domain containing 14	mouse	Zbtb14	ENSMUSG00000049672
+Zbtb16	235320	zinc finger and BTB domain containing 16	mouse	Zbtb16	ENSMUSG00000066687
+Zbtb17	22642	zinc finger and BTB domain containing 17	mouse	Zbtb17	ENSMUSG00000006215
+Zbtb18	30928	zinc finger and BTB domain containing 18	mouse	Zbtb18	ENSMUSG00000063659
+Zbtb2	381990	zinc finger and BTB domain containing 2	mouse	Zbtb2	ENSMUSG00000075327
+Zbtb20	56490	zinc finger and BTB domain containing 20	mouse	Zbtb20	ENSMUSG00000022708
+Zbtb21	114565	zinc finger and BTB domain containing 21	mouse	Zbtb21	ENSMUSG00000046962
+Zbtb22	81630	zinc finger and BTB domain containing 22	mouse	Zbtb22	ENSMUSG00000051390
+Zbtb24	268294	zinc finger and BTB domain containing 24	mouse	Zbtb24	ENSMUSG00000019826
+Zbtb25	109929	zinc finger and BTB domain containing 25	mouse	Zbtb25	ENSMUSG00000056459
+Zbtb26	320633	zinc finger and BTB domain containing 26	mouse	Zbtb26	ENSMUSG00000050714
+Zbtb3	75291	zinc finger and BTB domain containing 3	mouse	Zbtb3	ENSMUSG00000071661
+Zbtb32	58206	zinc finger and BTB domain containing 32	mouse	Zbtb32	ENSMUSG00000006310
+Zbtb33	56805	zinc finger and BTB domain containing 33	mouse	Zbtb33	ENSMUSG00000048047
+Zbtb34	241311	zinc finger and BTB domain containing 34	mouse	Zbtb34	ENSMUSG00000068966
+Zbtb37	240869	zinc finger and BTB domain containing 37	mouse	Zbtb37	ENSMUSG00000043467
+Zbtb38	245007	zinc finger and BTB domain containing 38	mouse	Zbtb38	ENSMUSG00000040433
+Zbtb39	320080	zinc finger and BTB domain containing 39	mouse	Zbtb39	ENSMUSG00000044617
+Zbtb4	75580	zinc finger and BTB domain containing 4	mouse	Zbtb4	ENSMUSG00000018750
+Zbtb40	230848	zinc finger and BTB domain containing 40	mouse	Zbtb40	ENSMUSG00000060862
+Zbtb41	226470	zinc finger and BTB domain containing 41	mouse	Zbtb41	ENSMUSG00000033964
+Zbtb42	382639	zinc finger and BTB domain containing 42	mouse	Zbtb42	ENSMUSG00000037638
+Zbtb43	71834	zinc finger and BTB domain containing 43	mouse	Zbtb43	ENSMUSG00000026788
+Zbtb44	235132	zinc finger and BTB domain containing 44	mouse	Zbtb44	ENSMUSG00000047412
+Zbtb45	232879	zinc finger and BTB domain containing 45	mouse	Zbtb45	ENSMUSG00000049600
+Zbtb46	72147	zinc finger and BTB domain containing 46	mouse	Zbtb46	ENSMUSG00000027583
+Zbtb48	100090	zinc finger and BTB domain containing 48	mouse	Zbtb48	ENSMUSG00000028952
+Zbtb49	75079	zinc finger and BTB domain containing 49	mouse	Zbtb49	ENSMUSG00000029127
+Zbtb5	230119	zinc finger and BTB domain containing 5	mouse	Zbtb5	ENSMUSG00000049657
+Zbtb6	241322	zinc finger and BTB domain containing 6	mouse	Zbtb6	ENSMUSG00000066798
+Zbtb7a	16969	zinc finger and BTB domain containing 7a	mouse	Zbtb7a	ENSMUSG00000035011
+Zbtb7b	22724	zinc finger and BTB domain containing 7B	mouse	Zbtb7b	ENSMUSG00000028042
+Zbtb7c	207259	zinc finger and BTB domain containing 7C	mouse	Zbtb7c	ENSMUSG00000044646
+Zbtb8a	73680	zinc finger and BTB domain containing 8a	mouse	Zbtb8a	ENSMUSG00000028807
+Zbtb8b	215627	zinc finger and BTB domain containing 8b	mouse	Zbtb8b	ENSMUSG00000048485
+Zbtb9	474156	zinc finger and BTB domain containing 9	mouse	Zbtb9	ENSMUSG00000079605
+Zc3h10	103284	zinc finger CCCH type containing 10	mouse	Zc3h10	ENSMUSG00000039810
+Zc3h11a	70579	zinc finger CCCH type containing 11A	mouse	Zc3h11a	ENSMUSG00000102976
+Zc3h12a	230738	zinc finger CCCH type containing 12A	mouse	Zc3h12a	ENSMUSG00000042677
+Zc3h12b	547176	zinc finger CCCH-type containing 12B	mouse	Zc3h12b	ENSMUSG00000035045
+Zc3h13	67302	zinc finger CCCH type containing 13	mouse	Zc3h13	ENSMUSG00000022000
+Zc3h14	75553	zinc finger CCCH type containing 14	mouse	Zc3h14	ENSMUSG00000021012
+Zc3h15	69082	zinc finger CCCH-type containing 15	mouse	Zc3h15	ENSMUSG00000027091
+Zc3h18	76014	zinc finger CCCH-type containing 18	mouse	Zc3h18	ENSMUSG00000017478
+Zc3h3	223642	zinc finger CCCH type containing 3	mouse	Zc3h3	ENSMUSG00000075600
+Zc3h4	330474	zinc finger CCCH-type containing 4	mouse	Zc3h4	ENSMUSG00000059273
+Zc3h6	78751	zinc finger CCCH type containing 6	mouse	Zc3h6	ENSMUSG00000042851
+Zc3h7a	106205	zinc finger CCCH type containing 7 A	mouse	Zc3h7a	ENSMUSG00000037965
+Zc3h7b	20286	zinc finger CCCH type containing 7B	mouse	Zc3h7b	ENSMUSG00000022390
+Zc3h8	57432	zinc finger CCCH type containing 8	mouse	Zc3h8	ENSMUSG00000027387
+Zcchc11	230594	"zinc finger, CCHC domain containing 11"	mouse	Tut4	ENSMUSG00000034610
+Zcchc6	214290	"zinc finger, CCHC domain containing 6"	mouse	Tut7	ENSMUSG00000035248
+Zeb1	21417	zinc finger E-box binding homeobox 1	mouse	Zeb1	ENSMUSG00000024238
+Zeb2	24136	zinc finger E-box binding homeobox 2	mouse	Zeb2	ENSMUSG00000026872
+Zfat	380993	zinc finger and AT hook domain containing	mouse	Zfat	ENSMUSG00000022335
+Zfhx2	239102	zinc finger homeobox 2	mouse	Zfhx2	ENSMUSG00000040721
+Zfhx3	11906	zinc finger homeobox 3	mouse	Zfhx3	ENSMUSG00000038872
+Zfhx4	80892	zinc finger homeodomain 4	mouse	Zfhx4	ENSMUSG00000025255
+Zfp1	22640	zinc finger protein 1	mouse	Zfp1	ENSMUSG00000055835
+Zfp105	22646	zinc finger protein 105	mouse	Zfp105	ENSMUSG00000057895
+Zfp106	20402	zinc finger protein 106	mouse	Zfp106	ENSMUSG00000027288
+Zfp108	54678	zinc finger protein 108	mouse	Zfp108	ENSMUSG00000030486
+Zfp11	22648	zinc finger protein 11	mouse	Zfp11	ENSMUSG00000051034
+Zfp110	65020	zinc finger protein 110	mouse	Zfp110	ENSMUSG00000058638
+Zfp111	56707	zinc finger protein 111	mouse	Zfp111	ENSMUSG00000087598
+Zfp112	57745	zinc finger protein 112	mouse	Zfp112	ENSMUSG00000052675
+Zfp113	56314	zinc finger protein 113	mouse	Zfp113	ENSMUSG00000037007
+Zfp12	231866	zinc finger protein 12	mouse	Zfp12	ENSMUSG00000029587
+Zfp128	243833	zinc finger protein 128	mouse	Zfp128	ENSMUSG00000060397
+Zfp13	22654	zinc finger protein 13	mouse	Zfp13	ENSMUSG00000062012
+Zfp131	72465	zinc finger protein 131	mouse	Zfp131	ENSMUSG00000094870
+Zfp14	243906	zinc finger protein 14	mouse	Zfp14	ENSMUSG00000053985
+Zfp141	434178	zinc finger protein 141	mouse	Zfp141	ENSMUSG00000092416
+Zfp142	77264	zinc finger protein 142	mouse	Zfp142	ENSMUSG00000026135
+Zfp143	20841	zinc finger protein 143	mouse	Zfp143	ENSMUSG00000061079
+Zfp146	26465	zinc finger protein 146	mouse	Zfp146	ENSMUSG00000037029
+Zfp148	22661	zinc finger protein 148	mouse	Zfp148	ENSMUSG00000022811
+Zfp160	224585	zinc finger protein 160	mouse	Zfp160	ENSMUSG00000067942
+Zfp169	67911	zinc finger protein 169	mouse	Zfp169	ENSMUSG00000050954
+Zfp174	385674	zinc finger protein 174	mouse	Zfp174	ENSMUSG00000054939
+Zfp180	210135	zinc finger protein 180	mouse	Zfp180	ENSMUSG00000057101
+Zfp182	319535	zinc finger protein 182	mouse	Zfp182	ENSMUSG00000054737
+Zfp184	193452	zinc finger protein 184 (Kruppel-like)	mouse	Zfp184	ENSMUSG00000006720
+Zfp189	230162	zinc finger protein 189	mouse	Zfp189	ENSMUSG00000039634
+Zfp2	22678	zinc finger protein 2	mouse	Zfp2	ENSMUSG00000049321
+Zfp202	80902	zinc finger protein 202	mouse	Zfp202	ENSMUSG00000025602
+Zfp207	22680	zinc finger protein 207	mouse	Zfp207	ENSMUSG00000017421
+Zfp212	232784	Zinc finger protein 212	mouse	Zfp212	ENSMUSG00000052763
+Zfp213	449521	zinc finger protein 213	mouse	Zfp213	ENSMUSG00000071256
+Zfp217	228913	zinc finger protein 217	mouse	Zfp217	ENSMUSG00000052056
+Zfp219	69890	zinc finger protein 219	mouse	Zfp219	ENSMUSG00000049295
+Zfp235	56525	zinc finger protein 235	mouse	Zfp235	ENSMUSG00000047603
+Zfp236	329002	zinc finger protein 236	mouse	Zfp236	ENSMUSG00000041258
+Zfp239	22685	zinc finger protein 239	mouse	Zfp239	ENSMUSG00000042097
+Zfp24	59057	zinc finger protein 24	mouse	Zfp24	ENSMUSG00000051469
+Zfp248	72720	zinc finger protein 248	mouse	Zfp248	ENSMUSG00000030145
+Zfp251	71591	zinc finger protein 251	mouse	Zfp251	ENSMUSG00000022526
+Zfp26	22688	zinc finger protein 26	mouse	Zfp26	ENSMUSG00000063108
+Zfp260	26466	zinc finger protein 260	mouse	Zfp260	ENSMUSG00000049421
+Zfp263	74120	zinc finger protein 263	mouse	Zfp263	ENSMUSG00000022529
+Zfp27	22689	zinc finger protein 27	mouse	Zfp27	ENSMUSG00000062040
+Zfp273	212569	zinc finger protein 273	mouse	Zfp273	ENSMUSG00000030446
+Zfp275	27081	zinc finger protein 275	mouse	Zfp275	ENSMUSG00000031365
+Zfp276	57247	zinc finger protein (C2H2 type) 276	mouse	Zfp276	ENSMUSG00000001065
+Zfp277	246196	zinc finger protein 277	mouse	Zfp277	ENSMUSG00000055917
+Zfp28	22690	zinc finger protein 28	mouse	Zfp28	ENSMUSG00000062861
+Zfp280b	64453	zinc finger protein 280B	mouse	Zfp280b	ENSMUSG00000049764
+Zfp280c	208968	zinc finger protein 280C	mouse	Zfp280c	ENSMUSG00000036916
+Zfp280d	235469	zinc finger protein 280D	mouse	Zfp280d	ENSMUSG00000038535
+Zfp281	226442	zinc finger protein 281	mouse	Zfp281	ENSMUSG00000041483
+Zfp282	101095	zinc finger protein 282	mouse	Zfp282	ENSMUSG00000025821
+Zfp286	192651	zinc finger protein 286	mouse	Zfp286	ENSMUSG00000047342
+Zfp287	170740	zinc finger protein 287	mouse	Zfp287	ENSMUSG00000005267
+Zfp292	30046	zinc finger protein 292	mouse	Zfp292	ENSMUSG00000039967
+Zfp296	63872	zinc finger protein 296	mouse	Zfp296	ENSMUSG00000011267
+Zfp3	193043	zinc finger protein 3	mouse	Zfp3	ENSMUSG00000043602
+Zfp30	22693	zinc finger protein 30	mouse	Zfp30	ENSMUSG00000047473
+Zfp300	245368	zinc finger protein 300	mouse	Zfp300	ENSMUSG00000031079
+Zfp317	244713	zinc finger protein 317	mouse	Zfp317	ENSMUSG00000057551
+Zfp318	57908	zinc finger protein 318	mouse	Zfp318	ENSMUSG00000015597
+Zfp319	79233	zinc finger protein 319	mouse	Zfp319	ENSMUSG00000046556
+Zfp322a	218100	zinc finger protein 322A	mouse	Zfp322a	ENSMUSG00000046351
+Zfp324	243834	zinc finger protein 324	mouse	Zfp324	ENSMUSG00000004500
+Zfp326	54367	zinc finger protein 326	mouse	Zfp326	ENSMUSG00000029290
+Zfp329	67230	zinc finger protein 329	mouse	Zfp329	ENSMUSG00000057894
+Zfp334	228876	zinc finger protein 334	mouse	Zfp334	ENSMUSG00000017667
+Zfp335	329559	zinc finger protein 335	mouse	Zfp335	ENSMUSG00000039834
+Zfp341	228807	zinc finger protein 341	mouse	Zfp341	ENSMUSG00000059842
+Zfp346	26919	zinc finger protein 346	mouse	Zfp346	ENSMUSG00000021481
+Zfp354a	21408	zinc finger protein 354A	mouse	Zfp354a	ENSMUSG00000020364
+Zfp354b	27274	zinc finger protein 354B	mouse	Zfp354b	ENSMUSG00000020335
+Zfp354c	30944	zinc finger protein 354C	mouse	Zfp354c	ENSMUSG00000044807
+Zfp358	140482	zinc finger protein 358	mouse	Zfp358	ENSMUSG00000047264
+Zfp362	230761	zinc finger protein 362	mouse	Zfp362	ENSMUSG00000028799
+Zfp365	216049	zinc finger protein 365	mouse	Zfp365	ENSMUSG00000037855
+Zfp366	238803	zinc finger protein 366	mouse	Zfp366	ENSMUSG00000050919
+Zfp367	238673	zinc finger protein 367	mouse	Zfp367	ENSMUSG00000044934
+Zfp369	170936	zinc finger protein 369	mouse	Zfp369	ENSMUSG00000021514
+Zfp36l1	12192	"zinc finger protein 36, C3H type-like 1"	mouse	Zfp36l1	ENSMUSG00000021127
+Zfp36l2	12193	"zinc finger protein 36, C3H type-like 2"	mouse	Zfp36l2	ENSMUSG00000045817
+Zfp37	22696	zinc finger protein 37	mouse	Zfp37	ENSMUSG00000028389
+Zfp382	233060	zinc finger protein 382	mouse	Zfp382	ENSMUSG00000074220
+Zfp383	73729	zinc finger protein 383	mouse	Zfp383	ENSMUSG00000099689
+Zfp384	269800	zinc finger protein 384	mouse	Zfp384	ENSMUSG00000038346
+Zfp385a	29813	zinc finger protein 385A	mouse	Zfp385a	ENSMUSG00000000552
+Zfp385b	241494	zinc finger protein 385B	mouse	Zfp385b	ENSMUSG00000027016
+Zfp385c	278304	zinc finger protein 385C	mouse	Zfp385c	ENSMUSG00000014198
+Zfp386	56220	zinc finger protein 386 (Kruppel-like)	mouse	Zfp386	ENSMUSG00000042063
+Zfp39	22698	zinc finger protein 39	mouse	Zfp39	ENSMUSG00000037001
+Zfp395	380912	zinc finger protein 395	mouse	Zfp395	ENSMUSG00000034522
+Zfp397	69256	zinc finger protein 397	mouse	Zfp397	ENSMUSG00000024276
+Zfp398	272347	zinc finger protein 398	mouse	Zfp398	ENSMUSG00000062519
+Zfp407	240476	zinc finger protein 407	mouse	Zfp407	ENSMUSG00000048410
+Zfp408	381410	zinc finger protein 408	mouse	Zfp408	ENSMUSG00000075040
+Zfp41	22701	zinc finger protein 41	mouse	Zfp41	ENSMUSG00000047003
+Zfp410	52708	zinc finger protein 410	mouse	Zfp410	ENSMUSG00000042472
+Zfp414	328801	zinc finger protein 414	mouse	Zfp414	ENSMUSG00000073423
+Zfp418	232854	zinc finger protein 418	mouse	Zfp418	ENSMUSG00000034538
+Zfp42	22702	zinc finger protein 42	mouse	Zfp42	ENSMUSG00000051176
+Zfp420	233058	zinc finger protein 420	mouse	Zfp420	ENSMUSG00000058402
+Zfp422	67255	zinc finger protein 422	mouse	Zfp422	ENSMUSG00000059878
+Zfp423	94187	zinc finger protein 423	mouse	Zfp423	ENSMUSG00000045333
+Zfp426	235028	zinc finger protein 426	mouse	Zfp426	ENSMUSG00000059475
+Zfp428	232969	zinc finger protein 428	mouse	Zfp428	ENSMUSG00000064264
+Zfp429	72807	zinc finger protein 429	mouse	Zfp429	ENSMUSG00000078994
+Zfp438	240186	zinc finger protein 438	mouse	Zfp438	ENSMUSG00000050945
+Zfp444	72667	zinc finger protein 444	mouse	Zfp444	ENSMUSG00000044876
+Zfp445	235682	zinc finger protein 445	mouse	Zfp445	ENSMUSG00000047036
+Zfp446	269870	zinc finger protein 446	mouse	Zfp446	ENSMUSG00000033961
+Zfp449	78619	zinc finger protein 449	mouse	Zfp449	ENSMUSG00000073176
+Zfp451	98403	zinc finger protein 451	mouse	Zfp451	ENSMUSG00000042197
+Zfp454	237758	zinc finger protein 454	mouse	Zfp454	ENSMUSG00000048728
+Zfp455	218311	zinc finger protein 455	mouse	Zfp455	ENSMUSG00000051037
+Zfp456	408065	zinc finger protein 456	mouse	Zfp456	ENSMUSG00000078995
+Zfp457	431706	zinc finger protein 457	mouse	Zfp457	ENSMUSG00000055341
+Zfp458	238690	zinc finger protein 458	mouse	Zfp458	ENSMUSG00000055480
+Zfp46	22704	zinc finger protein 46	mouse	Zfp46	ENSMUSG00000051351
+Zfp462	242466	zinc finger protein 462	mouse	Zfp462	ENSMUSG00000060206
+Zfp467	68910	zinc finger protein 467	mouse	Zfp467	ENSMUSG00000068551
+Zfp473	243963	zinc finger protein 473	mouse	Zfp473	ENSMUSG00000048012
+Zfp474	66758	zinc finger protein 474	mouse	Zfp474	ENSMUSG00000046886
+Zfp488	382867	zinc finger protein 488	mouse	Zfp488	ENSMUSG00000044519
+Zfp493	72958	zinc finger protein 493	mouse	Zfp493	ENSMUSG00000090659
+Zfp503	218820	zinc finger protein 503	mouse	Zfp503	ENSMUSG00000039081
+Zfp507	668501	zinc finger protein 507	mouse	Zfp507	ENSMUSG00000044452
+Zfp51	22709	zinc finger protein 51	mouse	Zfp51	ENSMUSG00000023892
+Zfp511	69752	zinc finger protein 511	mouse	Zfp511	ENSMUSG00000025470
+Zfp512	269639	zinc finger protein 512	mouse	Zfp512	ENSMUSG00000062761
+Zfp512b	269401	zinc finger protein 512B	mouse	Zfp512b	ENSMUSG00000000823
+Zfp513	101023	zinc finger protein 513	mouse	Zfp513	ENSMUSG00000043059
+Zfp516	329003	zinc finger protein 516	mouse	Zfp516	ENSMUSG00000058881
+Zfp518a	72672	zinc finger protein 518A	mouse	Zfp518a	ENSMUSG00000049164
+Zfp518b	100515	zinc finger protein 518B	mouse	Zfp518b	ENSMUSG00000046572
+Zfp521	225207	zinc finger protein 521	mouse	Zfp521	ENSMUSG00000024420
+Zfp523	224656	zinc finger protein 523	mouse	Zfp523	ENSMUSG00000024220
+Zfp524	66056	zinc finger protein 524	mouse	Zfp524	ENSMUSG00000051184
+Zfp526	210172	zinc finger protein 526	mouse	Zfp526	ENSMUSG00000046541
+Zfp53	24132	zinc finger protein 53	mouse	Zfp53	ENSMUSG00000057409
+Zfp532	328977	zinc finger protein 532	mouse	Zfp532	ENSMUSG00000042439
+Zfp536	243937	zinc finger protein 536	mouse	Zfp536	ENSMUSG00000043456
+Zfp541	666528	zinc finger protein 541	mouse	Zfp541	ENSMUSG00000078796
+Zfp551	619331	zinc fingr protein 551	mouse	Zfp551	ENSMUSG00000034071
+Zfp553	233887	zinc finger protein 553	mouse	Zfp553	ENSMUSG00000045598
+Zfp558	72230	zinc finger protein 558	mouse	Zfp558	ENSMUSG00000074500
+Zfp560	434377	zinc finger protein 560	mouse	Zfp560	ENSMUSG00000045519
+Zfp563	240068	zinc finger protein 563	mouse	Zfp563	ENSMUSG00000067424
+Zfp566	72556	zinc finger protein 566	mouse	Zfp566	ENSMUSG00000078768
+Zfp57	22715	zinc finger protein 57	mouse	Zfp57	ENSMUSG00000036036
+Zfp574	232976	zinc finger protein 574	mouse	Zfp574	ENSMUSG00000045252
+Zfp575	101544	zinc finger protein 575	mouse	Zfp575	ENSMUSG00000066721
+Zfp579	68490	zinc finger protein 579	mouse	Zfp579	ENSMUSG00000051550
+Zfp58	238693	zinc finger protein 58	mouse	Zfp58	ENSMUSG00000071291
+Zfp580	68992	zinc finger protein 580	mouse	Zfp580	ENSMUSG00000055633
+Zfp583	213011	zinc finger protein 583	mouse	Zfp583	ENSMUSG00000030443
+Zfp59	22717	zinc finger protein 59	mouse	Zfp59	ENSMUSG00000078779
+Zfp592	233410	zinc finger protein 592	mouse	Zfp592	ENSMUSG00000005621
+Zfp593	68040	zinc finger protein 593	mouse	Zfp593	ENSMUSG00000028840
+Zfp595	218314	zinc finger protein 595	mouse	Zfp595	ENSMUSG00000057842
+Zfp597	71063	zinc finger protein 597	mouse	Zfp597	ENSMUSG00000039789
+Zfp598	213753	zinc finger protein 598	mouse	Zfp598	ENSMUSG00000041130
+Zfp60	22718	zinc finger protein 60	mouse	Zfp60	ENSMUSG00000037640
+Zfp605	675812	zinc finger protein 605	mouse	Zfp605	ENSMUSG00000023284
+Zfp606	67370	zinc finger protein 606	mouse	Zfp606	ENSMUSG00000030386
+Zfp607	545938	zinc finger proten 607	mouse	Zfp607a	ENSMUSG00000020420
+Zfp608	269023	zinc finger protein 608	mouse	Zfp608	ENSMUSG00000052713
+Zfp609	214812	zinc finger protein 609	mouse	Zfp609	ENSMUSG00000040524
+Zfp612	234725	zinc finger protein 612	mouse	Zfp612	ENSMUSG00000044676
+Zfp616	327963	zinc finger protein 616	mouse	Zfp616	ENSMUSG00000069476
+Zfp618	72701	zinc finger protein 618	mouse	Zfp618	ENSMUSG00000028358
+Zfp619	70227	zinc finger protein 619	mouse	Zfp619	ENSMUSG00000068959
+Zfp62	22720	zinc finger protein 62	mouse	Zfp62	ENSMUSG00000046311
+Zfp622	52521	zinc finger protein 622	mouse	Zfp622	ENSMUSG00000052253
+Zfp623	78834	zinc finger protein 623	mouse	Zfp623	ENSMUSG00000050846
+Zfp628	232816	zinc finger protein 628	mouse	Zfp628	ENSMUSG00000074406
+Zfp629	320683	zinc finger protein 629	mouse	Zfp629	ENSMUSG00000045639
+Zfp637	232337	zinc finger protein 637	mouse	Zfp637	ENSMUSG00000059689
+Zfp639	67778	zinc finger protein 639	mouse	Zfp639	ENSMUSG00000027667
+Zfp64	22722	zinc finger protein 64	mouse	Zfp64	ENSMUSG00000027551
+Zfp641	239652	zinc finger protein 641	mouse	Zfp641	ENSMUSG00000022987
+Zfp644	52397	zinc finger protein 644	mouse	Zfp644	ENSMUSG00000049606
+Zfp646	233905	zinc finger protein 646	mouse	Zfp646	ENSMUSG00000049739
+Zfp647	239546	zinc finger protein 647	mouse	Zfp647	ENSMUSG00000054967
+Zfp648	100503355	zinc finger protein 648	mouse	Zfp648	ENSMUSG00000066797
+Zfp65	235907	zinc finger protein 65	mouse	Zfp65	ENSMUSG00000071281
+Zfp651	270210	zinc finger protein 651	mouse	Zfp651	ENSMUSG00000013419
+Zfp652	268469	zinc finger protein 652	mouse	Zfp652	ENSMUSG00000075595
+Zfp653	319601	zinc finger protein 653	mouse	Zfp653	ENSMUSG00000038895
+Zfp654	72020	zinc finger protein 654	mouse	Zfp654	ENSMUSG00000047141
+Zfp655	72611	zinc finger protein 655	mouse	Zfp655	ENSMUSG00000007812
+Zfp658	210104	zinc finger protein 658	mouse	Zfp658	ENSMUSG00000056592
+Zfp661	72180	zinc finger protein 661	mouse	Zfp661	ENSMUSG00000034800
+Zfp664	269704	zinc finger protein 664	mouse	Zfp664	ENSMUSG00000079215
+Zfp667	384763	zinc finger protein 667	mouse	Zfp667	ENSMUSG00000054893
+Zfp668	244219	zinc finger protein 668	mouse	Zfp668	ENSMUSG00000049728
+Zfp672	319475	zinc finger protein 672	mouse	Zfp672	ENSMUSG00000049755
+Zfp677	210503	zinc finger protein 677	mouse	Zfp677	ENSMUSG00000062743
+Zfp68	24135	zinc finger protein 68	mouse	Zfp68	ENSMUSG00000058291
+Zfp687	78266	zinc finger protein 687	mouse	Zfp687	ENSMUSG00000019338
+Zfp688	69234	zinc finger protein 688	mouse	Zfp688	ENSMUSG00000045251
+Zfp689	71131	zinc finger protein 689	mouse	Zfp689	ENSMUSG00000048921
+Zfp69	381549	zinc finger protein 69	mouse	Zfp69	ENSMUSG00000064141
+Zfp691	195522	zinc finger protein 691	mouse	Zfp691	ENSMUSG00000045268
+Zfp697	242109	zinc finger protein 697	mouse	Zfp697	ENSMUSG00000050064
+Zfp7	223669	zinc finger protein 7	mouse	Zfp7	ENSMUSG00000033669
+Zfp703	353310	zinc finger protein 703	mouse	Zfp703	ENSMUSG00000085795
+Zfp704	170753	zinc finger protein 704	mouse	Zfp704	ENSMUSG00000040209
+Zfp706	68036	zinc finger protein 706	mouse	Zfp706	ENSMUSG00000062397
+Zfp707	69020	zinc finger protein 707	mouse	Zfp707	ENSMUSG00000034429
+Zfp708	432769	zinc finger protein 708	mouse	Zfp708	ENSMUSG00000058883
+Zfp709	236193	zinc finger protein 709	mouse	Zfp709	ENSMUSG00000056019
+Zfp710	209225	zinc finger protein 710	mouse	Zfp710	ENSMUSG00000048897
+Zfp711	245595	zinc finger protein 711	mouse	Zfp711	ENSMUSG00000025529
+Zfp712	78251	zinc finger protein 712	mouse	Zfp712	ENSMUSG00000090641
+Zfp715	69930	zinc finger protein 715	mouse	Zfp715	ENSMUSG00000012640
+Zfp719	210105	zinc finger protein 719	mouse	Zfp719	ENSMUSG00000030469
+Zfp72	238722	zinc finger protein 72	mouse	Zfp72	ENSMUSG00000069184
+Zfp735	76390	zinc finger protein 735	mouse	Zfp735	ENSMUSG00000060630
+Zfp738	408068	zinc finger protein 738	mouse	Zfp738	ENSMUSG00000048280
+Zfp74	72723	zinc finger protein 74	mouse	Zfp74	ENSMUSG00000059975
+Zfp740	68744	zinc finger protein 740	mouse	Zfp740	ENSMUSG00000046897
+Zfp746	69228	zinc finger protein 746	mouse	Zfp746	ENSMUSG00000057691
+Zfp747	269997	zinc finger protein 747	mouse	Zfp747	ENSMUSG00000054381
+Zfp748	212276	zinc finger protein 748	mouse	Zfp748	ENSMUSG00000095432
+Zfp750	319530	zinc finger protein 750	mouse	Zfp750	ENSMUSG00000039238
+Zfp759	268670	zinc finger protein 759	mouse	Zfp759	ENSMUSG00000057396
+Zfp764	233893	zinc finger protein 764	mouse	Zfp764	ENSMUSG00000045757
+Zfp768	233890	zinc finger protein 768	mouse	Zfp768	ENSMUSG00000047371
+Zfp770	228491	zinc finger protein 770	mouse	Zfp770	ENSMUSG00000040321
+Zfp771	244216	zinc finger protein 771	mouse	Zfp771	ENSMUSG00000054716
+Zfp773	76373	zinc finger protein 773	mouse	Zfp773	ENSMUSG00000063535
+Zfp775	243372	zinc finger protein 775	mouse	Zfp775	ENSMUSG00000007216
+Zfp777	72306	zinc finger protein 777	mouse	Zfp777	ENSMUSG00000071477
+Zfp78	330463	zinc finger protein 78	mouse	Zfp78	ENSMUSG00000055150
+Zfp780b	338354	zinc finger protein 780B	mouse	Zfp780b	ENSMUSG00000063047
+Zfp784	654801	zinc finger protein 784	mouse	Zfp784	ENSMUSG00000043290
+Zfp786	330301	zinc finger protein 786	mouse	Zfp786	ENSMUSG00000051499
+Zfp787	67109	zinc finger protein 787	mouse	Zfp787	ENSMUSG00000046792
+Zfp788	67607	zinc finger protein 788	mouse	Zfp788	ENSMUSG00000074165
+Zfp790	233056	zinc finger protein 790	mouse	Zfp790	ENSMUSG00000011427
+Zfp791	244556	zinc finger protein 791	mouse	Zfp791	ENSMUSG00000074194
+Zfp799	240064	zinc finger protein 799	mouse	Zfp799	ENSMUSG00000095253
+Zfp800	627049	zinc finger protein 800	mouse	Zfp800	ENSMUSG00000039841
+Zfp804a	241514	zinc finger protein 804A	mouse	Zfp804a	ENSMUSG00000070866
+Zfp804b	207618	zinc finger protein 804B	mouse	Zfp804b	ENSMUSG00000092094
+Zfp810	235050	zinc finger protein 810	mouse	Zfp810	ENSMUSG00000066829
+Zfp819	74400	zinc finger protein 819	mouse	Zfp819	ENSMUSG00000055102
+Zfp82	330502	zinc finger protein 82	mouse	Zfp82	ENSMUSG00000098022
+Zfp821	75871	zinc finger protein 821	mouse	Zfp821	ENSMUSG00000031728
+Zfp827	622675	zinc finger protein 827	mouse	Zfp827	ENSMUSG00000071064
+Zfp830	66983	zinc finger protein 830	mouse	Zfp830	ENSMUSG00000046010
+Zfp831	100043757	zinc finger protein 831	mouse	Zfp831	ENSMUSG00000050600
+Zfp839	72805	zinc finger protein 839	mouse	Zfp839	ENSMUSG00000021271
+Zfp84	74352	zinc finger protein 84	mouse	Zfp84	ENSMUSG00000046185
+Zfp846	244721	zinc finger protein 846	mouse	Zfp846	ENSMUSG00000058192
+Zfp853	330230	zinc finger protein 853	mouse	Zfp853	ENSMUSG00000093910
+Zfp867	237775	zinc finger protein 867	mouse	Zfp867	ENSMUSG00000054519
+Zfp87	170763	zinc finger protein 87	mouse	Zfp87	ENSMUSG00000097333
+Zfp872	619310	zinc finger protein 872	mouse	Zfp872	ENSMUSG00000074472
+Zfp874a	238692	zinc finger protein 874a	mouse	Zfp874a	ENSMUSG00000069206
+Zfp874b	408067	zinc finger protein 874b	mouse	Zfp874b	ENSMUSG00000059839
+Zfp879	214779	zinc finger protein 879	mouse	Zfp879	ENSMUSG00000044296
+Zfp9	22750	zinc finger protein 9	mouse	Zfp9	ENSMUSG00000072623
+Zfp90	22751	zinc finger protein 90	mouse	Zfp90	ENSMUSG00000031907
+Zfp91	109910	zinc finger protein 91	mouse	Zfp91	ENSMUSG00000024695
+Zfp92	22754	zinc finger protein 92	mouse	Zfp92	ENSMUSG00000031374
+Zfp93	22755	zinc finger protein 93	mouse	Zfp93	ENSMUSG00000055305
+Zfp94	22756	zinc finger protein 94	mouse	Zfp94	ENSMUSG00000074282
+Zfp940	233057	zinc finger protein 940	mouse	Zfp940	ENSMUSG00000050855
+Zfp941	407812	zinc finger protein 941	mouse	Zfp941	ENSMUSG00000060314
+Zfp945	240041	zinc finger protein 945	mouse	Zfp945	ENSMUSG00000059142
+Zfp953	629016	zinc finger protein 953	mouse	Zfp953	ENSMUSG00000098905
+Zfp957	105590	zinc finger protein 957	mouse	Zfp957	ENSMUSG00000071262
+Zfp958	233987	zinc finger protein 958	mouse	Zfp958	ENSMUSG00000058748
+Zfp960	449000	zinc finger protein 960	mouse	Zfp960	ENSMUSG00000096696
+Zfp961	234413	zinc finger protein 961	mouse	Zfp961	ENSMUSG00000052446
+Zfpm1	22761	"zinc finger protein, multitype 1"	mouse	Zfpm1	ENSMUSG00000049577
+Zfpm2	22762	"zinc finger protein, multitype 2"	mouse	Zfpm2	ENSMUSG00000022306
+Zfx	22764	zinc finger protein X-linked	mouse	Zfx	ENSMUSG00000079509
+Zfy1	22767	"zinc finger protein 1, Y-linked"	mouse	Zfy1	ENSMUSG00000053211
+Zfy2	22768	"zinc finger protein 2, Y-linked"	mouse	Zfy2	ENSMUSG00000000103
+Zfyve26	211978	"zinc finger, FYVE domain containing 26"	mouse	Zfyve26	ENSMUSG00000066440
+Zglp1	100009600	"zinc finger, GATA-like protein 1"	mouse	Zglp1	ENSMUSG00000079681
+Zgpat	229007	"zinc finger, CCCH-type with G patch domain"	mouse	Zgpat	ENSMUSG00000027582
+Zhx1	22770	zinc fingers and homeoboxes 1	mouse	Zhx1	ENSMUSG00000022361
+Zhx2	387609	zinc fingers and homeoboxes 2	mouse	Zhx2	ENSMUSG00000071757
+Zhx3	320799	zinc fingers and homeoboxes 3	mouse	Zhx3	ENSMUSG00000035877
+Zic1	22771	zinc finger protein of the cerebellum 1	mouse	Zic1	ENSMUSG00000032368
+Zic2	22772	zinc finger protein of the cerebellum 2	mouse	Zic2	ENSMUSG00000061524
+Zic3	22773	zinc finger protein of the cerebellum 3	mouse	Zic3	ENSMUSG00000067860
+Zic4	22774	zinc finger protein of the cerebellum 4	mouse	Zic4	ENSMUSG00000036972
+Zic5	65100	zinc finger protein of the cerebellum 5	mouse	Zic5	ENSMUSG00000041703
+Zik1	22775	zinc finger protein interacting with K protein 1	mouse	Zik1	ENSMUSG00000030393
+Zim1	22776	"zinc finger, imprinted 1"	mouse	Zim1	ENSMUSG00000002266
+Zkscan1	74570	zinc finger with KRAB and SCAN domains 1	mouse	Zkscan1	ENSMUSG00000029729
+Zkscan14	67235	zinc finger with KRAB and SCAN domains 14	mouse	Zkscan14	ENSMUSG00000029627
+Zkscan16	100041581	zinc finger with KRAB and SCAN domains 16	mouse	Zkscan16	ENSMUSG00000038630
+Zkscan17	268417	zinc finger with KRAB and SCAN domains 17	mouse	Zkscan17	ENSMUSG00000020472
+Zkscan2	210162	zinc finger with KRAB and SCAN domains 2	mouse	Zkscan2	ENSMUSG00000030757
+Zkscan3	72739	zinc finger with KRAB and SCAN domains 3	mouse	Zkscan3	ENSMUSG00000021327
+Zkscan4	544922	zinc finger with KRAB and SCAN domains 4	mouse	Zkscan4	ENSMUSG00000054931
+Zkscan5	22757	zinc finger with KRAB and SCAN domains 5	mouse	Zkscan5	ENSMUSG00000055991
+Zkscan6	52712	zinc finger with KRAB and SCAN domains 6	mouse	Zkscan6	ENSMUSG00000018347
+Zkscan7	382118	zinc finger with KRAB and SCAN domains 7	mouse	Zkscan7	ENSMUSG00000063488
+Zkscan8	93681	zinc finger with KRAB and SCAN domains 8	mouse	Zkscan8	ENSMUSG00000063894
+Zmat1	215693	"zinc finger, matrin type 1"	mouse	Zmat1	ENSMUSG00000052676
+Zmat2	66492	"zinc finger, matrin type 2"	mouse	Zmat2	ENSMUSG00000001383
+Zmat3	22401	zinc finger matrin type 3	mouse	Zmat3	ENSMUSG00000027663
+Zmat4	320158	"zinc finger, matrin type 4"	mouse	Zmat4	ENSMUSG00000037492
+Zmat5	67178	"zinc finger, matrin type 5"	mouse	Zmat5	ENSMUSG00000009076
+Znf729	100044381	-	mouse	Znf729	
+Znfx1	98999	"zinc finger, NFX1-type containing 1"	mouse	Znfx1	ENSMUSG00000039501
+Zscan10	332221	zinc finger and SCAN domain containing 10	mouse	Zscan10	ENSMUSG00000023902
+Zscan12	22758	zinc finger and SCAN domain containing 12	mouse	Zscan12	ENSMUSG00000036721
+Zscan18	232875	zinc finger and SCAN domain containing 18	mouse	Zscan18	ENSMUSG00000070822
+Zscan2	22691	zinc finger and SCAN domain containing 2	mouse	Zscan2	ENSMUSG00000038797
+Zscan20	269585	zinc finger and SCAN domains 20	mouse	Zscan20	ENSMUSG00000061894
+Zscan21	22697	zinc finger and SCAN domain containing 21	mouse	Zscan21	ENSMUSG00000037017
+Zscan22	232878	zinc finger and SCAN domain containing 22	mouse	Zscan22	ENSMUSG00000054715
+Zscan25	666311	zinc finger and SCAN domain containing 25	mouse	Zscan25	ENSMUSG00000070420
+Zscan26	432731	zinc finger and SCAN domain containing 26	mouse	Zscan26	ENSMUSG00000022228
+Zscan29	99334	zinc finger SCAN domains 29	mouse	Zscan29	ENSMUSG00000050619
+Zscan30	328918	zinc finger and SCAN domain containing 30	mouse	Zscan30	ENSMUSG00000024274
+Zscan4a	434555	zinc finger and SCAN domain containing 4A	mouse	Zscan4a	ENSMUSG00000110097
+Zscan4b	665780	zinc finger and SCAN domain containing 4B	mouse	Zscan4b	ENSMUSG00000095339
+Zscan4c	245109	zinc finger and SCAN domain containing 4C	mouse	Zscan4c	ENSMUSG00000054272
+Zscan4d	545913	zinc finger and SCAN domain containing 4D	mouse	Zscan4d	ENSMUSG00000090714
+Zscan4e	665848	zinc finger and SCAN domain containing 4E	mouse	Zscan4e	ENSMUSG00000095936
+Zscan4f	665902	zinc finger and SCAN domain containing 4F	mouse	Zscan4f	ENSMUSG00000070828
+Zscan5b	170734	zinc finger and SCAN domain containing 5B	mouse	Zscan5b	ENSMUSG00000058028
+Zufsp	72580	zinc finger with UFM1-specific peptidase domain	mouse	Zup1	ENSMUSG00000039531
+Zxda	668171	"zinc finger, X-linked, duplicated A"	mouse	Zxda	ENSMUSG00000073060
+Zxdb	668166	"zinc finger, X-linked, duplicated B"	mouse	Zxdb	ENSMUSG00000073062
+Zxdc	80292	ZXD family zinc finger C	mouse	Zxdc	ENSMUSG00000034430
+Zzz3	108946	"zinc finger, ZZ domain containing 3"	mouse	Zzz3	ENSMUSG00000039068
